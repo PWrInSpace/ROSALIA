@@ -192,7 +192,7 @@ void lora_disable_crc(lora_struct_t *lora) {
                  lora_read_reg(lora, REG_MODEM_CONFIG_2) & 0xfb);
 }
 
-// TODO(GLIBUS): Add a method with no delay, also add a breakout from while
+// TODO(GLIBUS): Add a method with no delay, also add a breakout from while, decompose this function
 // after some time
 void lora_send_packet(lora_struct_t *lora, uint8_t *buf, int16_t size) {
   /*

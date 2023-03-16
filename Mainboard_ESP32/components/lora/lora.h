@@ -88,9 +88,12 @@ typedef enum {
   LORA_GPIO_MODE_OUTPUT
 } lora_gpio_mode_t;
 
+//TODO(Glibus): add enum for bandwidth, spreading_factor, tx_power
+
 typedef bool (*lora_SPI_transmit)(uint8_t _in[2], uint8_t _val[2]);
 typedef void (*lora_delay)(size_t _ms);
 typedef bool (*lora_GPIO_set_level)(uint8_t _gpio_num, uint32_t _level);
+//TODO(Glibus): remove pad_select and set_direction
 typedef void (*lora_GPIO_pad_select_gpio)(uint8_t _gpio_num);
 typedef bool (*lora_GPIO_set_direction)(uint8_t _gpio_num,
                                         lora_gpio_mode_t _direction);
@@ -224,7 +227,7 @@ void lora_enable_crc(lora_struct_t *lora);
 void lora_disable_crc(lora_struct_t *lora);
 
 /*!
- * \brief Send a packet.
+ * \brief Send a packet. DOES NOT go into receive mode automatically afterwards.
  * \param buf Data to be sent
  * \param size Size of data.
  */
