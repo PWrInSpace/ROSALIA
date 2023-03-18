@@ -6,7 +6,6 @@
 lora_err_t lora_init(lora_struct_t *lora) {
   lora_err_t ret = LORA_OK;
 
-
   /*
    * Perform hardware reset.
    */
@@ -110,24 +109,18 @@ void lora_set_frequency(lora_struct_t *lora, int32_t frequency) {
 }
 
 int32_t lora_get_frequency(lora_struct_t *lora) {
-  int32_t freq = 0;
-  return freq;
+  return lora->frequency;
 }
 
 lora_err_t lora_set_spreading_factor(lora_struct_t *lora,
                                      lora_spreading_factor_t sf) {
   lora_err_t ret = LORA_OK;
-  if (sf < 6)
-    sf = 6;
-  else if (sf > 12)
-    sf = 12;
-
-  if (sf == 6) {
-    lora_write_reg(lora, REG_DETECTION_OPTIMIZE, 0xc5);
-    lora_write_reg(lora, REG_DETECTION_THRESHOLD, 0x0c);
-  } else {
-    lora_write_reg(lora, REG_DETECTION_OPTIMIZE, 0xc3);
-    lora_write_reg(lora, REG_DETECTION_THRESHOLD, 0x0a);
+  if (sf == LORA_SF_64_CoS) {
+    ret |= lora_write_reg(lora, REG_DETECTION_THRESHOLD, 0x0c);
+    ret |= lora_write_reg(lora, REG_DETECTION_OPTIMIZE, 0xc5);
+  } else if (sf == LORA_SF_4096_CoS) {
+    ret |= lora_write_reg(lora, REG_DETECTION_OPTIMIZE, 0xc3);
+    ret |= lora_write_reg(lora, REG_DETECTION_THRESHOLD, 0x0a);
   }
 
   ret |= lora_write_reg(

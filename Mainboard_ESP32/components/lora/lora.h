@@ -89,7 +89,6 @@ typedef enum {
   LORA_GPIO_MODE_OUTPUT
 } lora_gpio_mode_t;
 
-// TODO(Glibus): add enum for bandwidth, spreading_factor, tx_power
 /*!
  * \brief Enum for LoRa bandwith in Hz
  */
@@ -123,7 +122,7 @@ typedef enum {
 /*!
  * \brief Enum for LoRa TX Power
  */
-// TODO(Glibus): check register if it is ok
+// TODO(Glibus): check if it is ok
 typedef enum { LORA_TX_POWER_14_dBm = 0, LORA_TX_POWER_20_dBm } lora_tx_power_t;
 
 typedef bool (*lora_SPI_transmit)(uint8_t _in[2], uint8_t _val[2]);
