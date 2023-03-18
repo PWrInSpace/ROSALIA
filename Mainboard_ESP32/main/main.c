@@ -18,8 +18,6 @@
 lora_struct_t lora = {.spi_transmit = _lora_SPI_transmit,
                       .delay = _lora_delay,
                       .gpio_set_level = _lora_GPIO_set_level,
-                      .gpio_pad_select = _lora_GPIO_pad_select_gpio,
-                      .gpio_set_direction = _lora_GPIO_set_direction,
                       .log = _lora_log,
                       .rst_gpio_num = RS_LORA,
                       .cs_gpio_num = CS_LORA,
@@ -58,7 +56,7 @@ void task_rx(void *p) {
 }
 
 void app_main(void) {
-  _lora_spi_init();
+  _lora_spi_and_pins_init();
   lora_init(&lora);
 
   vTaskDelay(pdMS_TO_TICKS(100));

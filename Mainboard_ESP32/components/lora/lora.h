@@ -124,23 +124,17 @@ typedef enum {
  * \brief Enum for LoRa TX Power
  */
 // TODO(Glibus): check register if it is ok
-typedef enum { LORA_TX_POWER_14_dBm, LORA_TX_POWER_20_dBm } lora_tx_power_t;
+typedef enum { LORA_TX_POWER_14_dBm = 0, LORA_TX_POWER_20_dBm } lora_tx_power_t;
 
 typedef bool (*lora_SPI_transmit)(uint8_t _in[2], uint8_t _val[2]);
 typedef void (*lora_delay)(size_t _ms);
 typedef bool (*lora_GPIO_set_level)(uint8_t _gpio_num, uint32_t _level);
-// TODO(Glibus): remove pad_select and set_direction
-typedef void (*lora_GPIO_pad_select_gpio)(uint8_t _gpio_num);
-typedef bool (*lora_GPIO_set_direction)(uint8_t _gpio_num,
-                                        lora_gpio_mode_t _direction);
 typedef void (*lora_log)(const char *info);
 
 typedef struct {
   lora_SPI_transmit spi_transmit;
   lora_delay delay;
   lora_GPIO_set_level gpio_set_level;
-  lora_GPIO_pad_select_gpio gpio_pad_select;
-  lora_GPIO_set_direction gpio_set_direction;
   lora_log log;
   uint8_t rst_gpio_num;
   uint8_t cs_gpio_num;

@@ -5,13 +5,7 @@
 
 lora_err_t lora_init(lora_struct_t *lora) {
   lora_err_t ret = LORA_OK;
-  /*
-   * Configure CPU hardware to communicate with the radio chip
-   */
-  lora->gpio_pad_select(lora->rst_gpio_num);
-  lora->gpio_set_direction(lora->rst_gpio_num, LORA_GPIO_MODE_OUTPUT);
-  lora->gpio_pad_select(lora->cs_gpio_num);
-  lora->gpio_set_direction(lora->cs_gpio_num, LORA_GPIO_MODE_OUTPUT);
+
 
   /*
    * Perform hardware reset.

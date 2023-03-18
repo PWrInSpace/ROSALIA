@@ -8,10 +8,11 @@ static spi_device_handle_t __spi;
 #define CONFIG_SCK_GPIO GPIO_NUM_18
 #define CONFIG_MOSI_GPIO GPIO_NUM_23
 #define CONFIG_MISO_GPIO GPIO_NUM_19
+#define CONFIG_RST_GPIO GPIO_NUM_4
 
 #define TAG "LORA"
 
-bool _lora_spi_init() {
+bool _lora_spi_and_pins_init() {
   esp_err_t ret;
   spi_bus_config_t bus = {.miso_io_num = CONFIG_MISO_GPIO,
                           .mosi_io_num = CONFIG_MOSI_GPIO,
@@ -31,6 +32,15 @@ bool _lora_spi_init() {
                                        .pre_cb = NULL};
   ret = spi_bus_add_device(VSPI_HOST, &dev, &__spi);
   ESP_ERROR_CHECK(ret);
+
+  /*
+   * Configure CPU hardware to communicate with the radio chip
+   */
+  gpio_pad_select_gpio(CONFIG_RST_GPIO);
+  gpio_set_direction(CONFIG_RST_GPIO, GPIO_MODE_OUTPUT);
+  gpio_pad_select_gpio(CONFIG_CS_GPIO);
+  gpio_set_direction(CONFIG_CS_GPIO, GPIO_MODE_OUTPUT);
+
   return ret == ESP_OK ? true : false;
 }
 
@@ -50,23 +60,6 @@ void _lora_delay(size_t _ms) { vTaskDelay(pdMS_TO_TICKS(_ms)); }
 
 bool _lora_GPIO_set_level(uint8_t _gpio_num, uint32_t _level) {
   return gpio_set_level(_gpio_num, _level) == ESP_OK ? true : false;
-}
-
-void _lora_GPIO_pad_select_gpio(uint8_t _gpio_num) {
-  gpio_pad_select_gpio((uint32_t)_gpio_num);
-}
-
-bool _lora_GPIO_set_direction(uint8_t _gpio_num, lora_gpio_mode_t _direction) {
-  gpio_mode_t dir;
-  if (_direction == LORA_GPIO_MODE_DISABLE) {
-    dir = GPIO_MODE_DISABLE;
-  } else if (_direction == LORA_GPIO_MODE_INPUT) {
-    dir = GPIO_MODE_INPUT;
-  } else {
-    dir = GPIO_MODE_OUTPUT;
-  }
-
-  return gpio_set_direction(_gpio_num, dir) == ESP_OK ? true : false;
 }
 
 void _lora_log(const char* info) { ESP_LOGI(TAG, "%s", info); }
