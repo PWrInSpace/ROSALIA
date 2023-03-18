@@ -115,7 +115,14 @@ void lora_set_frequency(lora_struct_t *lora, int32_t frequency) {
   lora_write_reg(lora, REG_FRF_LSB, (uint8_t)(frf >> 0));
 }
 
-void lora_set_spreading_factor(lora_struct_t *lora, int16_t sf) {
+int32_t lora_get_frequency(lora_struct_t *lora) {
+  int32_t freq = 0;
+  return freq;
+}
+
+lora_err_t lora_set_spreading_factor(lora_struct_t *lora,
+                                     lora_spreading_factor_t sf) {
+  lora_err_t ret = LORA_OK;
   if (sf < 6)
     sf = 6;
   else if (sf > 12)
@@ -129,37 +136,34 @@ void lora_set_spreading_factor(lora_struct_t *lora, int16_t sf) {
     lora_write_reg(lora, REG_DETECTION_THRESHOLD, 0x0a);
   }
 
-  lora_write_reg(
+  ret |= lora_write_reg(
       lora, REG_MODEM_CONFIG_2,
       (lora_read_reg(lora, REG_MODEM_CONFIG_2) & 0x0f) | ((sf << 4) & 0xf0));
+  return ret;
 }
 
-void lora_set_bandwidth(lora_struct_t *lora, int32_t sbw) {
+lora_err_t lora_set_bandwidth(lora_struct_t *lora, lora_bandwith_t sbw) {
+  if (sbw < 0 || sbw > 9) {
+    lora->log("ERROR: Setting bandwith unsuccessful: sbw out of range");
+    return LORA_CONFIG_ERR;
+  }
+
+  if (sbw >= 8) {
+    int32_t freq = lora_get_frequency(lora);
+    if (freq <= 169E6) {
+      lora->log("INFO: In the set frequency set bandwith is not supported!");
+      return LORA_CONFIG_ERR;
+    }
+  }
+
   int16_t bw;
+  lora_err_t ret = LORA_OK;
+  bw = (int16_t)sbw;
 
-  if (sbw <= 7.8E3)
-    bw = 0;
-  else if (sbw <= 10.4E3)
-    bw = 1;
-  else if (sbw <= 15.6E3)
-    bw = 2;
-  else if (sbw <= 20.8E3)
-    bw = 3;
-  else if (sbw <= 31.25E3)
-    bw = 4;
-  else if (sbw <= 41.7E3)
-    bw = 5;
-  else if (sbw <= 62.5E3)
-    bw = 6;
-  else if (sbw <= 125E3)
-    bw = 7;
-  else if (sbw <= 250E3)
-    bw = 8;
-  else
-    bw = 9;
-
-  lora_write_reg(lora, REG_MODEM_CONFIG_1,
-                 (lora_read_reg(lora, REG_MODEM_CONFIG_1) & 0x0f) | (bw << 4));
+  ret |= lora_write_reg(
+      lora, REG_MODEM_CONFIG_1,
+      (lora_read_reg(lora, REG_MODEM_CONFIG_1) & 0x0f) | (bw << 4));
+  return ret;
 }
 
 void lora_set_coding_rate(lora_struct_t *lora, int16_t denominator) {
@@ -192,8 +196,8 @@ void lora_disable_crc(lora_struct_t *lora) {
                  lora_read_reg(lora, REG_MODEM_CONFIG_2) & 0xfb);
 }
 
-// TODO(GLIBUS): Add a method with no delay, also add a breakout from while, decompose this function
-// after some time
+// TODO(GLIBUS): Add a method with no delay, also add a breakout from while,
+// decompose this function
 void lora_send_packet(lora_struct_t *lora, uint8_t *buf, int16_t size) {
   /*
    * Transfer data to radio.

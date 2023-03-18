@@ -79,7 +79,8 @@ typedef enum {
   LORA_INIT_ERR,
   LORA_WRITE_ERR,
   LORA_TRANSMIT_ERR,
-  LORA_RECEIVE_ERR
+  LORA_RECEIVE_ERR,
+  LORA_CONFIG_ERR
 } lora_err_t;
 
 typedef enum {
@@ -88,12 +89,47 @@ typedef enum {
   LORA_GPIO_MODE_OUTPUT
 } lora_gpio_mode_t;
 
-//TODO(Glibus): add enum for bandwidth, spreading_factor, tx_power
+// TODO(Glibus): add enum for bandwidth, spreading_factor, tx_power
+/*!
+ * \brief Enum for LoRa bandwith in Hz
+ */
+typedef enum {
+  LORA_BW_7_8_kHz = 0,
+  LORA_BW_10_4_kHz,
+  LORA_BW_15_6_kHz,
+  LORA_BW_20_8_kHz,
+  LORA_BW_31_25_kHz,
+  LORA_BW_41_7_kHz,
+  LORA_BW_62_5_kHz,
+  LORA_BW_125_kHz,
+  LORA_BW_250_kHz,
+  LORA_BW_500_kHz,
+} lora_bandwith_t;
+
+/*!
+ * \brief Enum for LoRa spreading factor in chips / symbol
+ *        Used in the lora_set_spreading_factor method
+ */
+typedef enum {
+  LORA_SF_64_CoS = 6,
+  LORA_SF_128_CoS,
+  LORA_SF_256_CoS,
+  LORA_SF_512_CoS,
+  LORA_SF_1024_CoS,
+  LORA_SF_2048_CoS,
+  LORA_SF_4096_CoS
+} lora_spreading_factor_t;
+
+/*!
+ * \brief Enum for LoRa TX Power
+ */
+// TODO(Glibus): check register if it is ok
+typedef enum { LORA_TX_POWER_14_dBm, LORA_TX_POWER_20_dBm } lora_tx_power_t;
 
 typedef bool (*lora_SPI_transmit)(uint8_t _in[2], uint8_t _val[2]);
 typedef void (*lora_delay)(size_t _ms);
 typedef bool (*lora_GPIO_set_level)(uint8_t _gpio_num, uint32_t _level);
-//TODO(Glibus): remove pad_select and set_direction
+// TODO(Glibus): remove pad_select and set_direction
 typedef void (*lora_GPIO_pad_select_gpio)(uint8_t _gpio_num);
 typedef bool (*lora_GPIO_set_direction)(uint8_t _gpio_num,
                                         lora_gpio_mode_t _direction);
@@ -187,16 +223,26 @@ void lora_set_tx_power(lora_struct_t *lora, int16_t level);
 void lora_set_frequency(lora_struct_t *lora, int32_t frequency);
 
 /*!
+ * \brief Get the frequency set on LoRa
+ * \returns LoRa frequency in Hz
+ */
+int32_t lora_get_frequency(lora_struct_t *lora);
+
+/*!
  * \brief Set spreading factor.
  * \param sf 6-12, Spreading factor to use.
+ * \returns LORA_OK if operation successful, LORA_CONFIG_ERR otherwise
  */
-void lora_set_spreading_factor(lora_struct_t *lora, int16_t sf);
+lora_err_t lora_set_spreading_factor(lora_struct_t *lora,
+                                     lora_spreading_factor_t sf);
 
 /*!
  * \brief Set bandwidth (bit rate)
  * \param sbw Bandwidth in Hz (up to 500000)
+ * \note When using low frequency (below 169 MHz), only sf up to
+ *       125 kHz is supported
  */
-void lora_set_bandwidth(lora_struct_t *lora, int32_t sbw);
+lora_err_t lora_set_bandwidth(lora_struct_t *lora, lora_bandwith_t sbw);
 
 /*!
  * \brief Set coding rate
