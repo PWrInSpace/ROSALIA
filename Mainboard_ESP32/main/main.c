@@ -15,14 +15,14 @@
 
 #define TAG "MAIN"
 
-lora_struct_t lora = {.spi_transmit = _lora_SPI_transmit,
-                      .delay = _lora_delay,
-                      .gpio_set_level = _lora_GPIO_set_level,
+lora_struct_t lora = {._spi_transmit = _lora_SPI_transmit,
+                      ._delay = _lora_delay,
+                      ._gpio_set_level = _lora_GPIO_set_level,
                       .log = _lora_log,
                       .rst_gpio_num = RS_LORA,
                       .cs_gpio_num = CS_LORA,
                       .d0_gpio_num = D0_LORA,
-                      .implicit = 0,
+                      .implicit_header = 0,
                       .frequency = 0};
 
 // TODO(Glibong): Save this as a task called by CLI (when fully finished)
