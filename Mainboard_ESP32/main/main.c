@@ -62,7 +62,7 @@ void app_main(void) {
   vTaskDelay(pdMS_TO_TICKS(100));
 
   lora_set_frequency(&lora, 867e6);
-  lora_set_bandwidth(&lora, 250e3);
+  lora_set_bandwidth(&lora, LORA_BW_250_kHz);
   lora_disable_crc(&lora);
 
   int16_t read_val_one = lora_read_reg(&lora, 0x0d);
@@ -76,5 +76,5 @@ void app_main(void) {
                                             ESP_LINE_ENDINGS_CR);
   esp_vfs_dev_uart_port_set_tx_line_endings(CONFIG_ESP_CONSOLE_UART_NUM,
                                             ESP_LINE_ENDINGS_CRLF);
-  xTaskCreate(&task_rx, "task_tx", 2048, NULL, 5, NULL);
+  xTaskCreate(&task_tx, "task_tx", 2048, NULL, 5, NULL);
 }

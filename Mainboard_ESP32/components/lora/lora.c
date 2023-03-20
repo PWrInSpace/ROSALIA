@@ -100,14 +100,11 @@ lora_err_t lora_set_receive_mode(lora_struct_t *lora) {
   return ret;
 }
 
-lora_err_t lora_set_tx_power(lora_struct_t *lora, int16_t level) {
+lora_err_t lora_set_tx_power(lora_struct_t *lora, lora_tx_power_t level) {
   lora_err_t ret = LORA_OK;
   // RF9x module uses PA_BOOST pin
-  if (level < 2)
-    level = 2;
-  else if (level > 17)
-    level = 17;
-  ret |= lora_write_reg(lora, REG_PA_CONFIG, PA_BOOST | (level - 2));
+  int16_t new_level = (int16_t)level;
+  ret |= lora_write_reg(lora, REG_PA_CONFIG, PA_BOOST | (new_level - 2));
   return ret;
 }
 

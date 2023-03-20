@@ -123,7 +123,10 @@ typedef enum {
  * \brief Enum for LoRa TX Power
  */
 // TODO(Glibus): check if it is ok
-typedef enum { LORA_TX_POWER_14_dBm = 0, LORA_TX_POWER_20_dBm } lora_tx_power_t;
+typedef enum {
+  LORA_TX_POWER_14_dBm = 2,
+  LORA_TX_POWER_20_dBm = 17
+} lora_tx_power_t;
 
 typedef bool (*lora_SPI_transmit)(uint8_t _in[2], uint8_t _val[2]);
 typedef void (*lora_delay)(size_t _ms);
@@ -206,9 +209,9 @@ lora_err_t lora_set_receive_mode(lora_struct_t *lora);
 
 /*!
  * \brief Configure power level for transmission
- * \param level 2-17, from least to most power
+ * \param level 2 or 17, from least to most power
  */
-lora_err_t lora_set_tx_power(lora_struct_t *lora, int16_t level);
+lora_err_t lora_set_tx_power(lora_struct_t *lora, lora_tx_power_t level);
 
 /*!
  * \brief Set carrier frequency.
