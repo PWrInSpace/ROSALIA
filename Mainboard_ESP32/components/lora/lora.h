@@ -320,9 +320,10 @@ int16_t lora_receive_packet(lora_struct_t *lora, uint8_t *buf, int16_t size);
 lora_err_t lora_received(lora_struct_t *lora);
 
 /*!
- * 
+ * \brief Checks the lora payload crc from IRQ_FLAGS register
+ * \returns LORA_OK if CRC is ok, LORA_CRC_ERR otherwise
 */
-lora_err_t lora_payload_crc_error_check(lora_struct_t *lora);
+lora_err_t lora_payload_crc_check(lora_struct_t *lora);
 
 /*!
  * \returns last packet's RSSI.

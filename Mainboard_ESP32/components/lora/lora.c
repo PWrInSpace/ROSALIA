@@ -287,10 +287,11 @@ lora_err_t lora_received(lora_struct_t *lora) {
   return LORA_RECEIVE_ERR;
 }
 
-lora_err_t lora_irq_flags_check(lora_struct_t *lora) {
+lora_err_t lora_payload_crc_check(lora_struct_t *lora) {
   if (lora_read_reg(lora, REG_IRQ_FLAGS) & IRQ_PAYLOAD_CRC_ERROR_MASK) {
     return LORA_PAYLOAD_CRC_ERR;
   }
+  return LORA_OK;
 }
 
 int16_t lora_packet_rssi(lora_struct_t *lora) {
