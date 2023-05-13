@@ -287,6 +287,12 @@ lora_err_t lora_received(lora_struct_t *lora) {
   return LORA_RECEIVE_ERR;
 }
 
+lora_err_t lora_irq_flags_check(lora_struct_t *lora) {
+  if (lora_read_reg(lora, REG_IRQ_FLAGS) & IRQ_PAYLOAD_CRC_ERROR_MASK) {
+    return LORA_PAYLOAD_CRC_ERR;
+  }
+}
+
 int16_t lora_packet_rssi(lora_struct_t *lora) {
   return (lora_read_reg(lora, REG_PKT_RSSI_VALUE) -
           (lora->frequency < 868E6 ? 164 : 157));

@@ -80,7 +80,8 @@ typedef enum {
   LORA_WRITE_ERR,
   LORA_TRANSMIT_ERR,
   LORA_RECEIVE_ERR,
-  LORA_CONFIG_ERR
+  LORA_CONFIG_ERR,
+  LORA_PAYLOAD_CRC_ERR
 } lora_err_t;
 
 typedef enum {
@@ -293,7 +294,7 @@ lora_err_t lora_start_transmission(lora_struct_t *lora);
 bool lora_check_tx_done(lora_struct_t *lora);
 
 /*!
- * \brief Writes the REG_IRQ_FLAGS buffer with IRQ_TX_DONE_MASK
+ * \brief Writes the REG_IRQ_FLAGS buffer with IRQ_TX_DONE_MASK. Clears errors.
  * \returns LORA_OK :D - LORA_WRITE_ERR :C
  */
 lora_err_t lora_write_irq_flags(lora_struct_t *lora);
@@ -317,6 +318,11 @@ int16_t lora_receive_packet(lora_struct_t *lora, uint8_t *buf, int16_t size);
  * \returns non-zero if there is data to read (packet received).
  */
 lora_err_t lora_received(lora_struct_t *lora);
+
+/*!
+ * 
+*/
+lora_err_t lora_payload_crc_error_check(lora_struct_t *lora);
 
 /*!
  * \returns last packet's RSSI.

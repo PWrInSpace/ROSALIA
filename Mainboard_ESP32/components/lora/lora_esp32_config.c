@@ -24,7 +24,7 @@ bool _lora_spi_and_pins_init() {
   ret = spi_bus_initialize(VSPI_HOST, &bus, 0);
   ESP_ERROR_CHECK(ret);
 
-  spi_device_interface_config_t dev = {.clock_speed_hz = 9000000,
+  spi_device_interface_config_t dev = {.clock_speed_hz = 400000,
                                        .mode = 0,
                                        .spics_io_num = -1,
                                        .queue_size = 1,
