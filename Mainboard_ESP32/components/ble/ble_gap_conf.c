@@ -8,7 +8,7 @@ ble_gap_err_t ble_gap_init(ble_gap_t *gap_conf, ble_gap_conf_type_t type,
   esp_err_t ret = GAP_OK;
   gap_conf->conf_type = type;
   gap_conf->adv_params = *adv_params;
-  //TODO check if return val is necessary
+  // TODO(Glibus): check if return val is necessary
   return ret;
 }
 
