@@ -2,6 +2,7 @@
 #pragma once
 
 #include "esp_gap_ble_api.h"
+
 /*!
  * \file ble_gap_conf.h
  * \brief API for configurating the BLE GAP module
@@ -30,9 +31,19 @@ typedef struct {
  * \brief Initialize the BLE GAP module
  * \param[in] gap_conf GAP configuration structure
  */
-ble_gap_err_t ble_gap_init(ble_gap_t *gap_conf);
+ble_gap_err_t ble_gap_init(ble_gap_t *gap_conf, ble_gap_conf_type_t type,
+                           esp_ble_adv_params_t *adv_params);
 
 /*!
  * \brief Start advertising
  */
 ble_gap_err_t ble_gap_start_advertising(ble_gap_t *gap_conf);
+
+// TODO(Glibus): Maybe will be obsolete
+/*!
+ * \brief Handle GAP events
+ * \param[in] event GAP event
+ * \param[in] param GAP event parameters
+ */
+void ble_gap_event_handler(esp_gap_ble_cb_event_t event,
+                           esp_ble_gap_cb_param_t *param);
