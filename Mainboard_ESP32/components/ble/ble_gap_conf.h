@@ -7,12 +7,7 @@
  * \brief API for configurating the BLE GAP module
  */
 
-typedef enum {
-    GAP_OK = 0,
-    GAP_ADV_ERR,
-    GAP_ERR
-} ble_gap_err_t;
-
+typedef enum { GAP_OK = 0, GAP_ADV_ERR, GAP_ERR } ble_gap_err_t;
 
 /*!
  * \brief GAP configuration structure

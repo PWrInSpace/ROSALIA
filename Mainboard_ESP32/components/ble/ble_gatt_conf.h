@@ -5,7 +5,7 @@
 
 /**!
  * \brief BLE GATT configuration structure
-*/
-typedef struct{
-    int i;
+ */
+typedef struct {
+  int i;
 } ble_gatt_t;
