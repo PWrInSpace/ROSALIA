@@ -2,4 +2,4 @@
 
 #include "unity.h"
 
-TEST_CASE("Ble init test", "[BLE]") { TEST_ASSERT(0 == 0); }
+TEST_CASE("Ble gap conf test", "[BLE_GAP]") { TEST_ASSERT(0 == 0); }
