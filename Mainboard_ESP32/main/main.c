@@ -11,6 +11,6 @@
 void app_main(void) {
   ESP_LOGI(TAG, "Hello world!");
   vTaskDelay(pdMS_TO_TICKS(1000));
-  ESP_LOGI(TAG, "Goodbye world!");
+  ESP_LOGI(TAG, "https://youtu.be/5g2hT4GmAGU");
   vTaskDelete(NULL);
 }
