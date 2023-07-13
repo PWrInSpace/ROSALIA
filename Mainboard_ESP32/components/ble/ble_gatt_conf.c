@@ -4,7 +4,7 @@
 #define BLE_GATT_TAG "BLE_GATT_API"
 
 esp_err_t ble_gatt_init(ble_gatts_t *gatts_conf) {
-  esp_err_t ret;
+  esp_err_t ret = ESP_OK;
 
   for (uint16_t i = 0; i < gatts_conf->gatts_profiles_num; ++i) {
     ret = esp_ble_gatts_app_register(gatts_conf->gatts_profiles[i].app_id);
@@ -14,4 +14,6 @@ esp_err_t ble_gatt_init(ble_gatts_t *gatts_conf) {
       return ret;
     }
   }
+
+  return ret;
 }

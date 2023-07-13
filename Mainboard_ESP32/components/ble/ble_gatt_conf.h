@@ -6,6 +6,7 @@
 #include "esp_log.h"
 #include "esp_err.h"
 #include "esp_gatts_api.h"
+#include "esp_gatt_defs.h"
 #include "esp_gatt_common_api.h"
 
 /*!
@@ -39,7 +40,7 @@ typedef struct {
   esp_gatt_char_prop_t property;
   uint16_t descr_handle;
   esp_bt_uuid_t descr_uuid;
-} ble_gatts_profiles_t;
+} ble_gatts_profile_t;
 
 /*!
  * \brief Main gatts configuration structure
@@ -47,7 +48,7 @@ typedef struct {
 typedef struct {
   ble_gatt_event_handler *event_handler;
   uint16_t gatts_profiles_num;
-  ble_gatts_profiles_t *gatts_profiles;
+  ble_gatts_profile_t *gatts_profiles;
 } ble_gatts_t;
 
 /*!
@@ -60,4 +61,4 @@ esp_err_t ble_gatt_init(ble_gatts_t *gatts_conf);
  * \brief Register the BLE GATT module
  * \param[in] gatts_conf GATT configuration structure
  */
-esp_err_t ble_gatt_register(ble_gatts_t *gatts_conf);
+esp_err_t ble_gatt_register_event(ble_gatts_t *gatts_conf);
