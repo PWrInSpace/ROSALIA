@@ -1,7 +1,12 @@
 // Copyright 2023 PWr in Space, Krzysztof Gliwiński
 #pragma once
 
+#include <stdint.h>
+
+#include "esp_log.h"
+#include "esp_err.h"
 #include "esp_gatts_api.h"
+#include "esp_gatt_common_api.h"
 
 /*!
  * \file ble_gatt_conf.h
@@ -49,10 +54,10 @@ typedef struct {
  * \brief Initialize the BLE GATT module
  * \param[in] gatts_conf GATT configuration structure
  */
-bool ble_gatt_init(ble_gatts_t *gatts_conf);
+esp_err_t ble_gatt_init(ble_gatts_t *gatts_conf);
 
 /*!
  * \brief Register the BLE GATT module
  * \param[in] gatts_conf GATT configuration structure
  */
-bool ble_gatt_register(ble_gatts_t *gatts_conf);
+esp_err_t ble_gatt_register(ble_gatts_t *gatts_conf);

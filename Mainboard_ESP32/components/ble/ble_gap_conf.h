@@ -1,6 +1,9 @@
 // Copyright 2023 PWr in Space, Krzysztof Gliwiński
 #pragma once
 
+#include <stdint.h>
+
+#include "esp_log.h"
 #include "esp_gap_ble_api.h"
 
 /*!
@@ -13,9 +16,9 @@
  * Used as a central device, only broadcaster, peripheral or both can be set
  */
 typedef enum {
-  BLE_GAP_BROADCASTER = 0,
-  BLE_GAP_PERIPHERAL,
-  BLE_GAP_BROADCASTER_PERIPHERAL
+  BLE_GAP_BROADCASTER = 0x01b,
+  BLE_GAP_CENTRAL = 0x10b,
+  BLE_GAP_BROADCASTER_CENTRAL = 0x11b 
 } ble_gap_conf_type_t;
 
 /*!
