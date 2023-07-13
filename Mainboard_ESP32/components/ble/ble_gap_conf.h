@@ -3,8 +3,8 @@
 
 #include <stdint.h>
 
-#include "esp_log.h"
 #include "esp_gap_ble_api.h"
+#include "esp_log.h"
 
 /*!
  * \file ble_gap_conf.h
@@ -18,7 +18,7 @@
 typedef enum {
   BLE_GAP_BROADCASTER = 0x01b,
   BLE_GAP_CENTRAL = 0x10b,
-  BLE_GAP_BROADCASTER_CENTRAL = 0x11b 
+  BLE_GAP_BROADCASTER_CENTRAL = 0x11b
 } ble_gap_conf_type_t;
 
 /*!

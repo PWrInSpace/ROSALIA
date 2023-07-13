@@ -6,7 +6,7 @@
 
 ble_err_t ble_esp_hardware_init(ble_config_t *ble) {
   ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT));
-  
+
   esp_err_t ret = ESP_OK;
 
   esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
@@ -45,7 +45,7 @@ ble_err_t ble_init(ble_config_t *ble) {
     return ret;
   }
 
-  ret = ble_gatts_init(&ble->gatts_config);
+  ret = ble_gatt_init(&ble->gatts_config);
   if (ret != BLE_OK) {
     return ret;
   }

@@ -25,17 +25,17 @@ lora_struct_t lora = {._spi_transmit = _lora_SPI_transmit,
 
 /*!
  * \brief Initiates lora and uart
-*/
+ */
 void lora_test_init();
 
 /*!
  * \brief LoRa sender task - sends data from UART to LoRa
  * \param[in] param Unused - FreeRTOS task parameter
-*/
+ */
 void task_lora_tx(void *param);
 
 /*!
  * \brief LoRa receiver task - receives data from LoRa and sends it to UART
  * \param[in] param Unused - FreeRTOS task parameter
-*/
+ */
 void task_lora_rx(void *param);

@@ -3,13 +3,12 @@
 
 #include <stdint.h>
 
+#include "ble_gap_conf.h"
+#include "ble_gatt_conf.h"
 #include "esp_bt.h"
 #include "esp_bt_defs.h"
 #include "esp_bt_main.h"
 #include "sdkconfig.h"
-
-#include "ble_gap_conf.h"
-#include "ble_gatt_conf.h"
 
 /*!
  * \file ble_api.h

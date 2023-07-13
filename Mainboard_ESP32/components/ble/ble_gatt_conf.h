@@ -3,11 +3,11 @@
 
 #include <stdint.h>
 
-#include "esp_log.h"
 #include "esp_err.h"
-#include "esp_gatts_api.h"
-#include "esp_gatt_defs.h"
 #include "esp_gatt_common_api.h"
+#include "esp_gatt_defs.h"
+#include "esp_gatts_api.h"
+#include "esp_log.h"
 
 /*!
  * \file ble_gatt_conf.h
