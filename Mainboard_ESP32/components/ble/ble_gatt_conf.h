@@ -15,13 +15,18 @@
  */
 
 /*!
+ * \brief Maximum number of GATT profiles
+ */
+#define GATTS_PROFILES_NUM_MAX 16
+
+/*!
  * \brief Handle GATT events
  * \param[in] event GATT event
  * \param[in] param GATT event parameters
  */
-typedef void (*ble_gatt_event_handler)(esp_gatts_cb_event_t event,
-                                       esp_gatt_if_t gatts_if,
-                                       esp_ble_gatts_cb_param_t *param);
+typedef void (*ble_gatts_event_handler)(esp_gatts_cb_event_t event,
+                                        esp_gatt_if_t gatts_if,
+                                        esp_ble_gatts_cb_param_t *param);
 
 /*!
  * \brief BLE GATT configuration structure
@@ -44,11 +49,14 @@ typedef struct {
 
 /*!
  * \brief Main gatts configuration structure
+ * \param[in] profiles_num Number of profiles
+ * \param[in] profiles Array of profiles
+ * \param[in] event_handler_cb Event handler callback
  */
 typedef struct {
-  ble_gatt_event_handler *event_handler;
-  uint16_t gatts_profiles_num;
-  ble_gatts_profile_t *gatts_profiles;
+  uint16_t profiles_num;
+  ble_gatts_event_handler event_handler_cb;
+  ble_gatts_profile_t profiles[GATTS_PROFILES_NUM_MAX];
 } ble_gatts_t;
 
 /*!
