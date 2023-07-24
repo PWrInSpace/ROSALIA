@@ -41,8 +41,7 @@ typedef struct {
  * \brief Initialize the BLE GAP module
  * \param[in] gap_conf GAP configuration structure
  */
-bool ble_gap_init(ble_gap_t *gap_conf, ble_gap_conf_type_t type,
-                  esp_ble_adv_params_t *adv_params);
+bool ble_gap_init(ble_gap_t *gap_conf);
 
 /*!
  * \brief Start advertising

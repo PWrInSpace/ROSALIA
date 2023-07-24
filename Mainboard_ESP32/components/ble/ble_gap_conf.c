@@ -3,16 +3,26 @@
 
 #define GAP_TAG "BLE_GAP"
 
-bool ble_gap_init(ble_gap_t *gap_conf, ble_gap_conf_type_t type,
-                  esp_ble_adv_params_t *adv_params) {
+bool ble_gap_init(ble_gap_t *gap_conf) {
   esp_err_t ret = ESP_OK;
-  gap_conf->conf_type = type;
-  gap_conf->adv_params = *adv_params;
+  ret = esp_ble_gap_register_callback(gap_conf->event_handler);
+  if (ret != ESP_OK) {
+    ESP_LOGE(GAP_TAG, "Failed to register GAP callback: %s",
+             esp_err_to_name(ret));
+    return ret;
+  }
+
   return ret;
 }
 
 bool ble_gap_start_advertising(ble_gap_t *gap_conf) {
   esp_err_t ret = ESP_OK;
+
+  ret = esp_ble_gap_start_advertising(&(gap_conf->adv_params));
+  if (ret != ESP_OK) {
+    ESP_LOGE(GAP_TAG, "Failed to start advertising: %s", esp_err_to_name(ret));
+    return ret;
+  }
 
   return ret;
 }
