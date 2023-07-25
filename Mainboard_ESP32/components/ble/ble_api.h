@@ -9,6 +9,7 @@
 #include "esp_bt_defs.h"
 #include "esp_bt_main.h"
 #include "sdkconfig.h"
+#include "nvs_flash.h"
 
 /*!
  * \file ble_api.h
