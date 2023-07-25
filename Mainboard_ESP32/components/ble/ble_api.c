@@ -45,12 +45,12 @@ ble_err_t ble_init(ble_config_t *ble) {
     return ret;
   }
 
-  ret = ble_gatt_init(&ble->gatts_config);
+  ret = ble_gatt_init(ble->gatt_config);
   if (ret != BLE_OK) {
     return ret;
   }
 
-  ret = ble_gap_init(&ble->gap_config, BLE_GAP_BROADCASTER_CENTRAL, NULL);
+  ret = ble_gap_init(ble->gap_config);
   if (ret != BLE_OK) {
     return ret;
   }

@@ -6,11 +6,13 @@
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "ble.h"
 #define TAG "MAIN"
 
 void app_main(void) {
   ESP_LOGI(TAG, "Hello world!");
   vTaskDelay(pdMS_TO_TICKS(1000));
   ESP_LOGI(TAG, "https://youtu.be/5g2hT4GmAGU");
+  ble_init_task(NULL);
   vTaskDelete(NULL);
 }

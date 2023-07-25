@@ -26,8 +26,8 @@ typedef enum { BLE_OK = 0, BLE_HARDWARE_INIT_ERR, BLE_ERR } ble_err_t;
  * Contains gatts and gap configuration
  */
 typedef struct {
-  ble_gatts_t gatts_config;
-  ble_gap_t gap_config;
+  ble_gatts_t *gatt_config;
+  ble_gap_t *gap_config;
   esp_bt_controller_config_t bt_config;
 } ble_config_t;
 

@@ -34,7 +34,7 @@ typedef struct {
   esp_ble_adv_params_t adv_params;
   esp_ble_adv_data_t adv_data;
   esp_ble_adv_data_t scan_rsp_data;
-  ble_gap_event_handler *event_handler;
+  ble_gap_event_handler event_handler_cb;
 } ble_gap_t;
 
 /*!
