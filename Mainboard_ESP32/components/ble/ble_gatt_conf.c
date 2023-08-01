@@ -20,7 +20,8 @@ esp_err_t ble_gatt_init(ble_gatts_t *gatts_conf) {
   esp_ble_gatts_register_callback(gatts_conf->event_handler_cb);
 
   for (uint16_t i = 0; i < gatts_conf->profiles_num; ++i) {
-    ret = esp_ble_gatts_app_register(gatts_conf->profiles[i].app_id);
+    ESP_LOGI(BLE_GATT_TAG, "Registering app: %d", i);
+    ret = esp_ble_gatts_app_register(i);
     if (ret != ESP_OK) {
       ESP_LOGE(BLE_GATT_TAG, "Failed to register app: %s, %s", __func__,
                esp_err_to_name(ret));

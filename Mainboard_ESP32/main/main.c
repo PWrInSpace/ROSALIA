@@ -16,5 +16,9 @@ void app_main(void) {
   vTaskDelay(pdMS_TO_TICKS(1000));
   ESP_LOGI(TAG, "Starting BLE");
   ble_init_task(NULL);
-  vTaskDelete(NULL);
+  while(1){
+    ESP_LOGI(TAG, "Main loop");
+    vTaskDelay(pdMS_TO_TICKS(1000));
+  }
+  // vTaskDelete(NULL);
 }
