@@ -17,8 +17,7 @@ ble_err_t ble_esp_hardware_init(ble_config_t *ble) {
 
   ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT));
 
-  esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
-  ret = esp_bt_controller_init(&bt_cfg);
+  ret = esp_bt_controller_init(&ble->bt_controller_config);
   if (ret != ESP_OK) {
     ESP_LOGE(BLE_TAG, "%s initialize controller failed: %s\n", __func__,
              esp_err_to_name(ret));

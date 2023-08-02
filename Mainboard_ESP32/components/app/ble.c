@@ -89,9 +89,6 @@ static esp_ble_adv_params_t adv_params = {
 };
 
 static ble_gap_t ble_gap_conf = {.conf_type = BLE_GAP_BROADCASTER_CENTRAL,
-                                 // .adv_params = adv_params,
-                                 // .adv_data = adv_data,
-                                 // .scan_rsp_data = scan_rsp_data,
                                  .event_handler_cb = gap_event_handler};
 
 static ble_gatts_profile_t rosalia_gatt_profiles[PROFILE_TOTAL_NUM] = {
@@ -100,8 +97,10 @@ static ble_gatts_profile_t rosalia_gatt_profiles[PROFILE_TOTAL_NUM] = {
 static ble_gatts_t ble_gatt_conf = {.profiles_num = PROFILE_TOTAL_NUM,
                                     .event_handler_cb = gatt_event_handler};
 
-static ble_config_t ble_conf = {.gap_config = &ble_gap_conf,
-                                .gatt_config = &ble_gatt_conf};
+static ble_config_t ble_conf = {
+    .gap_config = &ble_gap_conf,
+    .gatt_config = &ble_gatt_conf,
+    .bt_controller_config = BT_CONTROLLER_INIT_CONFIG_DEFAULT()};
 
 void gap_event_handler(esp_gap_ble_cb_event_t event,
                        esp_ble_gap_cb_param_t* param) {
@@ -127,16 +126,32 @@ void gatt_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if,
   }
 }
 
-void ble_init_task(void* arg) {
+bool ble_config_init(void) {
   ble_gap_conf.adv_params = adv_params;
   ble_gap_conf.adv_data = adv_data;
   ble_gap_conf.scan_rsp_data = scan_rsp_data;
 
-  ble_gatt_conf.profiles[PROFILE_A] = rosalia_gatt_profiles[PROFILE_A];
+  if (sizeof(rosalia_gatt_profiles) / sizeof(ble_gatts_profile_t) !=
+      PROFILE_TOTAL_NUM) {
+    ESP_LOGE(BLE_APP_TAG, "Profile number is not correct");
+    return false;
+  }
 
-  ble_err_t ret = ble_init(&ble_conf);
-  if (ret != BLE_OK) {
+  for (uint8_t i = 0; i < ble_gatt_conf.profiles_num; i++) {
+    ble_gatt_conf.profiles[i] = rosalia_gatt_profiles[i];
+  }
+  return true;
+}
+
+void ble_init_task(void* arg) {
+  if (ble_config_init() != true) {
+    ESP_LOGE(BLE_APP_TAG, "BLE config init failed: %s", __func__);
+    return;
+  }
+
+  if (ble_init(&ble_conf) != BLE_OK) {
     ESP_LOGE(BLE_APP_TAG, "BLE init failed: %s", __func__);
+    return;
   }
 
   ESP_LOGI(BLE_APP_TAG, "BLE init done");
