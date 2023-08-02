@@ -14,15 +14,3 @@ bool ble_gap_init(ble_gap_t *gap_conf) {
 
   return ret;
 }
-
-bool ble_gap_start_advertising(ble_gap_t *gap_conf) {
-  esp_err_t ret = ESP_OK;
-
-  ret = esp_ble_gap_start_advertising(&(gap_conf->adv_params));
-  if (ret != ESP_OK) {
-    ESP_LOGE(GAP_TAG, "Failed to start advertising: %s", esp_err_to_name(ret));
-    return ret;
-  }
-
-  return ret;
-}

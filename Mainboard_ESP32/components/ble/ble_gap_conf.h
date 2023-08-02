@@ -42,9 +42,3 @@ typedef struct {
  * \param[in] gap_conf GAP configuration structure
  */
 bool ble_gap_init(ble_gap_t *gap_conf);
-
-/*!
- * \brief Start advertising
- * \param[in] gap_conf GAP configuration structure
- */
-bool ble_gap_start_advertising(ble_gap_t *gap_conf);
