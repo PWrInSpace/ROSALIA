@@ -15,7 +15,7 @@
 #define FLASH_FILE_NAME "flash"
 #define MAX_FILES 1
 
-#define FLASH_PATH PATH "/" FLASH FILE NAME
+#define FLASH_PATH PATH "/" FLASH_FILE_NAME
 
 /*!
     \file flash.h
