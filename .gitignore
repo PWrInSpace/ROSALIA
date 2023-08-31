@@ -60,6 +60,3 @@ build/
 **/sdkconfig.old
 /.vscode/**
 __pycache__/
-
-# Doxygen
-/Docs/doxygen/doxygen_build/**
