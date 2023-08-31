@@ -1,0 +1,205 @@
+\doxysection{lora.\+h}
+\hypertarget{lora_8h_source}{}\label{lora_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/lora/lora.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/lora/lora.h}}
+\mbox{\hyperlink{lora_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}driver/gpio.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}driver/spi\_master.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_system.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}freertos/task.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}rom/gpio.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}soc/gpio\_struct.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ IRQ\ masks}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ IRQ\_TX\_DONE\_MASK\ 0x08}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ IRQ\_PAYLOAD\_CRC\_ERROR\_MASK\ 0x20}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ IRQ\_RX\_DONE\_MASK\ 0x40}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ PA\_OUTPUT\_RFO\_PIN\ 0}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ PA\_OUTPUT\_PA\_BOOST\_PIN\ 1}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ TIMEOUT\_RESET\ 100}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ Register\ definitions}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ REG\_FIFO\ 0x00}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ REG\_OP\_MODE\ 0x01}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ REG\_FRF\_MSB\ 0x06}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ REG\_FRF\_MID\ 0x07}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ REG\_FRF\_LSB\ 0x08}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ REG\_PA\_CONFIG\ 0x09}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ REG\_LNA\ 0x0c}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ REG\_FIFO\_ADDR\_PTR\ 0x0d}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ REG\_FIFO\_TX\_BASE\_ADDR\ 0x0e}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ REG\_FIFO\_RX\_BASE\_ADDR\ 0x0f}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ REG\_FIFO\_RX\_CURRENT\_ADDR\ 0x10}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ REG\_IRQ\_FLAGS\ 0x12}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ REG\_RX\_NB\_BYTES\ 0x13}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ REG\_PKT\_SNR\_VALUE\ 0x19}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ REG\_PKT\_RSSI\_VALUE\ 0x1a}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ REG\_MODEM\_CONFIG\_1\ 0x1d}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ REG\_MODEM\_CONFIG\_2\ 0x1e}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ REG\_PREAMBLE\_MSB\ 0x20}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ REG\_PREAMBLE\_LSB\ 0x21}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ REG\_PAYLOAD\_LENGTH\ 0x22}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ REG\_MODEM\_CONFIG\_3\ 0x26}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ REG\_RSSI\_WIDEBAND\ 0x2c}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ REG\_DETECTION\_OPTIMIZE\ 0x31}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ REG\_DETECTION\_THRESHOLD\ 0x37}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ REG\_SYNC\_WORD\ 0x39}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ REG\_DIO\_MAPPING\_1\ 0x40}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ REG\_VERSION\ 0x42}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *\ Transceiver\ modes}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ MODE\_LONG\_RANGE\_MODE\ 0x80}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ MODE\_SLEEP\ 0x00}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ MODE\_STDBY\ 0x01}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ MODE\_TX\ 0x03}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ MODE\_RX\_CONTINUOUS\ 0x05}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ MODE\_RX\_SINGLE\ 0x06}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ PA\ configuration}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ PA\_BOOST\ 0x80}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00083\ \ \ LORA\_OK\ =\ 0,}
+\DoxyCodeLine{00084\ \ \ LORA\_INIT\_ERR,}
+\DoxyCodeLine{00085\ \ \ LORA\_WRITE\_ERR,}
+\DoxyCodeLine{00086\ \ \ LORA\_TRANSMIT\_ERR,}
+\DoxyCodeLine{00087\ \ \ LORA\_RECEIVE\_ERR,}
+\DoxyCodeLine{00088\ \ \ LORA\_CONFIG\_ERR}
+\DoxyCodeLine{00089\ \}\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00092\ \ \ LORA\_GPIO\_MODE\_DISABLE\ =\ 0,}
+\DoxyCodeLine{00093\ \ \ LORA\_GPIO\_MODE\_INPUT,}
+\DoxyCodeLine{00094\ \ \ LORA\_GPIO\_MODE\_OUTPUT}
+\DoxyCodeLine{00095\ \}\ lora\_gpio\_mode\_t;}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00101\ \ \ LORA\_BW\_7\_8\_kHz\ =\ 0,}
+\DoxyCodeLine{00102\ \ \ LORA\_BW\_10\_4\_kHz,}
+\DoxyCodeLine{00103\ \ \ LORA\_BW\_15\_6\_kHz,}
+\DoxyCodeLine{00104\ \ \ LORA\_BW\_20\_8\_kHz,}
+\DoxyCodeLine{00105\ \ \ LORA\_BW\_31\_25\_kHz,}
+\DoxyCodeLine{00106\ \ \ LORA\_BW\_41\_7\_kHz,}
+\DoxyCodeLine{00107\ \ \ LORA\_BW\_62\_5\_kHz,}
+\DoxyCodeLine{00108\ \ \ LORA\_BW\_125\_kHz,}
+\DoxyCodeLine{00109\ \ \ LORA\_BW\_250\_kHz,}
+\DoxyCodeLine{00110\ \ \ LORA\_BW\_500\_kHz,}
+\DoxyCodeLine{00111\ \}\ \mbox{\hyperlink{lora_8h_ac2baec87624eb4d76cbb6eb03e067ca4}{lora\_bandwith\_t}};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00118\ \ \ LORA\_SF\_64\_CoS\ =\ 6,}
+\DoxyCodeLine{00119\ \ \ LORA\_SF\_128\_CoS,}
+\DoxyCodeLine{00120\ \ \ LORA\_SF\_256\_CoS,}
+\DoxyCodeLine{00121\ \ \ LORA\_SF\_512\_CoS,}
+\DoxyCodeLine{00122\ \ \ LORA\_SF\_1024\_CoS,}
+\DoxyCodeLine{00123\ \ \ LORA\_SF\_2048\_CoS,}
+\DoxyCodeLine{00124\ \ \ LORA\_SF\_4096\_CoS}
+\DoxyCodeLine{00125\ \}\ \mbox{\hyperlink{lora_8h_aa4ebaeb96309cab2bc39e00ca1a25160}{lora\_spreading\_factor\_t}};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00130\ \textcolor{comment}{//\ TODO(Glibus):\ check\ if\ it\ is\ ok}}
+\DoxyCodeLine{00131\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00132\ \ \ LORA\_TX\_POWER\_14\_dBm\ =\ 2,}
+\DoxyCodeLine{00133\ \ \ LORA\_TX\_POWER\_20\_dBm\ =\ 17}
+\DoxyCodeLine{00134\ \}\ \mbox{\hyperlink{lora_8h_af9d7f1431a4ea0c4be3b1e6602c8994c}{lora\_tx\_power\_t}};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{typedef}\ bool\ (*lora\_SPI\_transmit)(uint8\_t\ \_in[2],\ uint8\_t\ \_val[2]);}
+\DoxyCodeLine{00137\ \textcolor{keyword}{typedef}\ void\ (*lora\_delay)(\textcolor{keywordtype}{size\_t}\ \_ms);}
+\DoxyCodeLine{00138\ \textcolor{keyword}{typedef}\ bool\ (*lora\_GPIO\_set\_level)(uint8\_t\ \_gpio\_num,\ uint32\_t\ \_level);}
+\DoxyCodeLine{00139\ \textcolor{keyword}{typedef}\ void\ (*lora\_log)(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *info);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00142\ \ \ lora\_SPI\_transmit\ \_spi\_transmit;}
+\DoxyCodeLine{00143\ \ \ lora\_delay\ \_delay;}
+\DoxyCodeLine{00144\ \ \ lora\_GPIO\_set\_level\ \_gpio\_set\_level;}
+\DoxyCodeLine{00145\ \ \ lora\_log\ log;}
+\DoxyCodeLine{00146\ \ \ uint8\_t\ rst\_gpio\_num;}
+\DoxyCodeLine{00147\ \ \ uint8\_t\ cs\_gpio\_num;}
+\DoxyCodeLine{00148\ \ \ uint8\_t\ d0\_gpio\_num;}
+\DoxyCodeLine{00149\ \ \ int16\_t\ implicit\_header;}
+\DoxyCodeLine{00150\ \ \ int32\_t\ frequency;}
+\DoxyCodeLine{00151\ \}\ \mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00156\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a753109849aff0b16dc460924d170865d}{lora\_init}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00161\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_aa68162464c5f77f43a2661093dd5cc7b}{lora\_default\_config}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00169\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a57e52fd2a2821285ae303b3a4723c8b5}{lora\_write\_reg}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ int16\_t\ reg,\ int16\_t\ val);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00176\ uint8\_t\ \mbox{\hyperlink{lora_8h_ad0cafed158550592b817d944aee52878}{lora\_read\_reg}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ int16\_t\ reg);}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00182\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lora_8h_afe2e3578791827aaa923a9304e0ced0d}{lora\_reset}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00188\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_aa7b65274bfe2899cb57fe86ec4ed979a}{lora\_explicit\_header\_mode}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00195\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a74ff1657a7f116c89c358a4d0e6a4d33}{lora\_implicit\_header\_mode}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ int16\_t\ size);}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00201\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_aec2ce4662de361d539998b9872e0c31a}{lora\_idle}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00207\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a657cb2ad5f50f71ad26faaf49b8eb1b4}{lora\_sleep}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00213\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_aa2af3946f7586a2c4204cb07d5b75f7c}{lora\_set\_receive\_mode}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00219\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a3b8518e01aab7c88597d0c054138c751}{lora\_set\_tx\_power}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ \mbox{\hyperlink{lora_8h_af9d7f1431a4ea0c4be3b1e6602c8994c}{lora\_tx\_power\_t}}\ level);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00225\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a7ee2817fc64bc580c403c764d7415ec1}{lora\_set\_frequency}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ int32\_t\ frequency);}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00231\ int32\_t\ \mbox{\hyperlink{lora_8h_a1e7797fb0580c3684be3d60d7f80c247}{lora\_get\_frequency}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00238\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_aa57379674bdb88b387332451886ccebb}{lora\_set\_spreading\_factor}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{lora_8h_aa4ebaeb96309cab2bc39e00ca1a25160}{lora\_spreading\_factor\_t}}\ sf);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00247\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a513ada594427689c16fb18d03af7c631}{lora\_set\_bandwidth}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ \mbox{\hyperlink{lora_8h_ac2baec87624eb4d76cbb6eb03e067ca4}{lora\_bandwith\_t}}\ sbw);}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00253\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a58aa248b99a0b859de27b39173f28b67}{lora\_set\_coding\_rate}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ int16\_t\ denominator);}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00259\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a12ad5902bb5499607991c199afc942b7}{lora\_set\_preamble\_length}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ int32\_t\ length);}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00265\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a751cc07309f9f148d6b40d41926f866e}{lora\_set\_sync\_word}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ int16\_t\ sw);}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00270\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a0622ea490051cf4ffc9b4bb9a4cc7db4}{lora\_enable\_crc}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00275\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a687ff5dbb425feecbb05925af0481f55}{lora\_disable\_crc}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00285\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_abc735e5b8898c3394f9bc22b6e1b5bda}{lora\_fill\_fifo\_buf\_to\_send}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ uint8\_t\ *buf,}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int16\_t\ size);}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00292\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a08e6c5dd5b2456721a1d89e7ceb83344}{lora\_start\_transmission}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00298\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{lora_8h_aea6bd878524f616b13c562eee5aaf62e}{lora\_check\_tx\_done}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00304\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_aaa9e16346621476f07367f7f536641e9}{lora\_write\_irq\_flags}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00311\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a4bccf52de77c1e78ab89bb9d8bdd5776}{lora\_send\_packet}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ uint8\_t\ *buf,\ int16\_t\ size);}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00319\ int16\_t\ \mbox{\hyperlink{lora_8h_aad262636840172b4a8e01e58cf06cc41}{lora\_receive\_packet}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora,\ uint8\_t\ *buf,\ int16\_t\ size);}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00324\ \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\_err\_t}}\ \mbox{\hyperlink{lora_8h_a809d896f799469533b72cb01fc71a8ab}{lora\_received}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00329\ int16\_t\ \mbox{\hyperlink{lora_8h_aa26f2120f096e47beca335fbf010d3fe}{lora\_packet\_rssi}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00334\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{lora_8h_a09cb951e28695a4a4b1e786e13cd57c6}{lora\_packet\_snr}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00339\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lora_8h_aed94ff927c77b7f20323a14fc4705a62}{lora\_close}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00342\ int16\_t\ \mbox{\hyperlink{lora_8h_afc5206b8a760ef681e18aea786441010}{lora\_initialized}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00345\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lora_8h_aa47808835f4ae254467a8222e0db5d74}{lora\_dump\_registers}}(\mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ *lora);}
+
+\end{DoxyCode}

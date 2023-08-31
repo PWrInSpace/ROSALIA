@@ -1,0 +1,96 @@
+\doxysection{/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA\+\_\+\+Main\+Board/\+Mainboard\+\_\+\+ESP32/components/ble/ble\+\_\+gatt\+\_\+conf.h File Reference}
+\hypertarget{ble__gatt__conf_8h}{}\label{ble__gatt__conf_8h}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_gatt\_conf.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_gatt\_conf.h}}
+
+
+BLE GATT configuration structure.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}esp\+\_\+err.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+gatt\+\_\+common\+\_\+api.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+gatt\+\_\+defs.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+gatts\+\_\+api.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structble__gatts__profile__t}{ble\+\_\+gatts\+\_\+profile\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em BLE GATT configuration structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structble__gatts__t}{ble\+\_\+gatts\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Main gatts configuration structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{ble__gatt__conf_8h_aff2ee2a92b04f11123720b1b39ab9f94}\label{ble__gatt__conf_8h_aff2ee2a92b04f11123720b1b39ab9f94} 
+\#define {\bfseries GATTS\+\_\+\+PROFILES\+\_\+\+NUM\+\_\+\+MAX}~16
+\begin{DoxyCompactList}\small\item\em Maximum number of GATT profiles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ble__gatt__conf_8h_ac3bc7c5cf858395c84f169a3335a7f1d}{ble\+\_\+gatts\+\_\+event\+\_\+handler}}) (esp\+\_\+gatts\+\_\+cb\+\_\+event\+\_\+t event, esp\+\_\+gatt\+\_\+if\+\_\+t gatts\+\_\+if, esp\+\_\+ble\+\_\+gatts\+\_\+cb\+\_\+param\+\_\+t \texorpdfstring{$\ast$}{*}param)
+\begin{DoxyCompactList}\small\item\em Handle GATT events. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{ble__gatt__conf_8h_aaf7a55c25cde83c4612d8d5f5e37b880}{ble\+\_\+gatt\+\_\+init}} (\mbox{\hyperlink{structble__gatts__t}{ble\+\_\+gatts\+\_\+t}} \texorpdfstring{$\ast$}{*}gatts\+\_\+conf)
+\begin{DoxyCompactList}\small\item\em Initialize the BLE GATT module. \end{DoxyCompactList}\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{ble__gatt__conf_8h_a86c9f217d237027b3ef83579df2b931b}{ble\+\_\+gatt\+\_\+register\+\_\+event}} (\mbox{\hyperlink{structble__gatts__t}{ble\+\_\+gatts\+\_\+t}} \texorpdfstring{$\ast$}{*}gatts\+\_\+conf)
+\begin{DoxyCompactList}\small\item\em Register the BLE GATT module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+BLE GATT configuration structure. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{ble__gatt__conf_8h_ac3bc7c5cf858395c84f169a3335a7f1d}\label{ble__gatt__conf_8h_ac3bc7c5cf858395c84f169a3335a7f1d} 
+\index{ble\_gatt\_conf.h@{ble\_gatt\_conf.h}!ble\_gatts\_event\_handler@{ble\_gatts\_event\_handler}}
+\index{ble\_gatts\_event\_handler@{ble\_gatts\_event\_handler}!ble\_gatt\_conf.h@{ble\_gatt\_conf.h}}
+\doxysubsubsection{\texorpdfstring{ble\_gatts\_event\_handler}{ble\_gatts\_event\_handler}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} ble\+\_\+gatts\+\_\+event\+\_\+handler) (esp\+\_\+gatts\+\_\+cb\+\_\+event\+\_\+t event, esp\+\_\+gatt\+\_\+if\+\_\+t gatts\+\_\+if, esp\+\_\+ble\+\_\+gatts\+\_\+cb\+\_\+param\+\_\+t \texorpdfstring{$\ast$}{*}param)}
+
+
+
+Handle GATT events. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em event} & GATT event \\
+\hline
+\mbox{\texttt{ in}}  & {\em param} & GATT event parameters \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{ble__gatt__conf_8h_aaf7a55c25cde83c4612d8d5f5e37b880}\label{ble__gatt__conf_8h_aaf7a55c25cde83c4612d8d5f5e37b880} 
+\index{ble\_gatt\_conf.h@{ble\_gatt\_conf.h}!ble\_gatt\_init@{ble\_gatt\_init}}
+\index{ble\_gatt\_init@{ble\_gatt\_init}!ble\_gatt\_conf.h@{ble\_gatt\_conf.h}}
+\doxysubsubsection{\texorpdfstring{ble\_gatt\_init()}{ble\_gatt\_init()}}
+{\footnotesize\ttfamily esp\+\_\+err\+\_\+t ble\+\_\+gatt\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structble__gatts__t}{ble\+\_\+gatts\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{gatts\+\_\+conf }\end{DoxyParamCaption})}
+
+
+
+Initialize the BLE GATT module. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em gatts\+\_\+conf} & GATT configuration structure \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ble__gatt__conf_8h_a86c9f217d237027b3ef83579df2b931b}\label{ble__gatt__conf_8h_a86c9f217d237027b3ef83579df2b931b} 
+\index{ble\_gatt\_conf.h@{ble\_gatt\_conf.h}!ble\_gatt\_register\_event@{ble\_gatt\_register\_event}}
+\index{ble\_gatt\_register\_event@{ble\_gatt\_register\_event}!ble\_gatt\_conf.h@{ble\_gatt\_conf.h}}
+\doxysubsubsection{\texorpdfstring{ble\_gatt\_register\_event()}{ble\_gatt\_register\_event()}}
+{\footnotesize\ttfamily esp\+\_\+err\+\_\+t ble\+\_\+gatt\+\_\+register\+\_\+event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structble__gatts__t}{ble\+\_\+gatts\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{gatts\+\_\+conf }\end{DoxyParamCaption})}
+
+
+
+Register the BLE GATT module. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em gatts\+\_\+conf} & GATT configuration structure \\
+\hline
+\end{DoxyParams}
