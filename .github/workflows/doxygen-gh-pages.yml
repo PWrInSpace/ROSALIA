@@ -13,5 +13,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
-          folder: Docs/doxygen/doxygen_build/html
+          folder: docs/html
           config_file: Docs/doxygen/doxygen-local.config
