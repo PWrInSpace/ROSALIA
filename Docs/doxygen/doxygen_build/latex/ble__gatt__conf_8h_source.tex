@@ -1,0 +1,47 @@
+\doxysection{ble\+\_\+gatt\+\_\+conf.\+h}
+\hypertarget{ble__gatt__conf_8h_source}{}\label{ble__gatt__conf_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_gatt\_conf.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_gatt\_conf.h}}
+\mbox{\hyperlink{ble__gatt__conf_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}esp\_gatt\_common\_api.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}esp\_gatt\_defs.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_gatts\_api.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ GATTS\_PROFILES\_NUM\_MAX\ 16}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ void\ (*\mbox{\hyperlink{ble__gatt__conf_8h_ac3bc7c5cf858395c84f169a3335a7f1d}{ble\_gatts\_event\_handler}})(esp\_gatts\_cb\_event\_t\ event,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_gatt\_if\_t\ gatts\_if,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_ble\_gatts\_cb\_param\_t\ *param);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00035\ \ \ \textcolor{comment}{//\ \ \ esp\_gatts\_attr\_db\_t\ *gatt\_db;}}
+\DoxyCodeLine{00036\ \ \ esp\_gatts\_cb\_t\ gatts\_cb;}
+\DoxyCodeLine{00037\ \ \ uint16\_t\ gatts\_if;}
+\DoxyCodeLine{00038\ \ \ uint16\_t\ conn\_id;}
+\DoxyCodeLine{00039\ \ \ uint16\_t\ service\_handle;}
+\DoxyCodeLine{00040\ \ \ esp\_gatt\_srvc\_id\_t\ service\_id;}
+\DoxyCodeLine{00041\ \ \ uint16\_t\ char\_handle;}
+\DoxyCodeLine{00042\ \ \ esp\_bt\_uuid\_t\ char\_uuid;}
+\DoxyCodeLine{00043\ \ \ esp\_gatt\_perm\_t\ perm;}
+\DoxyCodeLine{00044\ \ \ esp\_gatt\_char\_prop\_t\ property;}
+\DoxyCodeLine{00045\ \ \ uint16\_t\ descr\_handle;}
+\DoxyCodeLine{00046\ \ \ esp\_bt\_uuid\_t\ descr\_uuid;}
+\DoxyCodeLine{00047\ \}\ \mbox{\hyperlink{structble__gatts__profile__t}{ble\_gatts\_profile\_t}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00056\ \ \ uint16\_t\ profiles\_num;}
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{ble__gatt__conf_8h_ac3bc7c5cf858395c84f169a3335a7f1d}{ble\_gatts\_event\_handler}}\ event\_handler\_cb;}
+\DoxyCodeLine{00058\ \ \ \mbox{\hyperlink{structble__gatts__profile__t}{ble\_gatts\_profile\_t}}\ profiles[\mbox{\hyperlink{ble__gatt__conf_8h_aff2ee2a92b04f11123720b1b39ab9f94}{GATTS\_PROFILES\_NUM\_MAX}}];}
+\DoxyCodeLine{00059\ \}\ \mbox{\hyperlink{structble__gatts__t}{ble\_gatts\_t}};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00065\ esp\_err\_t\ \mbox{\hyperlink{ble__gatt__conf_8h_aaf7a55c25cde83c4612d8d5f5e37b880}{ble\_gatt\_init}}(\mbox{\hyperlink{structble__gatts__t}{ble\_gatts\_t}}\ *gatts\_conf);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00071\ esp\_err\_t\ \mbox{\hyperlink{ble__gatt__conf_8h_a86c9f217d237027b3ef83579df2b931b}{ble\_gatt\_register\_event}}(\mbox{\hyperlink{structble__gatts__t}{ble\_gatts\_t}}\ *gatts\_conf);}
+
+\end{DoxyCode}

@@ -13,6 +13,11 @@
 #include "rom/gpio.h"
 #include "soc/gpio_struct.h"
 
+/*!
+ * \file lora.h
+ * \brief RFM95w LoRa library - multi-MCU
+ */
+
 /*
  * IRQ masks
  */

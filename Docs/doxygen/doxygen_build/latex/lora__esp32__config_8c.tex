@@ -1,0 +1,52 @@
+\doxysection{/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA\+\_\+\+Main\+Board/\+Mainboard\+\_\+\+ESP32/components/lora/lora\+\_\+esp32\+\_\+config.c File Reference}
+\hypertarget{lora__esp32__config_8c}{}\label{lora__esp32__config_8c}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/lora/lora\_esp32\_config.c@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/lora/lora\_esp32\_config.c}}
+
+
+ESP32 lora configuration.  
+
+
+{\ttfamily \#include "{}lora\+\_\+esp32\+\_\+config.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{lora__esp32__config_8c_a679fb5d9be0ec4f0477e11d673b1d0bf}\label{lora__esp32__config_8c_a679fb5d9be0ec4f0477e11d673b1d0bf} 
+\#define {\bfseries CONFIG\+\_\+\+CS\+\_\+\+GPIO}~GPIO\+\_\+\+NUM\+\_\+5
+\item 
+\Hypertarget{lora__esp32__config_8c_abfe2a2ddec16d2ad06cfbaf419373caf}\label{lora__esp32__config_8c_abfe2a2ddec16d2ad06cfbaf419373caf} 
+\#define {\bfseries CONFIG\+\_\+\+SCK\+\_\+\+GPIO}~GPIO\+\_\+\+NUM\+\_\+18
+\item 
+\Hypertarget{lora__esp32__config_8c_ad4579d5723aca40535c2fc64adb55740}\label{lora__esp32__config_8c_ad4579d5723aca40535c2fc64adb55740} 
+\#define {\bfseries CONFIG\+\_\+\+MOSI\+\_\+\+GPIO}~GPIO\+\_\+\+NUM\+\_\+23
+\item 
+\Hypertarget{lora__esp32__config_8c_a1f1e9adb40d30951d9aec6355b02c4ff}\label{lora__esp32__config_8c_a1f1e9adb40d30951d9aec6355b02c4ff} 
+\#define {\bfseries CONFIG\+\_\+\+MISO\+\_\+\+GPIO}~GPIO\+\_\+\+NUM\+\_\+19
+\item 
+\Hypertarget{lora__esp32__config_8c_aa5ec7300512b00d85dc73ca70eebf1d0}\label{lora__esp32__config_8c_aa5ec7300512b00d85dc73ca70eebf1d0} 
+\#define {\bfseries CONFIG\+\_\+\+RST\+\_\+\+GPIO}~GPIO\+\_\+\+NUM\+\_\+4
+\item 
+\Hypertarget{lora__esp32__config_8c_afc3d101f633a076cc1ca84b85b6224b2}\label{lora__esp32__config_8c_afc3d101f633a076cc1ca84b85b6224b2} 
+\#define {\bfseries TAG}~"{}LORA"{}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{lora__esp32__config_8c_a17ab803adb93a4b6b0c841e1b273ea7a}\label{lora__esp32__config_8c_a17ab803adb93a4b6b0c841e1b273ea7a} 
+bool {\bfseries \+\_\+lora\+\_\+spi\+\_\+and\+\_\+pins\+\_\+init} ()
+\item 
+\Hypertarget{lora__esp32__config_8c_aa085ce77034a789f2e39bc8964b35d13}\label{lora__esp32__config_8c_aa085ce77034a789f2e39bc8964b35d13} 
+bool {\bfseries \+\_\+lora\+\_\+\+SPI\+\_\+transmit} (uint8\+\_\+t \+\_\+in\mbox{[}2\mbox{]}, uint8\+\_\+t \+\_\+out\mbox{[}2\mbox{]})
+\item 
+\Hypertarget{lora__esp32__config_8c_a939affb79bc369a9c34134d868a2fa59}\label{lora__esp32__config_8c_a939affb79bc369a9c34134d868a2fa59} 
+void {\bfseries \+\_\+lora\+\_\+delay} (size\+\_\+t \+\_\+ms)
+\item 
+\Hypertarget{lora__esp32__config_8c_aa563b41dc2cdf0f9a8796c4f811f6ce6}\label{lora__esp32__config_8c_aa563b41dc2cdf0f9a8796c4f811f6ce6} 
+bool {\bfseries \+\_\+lora\+\_\+\+GPIO\+\_\+set\+\_\+level} (uint8\+\_\+t \+\_\+gpio\+\_\+num, uint32\+\_\+t \+\_\+level)
+\item 
+\Hypertarget{lora__esp32__config_8c_a782ceb172649470fa3a3a78adbcfa9df}\label{lora__esp32__config_8c_a782ceb172649470fa3a3a78adbcfa9df} 
+void {\bfseries \+\_\+lora\+\_\+log} (const char \texorpdfstring{$\ast$}{*}info)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+ESP32 lora configuration. 
+

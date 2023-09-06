@@ -1,6 +1,12 @@
 // Copyright 2023 PWr in Space, Krzysztof Gliwiński
 #include "lora.h"
 
+/*!
+ * \file lora.c
+ * \brief RFM95w LoRa library - multi-MCU
+ */
+
+
 #define TAG "LORA"
 
 lora_err_t lora_init(lora_struct_t *lora) {

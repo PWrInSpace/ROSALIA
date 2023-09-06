@@ -11,6 +11,11 @@
 #include "freertos/task.h"
 #include "lora.h"
 
+/*!
+ * \file lora_esp32_config.h
+ * \brief ESP32 lora configuration
+ */
+
 bool _lora_spi_and_pins_init();
 
 bool _lora_SPI_transmit(uint8_t _in[2], uint8_t _out[2]);

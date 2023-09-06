@@ -1,0 +1,77 @@
+\doxysection{/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA\+\_\+\+Main\+Board/\+Mainboard\+\_\+\+ESP32/components/ble/ble\+\_\+gap\+\_\+conf.h File Reference}
+\hypertarget{ble__gap__conf_8h}{}\label{ble__gap__conf_8h}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_gap\_conf.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_gap\_conf.h}}
+
+
+API for configurating the BLE GAP module.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}esp\+\_\+gap\+\_\+ble\+\_\+api.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structble__gap__t}{ble\+\_\+gap\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{ble__gap__conf_8h_aab16b6c1c229d2bf6831825468b7d352}{ble\+\_\+gap\+\_\+event\+\_\+handler}}) (esp\+\_\+gap\+\_\+ble\+\_\+cb\+\_\+event\+\_\+t event, esp\+\_\+ble\+\_\+gap\+\_\+cb\+\_\+param\+\_\+t \texorpdfstring{$\ast$}{*}param)
+\begin{DoxyCompactList}\small\item\em Handle GAP events. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{ble__gap__conf_8h_ac5852c1e80c22a1becb6dfff9ad446a2}\label{ble__gap__conf_8h_ac5852c1e80c22a1becb6dfff9ad446a2} 
+enum \mbox{\hyperlink{ble__gap__conf_8h_ac5852c1e80c22a1becb6dfff9ad446a2}{ble\+\_\+gap\+\_\+conf\+\_\+type\+\_\+t}} \{ {\bfseries BLE\+\_\+\+GAP\+\_\+\+BROADCASTER} = 0x01b
+, {\bfseries BLE\+\_\+\+GAP\+\_\+\+CENTRAL} = 0x10b
+, {\bfseries BLE\+\_\+\+GAP\+\_\+\+BROADCASTER\+\_\+\+CENTRAL} = 0x11b
+ \}
+\begin{DoxyCompactList}\small\item\em GAP configuration structure Used as a central device, only broadcaster, peripheral or both can be set. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{ble__gap__conf_8h_a141e6c467fd70d17c5c06da6e244f154}{ble\+\_\+gap\+\_\+init}} (\mbox{\hyperlink{structble__gap__t}{ble\+\_\+gap\+\_\+t}} \texorpdfstring{$\ast$}{*}gap\+\_\+conf)
+\begin{DoxyCompactList}\small\item\em Initialize the BLE GAP module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+API for configurating the BLE GAP module. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{ble__gap__conf_8h_aab16b6c1c229d2bf6831825468b7d352}\label{ble__gap__conf_8h_aab16b6c1c229d2bf6831825468b7d352} 
+\index{ble\_gap\_conf.h@{ble\_gap\_conf.h}!ble\_gap\_event\_handler@{ble\_gap\_event\_handler}}
+\index{ble\_gap\_event\_handler@{ble\_gap\_event\_handler}!ble\_gap\_conf.h@{ble\_gap\_conf.h}}
+\doxysubsubsection{\texorpdfstring{ble\_gap\_event\_handler}{ble\_gap\_event\_handler}}
+{\footnotesize\ttfamily typedef void(\texorpdfstring{$\ast$}{*} ble\+\_\+gap\+\_\+event\+\_\+handler) (esp\+\_\+gap\+\_\+ble\+\_\+cb\+\_\+event\+\_\+t event, esp\+\_\+ble\+\_\+gap\+\_\+cb\+\_\+param\+\_\+t \texorpdfstring{$\ast$}{*}param)}
+
+
+
+Handle GAP events. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em event} & GAP event \\
+\hline
+\mbox{\texttt{ in}}  & {\em param} & GAP event parameters \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{ble__gap__conf_8h_a141e6c467fd70d17c5c06da6e244f154}\label{ble__gap__conf_8h_a141e6c467fd70d17c5c06da6e244f154} 
+\index{ble\_gap\_conf.h@{ble\_gap\_conf.h}!ble\_gap\_init@{ble\_gap\_init}}
+\index{ble\_gap\_init@{ble\_gap\_init}!ble\_gap\_conf.h@{ble\_gap\_conf.h}}
+\doxysubsubsection{\texorpdfstring{ble\_gap\_init()}{ble\_gap\_init()}}
+{\footnotesize\ttfamily bool ble\+\_\+gap\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structble__gap__t}{ble\+\_\+gap\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{gap\+\_\+conf }\end{DoxyParamCaption})}
+
+
+
+Initialize the BLE GAP module. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em gap\+\_\+conf} & GAP configuration structure \\
+\hline
+\end{DoxyParams}

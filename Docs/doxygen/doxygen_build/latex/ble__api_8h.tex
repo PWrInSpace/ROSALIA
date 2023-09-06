@@ -1,0 +1,43 @@
+\doxysection{/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA\+\_\+\+Main\+Board/\+Mainboard\+\_\+\+ESP32/components/ble/ble\+\_\+api.h File Reference}
+\hypertarget{ble__api_8h}{}\label{ble__api_8h}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_api.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_api.h}}
+
+
+BLE API -\/ contains all BLE functions and structures ass well as attributes of GATT -\/ unified in one structure.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}ble\+\_\+gap\+\_\+conf.\+h"{}}\newline
+{\ttfamily \#include "{}ble\+\_\+gatt\+\_\+conf.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+bt.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+bt\+\_\+defs.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+bt\+\_\+main.\+h"{}}\newline
+{\ttfamily \#include "{}sdkconfig.\+h"{}}\newline
+{\ttfamily \#include "{}nvs\+\_\+flash.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structble__config__t}{ble\+\_\+config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Main BLE configuration struct. Contains gatts and gap configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}\label{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05} 
+enum \mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\+\_\+err\+\_\+t}} \{ {\bfseries BLE\+\_\+\+OK} = 0
+, {\bfseries BLE\+\_\+\+HARDWARE\+\_\+\+INIT\+\_\+\+ERR}
+, {\bfseries BLE\+\_\+\+ERR}
+ \}
+\begin{DoxyCompactList}\small\item\em BLE status enum. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{ble__api_8h_ad23ddc3e5504a7f2af3115f189664b56}\label{ble__api_8h_ad23ddc3e5504a7f2af3115f189664b56} 
+\mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\+\_\+err\+\_\+t}} {\bfseries ble\+\_\+esp\+\_\+hardware\+\_\+init} (\mbox{\hyperlink{structble__config__t}{ble\+\_\+config\+\_\+t}} \texorpdfstring{$\ast$}{*}ble)
+\begin{DoxyCompactList}\small\item\em Initiates all necessary esp hardware related to bluetooth. \end{DoxyCompactList}\item 
+\Hypertarget{ble__api_8h_a82fd3a63b4680ea2de1136d7f69ca22d}\label{ble__api_8h_a82fd3a63b4680ea2de1136d7f69ca22d} 
+\mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\+\_\+err\+\_\+t}} {\bfseries ble\+\_\+init} (\mbox{\hyperlink{structble__config__t}{ble\+\_\+config\+\_\+t}} \texorpdfstring{$\ast$}{*}ble)
+\begin{DoxyCompactList}\small\item\em Initiates the whole bluetooth stack, as well as gap \doxylink{structble__gatts__t}{ble\+\_\+gatts\+\_\+t} and \doxylink{structble__gap__t}{ble\+\_\+gap\+\_\+t} configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+BLE API -\/ contains all BLE functions and structures ass well as attributes of GATT -\/ unified in one structure. 
+
