@@ -19,5 +19,19 @@ TEST_CASE("Flash_nvs init test", "[flash_nvs]") {
     TEST_ASSERT_EQUAL(NVS_OK, NVS_init());
 }
 
-TEST_CASE
+TEST_CASE("Flash_nvs write and read test", "[flash_nvs]") {
+    TEST_ASSERT_EQUAL(NVS_OK, NVS_write_uint8(TEST_KEY_ZERO, TEST_VAL_ZERO));
+    TEST_ASSERT_EQUAL(NVS_OK, NVS_write_uint8(TEST_KEY_FULL, TEST_VAL_FULL));
+    TEST_ASSERT_EQUAL(NVS_OK, NVS_write_uint8(TEST_KEY_RAND, TEST_VAL_RAND));
+
+    uint8_t readValZero, readValFull, readValRand;
+
+    TEST_ASSERT_EQUAL(NVS_OK, NVS_read_uint8(TEST_KEY_ZERO, &readValZero));
+    TEST_ASSERT_EQUAL(NVS_OK, NVS_read_uint8(TEST_KEY_FULL, &readValFull));
+    TEST_ASSERT_EQUAL(NVS_OK, NVS_read_uint8(TEST_KEY_RAND, &readValRand));
+
+    TEST_ASSERT_EQUAL(TEST_VAL_ZERO, readValZero);
+    TEST_ASSERT_EQUAL(TEST_VAL_FULL, readValFull);
+    TEST_ASSERT_EQUAL(TEST_VAL_RAND, readValRand);
+}
 
