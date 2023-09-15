@@ -12,6 +12,7 @@ set(EXTRA_COMPONENT_DIRS "../components")
 #
 set(TEST_FILES_DIRS
     "lora"
+    "ble"
 )
 
 set(TEST_COMPONENTS ${TEST_FILES_DIRS} CACHE STRING "List of components to test")
