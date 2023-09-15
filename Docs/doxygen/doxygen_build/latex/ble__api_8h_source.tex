@@ -1,0 +1,30 @@
+\doxysection{ble\+\_\+api.\+h}
+\hypertarget{ble__api_8h_source}{}\label{ble__api_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_api.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_api.h}}
+\mbox{\hyperlink{ble__api_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ble__gap__conf_8h}{ble\_gap\_conf.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ble__gatt__conf_8h}{ble\_gatt\_conf.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}esp\_bt.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_bt\_defs.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_bt\_main.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}nvs\_flash.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{\ BLE\_OK\ =\ 0,\ BLE\_HARDWARE\_INIT\_ERR,\ BLE\_ERR\ \}\ \mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\_err\_t}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{structble__gatts__t}{ble\_gatts\_t}}\ *gatt\_config;}
+\DoxyCodeLine{00031\ \ \ \mbox{\hyperlink{structble__gap__t}{ble\_gap\_t}}\ *gap\_config;}
+\DoxyCodeLine{00032\ \ \ esp\_bt\_controller\_config\_t\ bt\_controller\_config;}
+\DoxyCodeLine{00033\ \}\ \mbox{\hyperlink{structble__config__t}{ble\_config\_t}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00038\ \mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\_err\_t}}\ \mbox{\hyperlink{ble__api_8h_ad23ddc3e5504a7f2af3115f189664b56}{ble\_esp\_hardware\_init}}(\mbox{\hyperlink{structble__config__t}{ble\_config\_t}}\ *ble);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00044\ \mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\_err\_t}}\ \mbox{\hyperlink{ble__api_8h_a82fd3a63b4680ea2de1136d7f69ca22d}{ble\_init}}(\mbox{\hyperlink{structble__config__t}{ble\_config\_t}}\ *ble);}
+
+\end{DoxyCode}

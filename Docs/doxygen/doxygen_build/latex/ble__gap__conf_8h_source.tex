@@ -1,0 +1,32 @@
+\doxysection{ble\+\_\+gap\+\_\+conf.\+h}
+\hypertarget{ble__gap__conf_8h_source}{}\label{ble__gap__conf_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_gap\_conf.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_gap\_conf.h}}
+\mbox{\hyperlink{ble__gap__conf_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}esp\_gap\_ble\_api.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00019\ \ \ BLE\_GAP\_BROADCASTER\ =\ 0x01b,}
+\DoxyCodeLine{00020\ \ \ BLE\_GAP\_CENTRAL\ =\ 0x10b,}
+\DoxyCodeLine{00021\ \ \ BLE\_GAP\_BROADCASTER\_CENTRAL\ =\ 0x11b}
+\DoxyCodeLine{00022\ \}\ \mbox{\hyperlink{ble__gap__conf_8h_ac5852c1e80c22a1becb6dfff9ad446a2}{ble\_gap\_conf\_type\_t}};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ void\ (*\mbox{\hyperlink{ble__gap__conf_8h_aab16b6c1c229d2bf6831825468b7d352}{ble\_gap\_event\_handler}})(esp\_gap\_ble\_cb\_event\_t\ event,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_ble\_gap\_cb\_param\_t\ *param);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{ble__gap__conf_8h_ac5852c1e80c22a1becb6dfff9ad446a2}{ble\_gap\_conf\_type\_t}}\ conf\_type;}
+\DoxyCodeLine{00034\ \ \ esp\_ble\_adv\_params\_t\ adv\_params;}
+\DoxyCodeLine{00035\ \ \ esp\_ble\_adv\_data\_t\ adv\_data;}
+\DoxyCodeLine{00036\ \ \ esp\_ble\_adv\_data\_t\ scan\_rsp\_data;}
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{ble__gap__conf_8h_aab16b6c1c229d2bf6831825468b7d352}{ble\_gap\_event\_handler}}\ event\_handler\_cb;}
+\DoxyCodeLine{00038\ \}\ \mbox{\hyperlink{structble__gap__t}{ble\_gap\_t}};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{ble__gap__conf_8h_a141e6c467fd70d17c5c06da6e244f154}{ble\_gap\_init}}(\mbox{\hyperlink{structble__gap__t}{ble\_gap\_t}}\ *gap\_conf);}
+
+\end{DoxyCode}

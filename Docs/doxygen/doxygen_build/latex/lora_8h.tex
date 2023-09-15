@@ -1,0 +1,650 @@
+\doxysection{/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA\+\_\+\+Main\+Board/\+Mainboard\+\_\+\+ESP32/components/lora/lora.h File Reference}
+\hypertarget{lora_8h}{}\label{lora_8h}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/lora/lora.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/lora/lora.h}}
+
+
+RFM95w Lo\+Ra library -\/ multi-\/\+MCU.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}driver/gpio.\+h"{}}\newline
+{\ttfamily \#include "{}driver/spi\+\_\+master.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+system.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+{\ttfamily \#include "{}rom/gpio.\+h"{}}\newline
+{\ttfamily \#include "{}soc/gpio\+\_\+struct.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{lora_8h_a5127cb2af4a6ecd93c81e9844a3b1f5e}\label{lora_8h_a5127cb2af4a6ecd93c81e9844a3b1f5e} 
+\#define {\bfseries IRQ\+\_\+\+TX\+\_\+\+DONE\+\_\+\+MASK}~0x08
+\item 
+\Hypertarget{lora_8h_a1c6981a372ca499afd8f60023bd67564}\label{lora_8h_a1c6981a372ca499afd8f60023bd67564} 
+\#define {\bfseries IRQ\+\_\+\+PAYLOAD\+\_\+\+CRC\+\_\+\+ERROR\+\_\+\+MASK}~0x20
+\item 
+\Hypertarget{lora_8h_a79ac308f2a7c332325b9d4ab4b7399cb}\label{lora_8h_a79ac308f2a7c332325b9d4ab4b7399cb} 
+\#define {\bfseries IRQ\+\_\+\+RX\+\_\+\+DONE\+\_\+\+MASK}~0x40
+\item 
+\Hypertarget{lora_8h_a2e3b6a161ad5eb403513d08741a1fbed}\label{lora_8h_a2e3b6a161ad5eb403513d08741a1fbed} 
+\#define {\bfseries PA\+\_\+\+OUTPUT\+\_\+\+RFO\+\_\+\+PIN}~0
+\item 
+\Hypertarget{lora_8h_ab6ed143304b1d46d46eca2713b74c54d}\label{lora_8h_ab6ed143304b1d46d46eca2713b74c54d} 
+\#define {\bfseries PA\+\_\+\+OUTPUT\+\_\+\+PA\+\_\+\+BOOST\+\_\+\+PIN}~1
+\item 
+\Hypertarget{lora_8h_a9bfa22d1222b79a2bb6b3eba5ce6d57e}\label{lora_8h_a9bfa22d1222b79a2bb6b3eba5ce6d57e} 
+\#define {\bfseries TIMEOUT\+\_\+\+RESET}~100
+\item 
+\Hypertarget{lora_8h_a8ed1afe4fdc88a0f2626d9ee783e06e5}\label{lora_8h_a8ed1afe4fdc88a0f2626d9ee783e06e5} 
+\#define {\bfseries REG\+\_\+\+FIFO}~0x00
+\item 
+\Hypertarget{lora_8h_a250bcedd7826aa7c25f80654368d0a72}\label{lora_8h_a250bcedd7826aa7c25f80654368d0a72} 
+\#define {\bfseries REG\+\_\+\+OP\+\_\+\+MODE}~0x01
+\item 
+\Hypertarget{lora_8h_aa9e79eeafee89809ae618e8c1442e24b}\label{lora_8h_aa9e79eeafee89809ae618e8c1442e24b} 
+\#define {\bfseries REG\+\_\+\+FRF\+\_\+\+MSB}~0x06
+\item 
+\Hypertarget{lora_8h_ae2f8700ed3931e4e487e7918c9827571}\label{lora_8h_ae2f8700ed3931e4e487e7918c9827571} 
+\#define {\bfseries REG\+\_\+\+FRF\+\_\+\+MID}~0x07
+\item 
+\Hypertarget{lora_8h_ad221a315f543118438b59b8ee37f8b09}\label{lora_8h_ad221a315f543118438b59b8ee37f8b09} 
+\#define {\bfseries REG\+\_\+\+FRF\+\_\+\+LSB}~0x08
+\item 
+\Hypertarget{lora_8h_af32e257d44b43bf90a535379a12cab17}\label{lora_8h_af32e257d44b43bf90a535379a12cab17} 
+\#define {\bfseries REG\+\_\+\+PA\+\_\+\+CONFIG}~0x09
+\item 
+\Hypertarget{lora_8h_ab08aa4c56ad75b3e715a1115330109ca}\label{lora_8h_ab08aa4c56ad75b3e715a1115330109ca} 
+\#define {\bfseries REG\+\_\+\+LNA}~0x0c
+\item 
+\Hypertarget{lora_8h_af5e9aa6c1a6e12df72f48a896f6f67b3}\label{lora_8h_af5e9aa6c1a6e12df72f48a896f6f67b3} 
+\#define {\bfseries REG\+\_\+\+FIFO\+\_\+\+ADDR\+\_\+\+PTR}~0x0d
+\item 
+\Hypertarget{lora_8h_a01b72f38b82bc5936f8b264324c507d8}\label{lora_8h_a01b72f38b82bc5936f8b264324c507d8} 
+\#define {\bfseries REG\+\_\+\+FIFO\+\_\+\+TX\+\_\+\+BASE\+\_\+\+ADDR}~0x0e
+\item 
+\Hypertarget{lora_8h_aa267251c81841a1d7b9da58f0d28b89c}\label{lora_8h_aa267251c81841a1d7b9da58f0d28b89c} 
+\#define {\bfseries REG\+\_\+\+FIFO\+\_\+\+RX\+\_\+\+BASE\+\_\+\+ADDR}~0x0f
+\item 
+\Hypertarget{lora_8h_a5e931712eaa4377c0ea89af339147cd4}\label{lora_8h_a5e931712eaa4377c0ea89af339147cd4} 
+\#define {\bfseries REG\+\_\+\+FIFO\+\_\+\+RX\+\_\+\+CURRENT\+\_\+\+ADDR}~0x10
+\item 
+\Hypertarget{lora_8h_a098e2376499ff1140b6cdac8f022295c}\label{lora_8h_a098e2376499ff1140b6cdac8f022295c} 
+\#define {\bfseries REG\+\_\+\+IRQ\+\_\+\+FLAGS}~0x12
+\item 
+\Hypertarget{lora_8h_a45fdf1a8a55bf65cd5fc2af366dbb39a}\label{lora_8h_a45fdf1a8a55bf65cd5fc2af366dbb39a} 
+\#define {\bfseries REG\+\_\+\+RX\+\_\+\+NB\+\_\+\+BYTES}~0x13
+\item 
+\Hypertarget{lora_8h_ac09e4b4587ebc50f818bbeadc961190b}\label{lora_8h_ac09e4b4587ebc50f818bbeadc961190b} 
+\#define {\bfseries REG\+\_\+\+PKT\+\_\+\+SNR\+\_\+\+VALUE}~0x19
+\item 
+\Hypertarget{lora_8h_a4367979bf8684518aaa2919d47f633ce}\label{lora_8h_a4367979bf8684518aaa2919d47f633ce} 
+\#define {\bfseries REG\+\_\+\+PKT\+\_\+\+RSSI\+\_\+\+VALUE}~0x1a
+\item 
+\Hypertarget{lora_8h_a2f60143586b5145f84c53feb719be2e7}\label{lora_8h_a2f60143586b5145f84c53feb719be2e7} 
+\#define {\bfseries REG\+\_\+\+MODEM\+\_\+\+CONFIG\+\_\+1}~0x1d
+\item 
+\Hypertarget{lora_8h_a913cd63eb0883fa14622cd288d16c934}\label{lora_8h_a913cd63eb0883fa14622cd288d16c934} 
+\#define {\bfseries REG\+\_\+\+MODEM\+\_\+\+CONFIG\+\_\+2}~0x1e
+\item 
+\Hypertarget{lora_8h_a4e17da98cb7d494ef66c62c4a19f87c7}\label{lora_8h_a4e17da98cb7d494ef66c62c4a19f87c7} 
+\#define {\bfseries REG\+\_\+\+PREAMBLE\+\_\+\+MSB}~0x20
+\item 
+\Hypertarget{lora_8h_a35da5c14f9b27376e44a29f6f834e403}\label{lora_8h_a35da5c14f9b27376e44a29f6f834e403} 
+\#define {\bfseries REG\+\_\+\+PREAMBLE\+\_\+\+LSB}~0x21
+\item 
+\Hypertarget{lora_8h_a15806b85f58853b0d479576a3e069574}\label{lora_8h_a15806b85f58853b0d479576a3e069574} 
+\#define {\bfseries REG\+\_\+\+PAYLOAD\+\_\+\+LENGTH}~0x22
+\item 
+\Hypertarget{lora_8h_af5ebb1a2fe299154f8bd88eca0c8d497}\label{lora_8h_af5ebb1a2fe299154f8bd88eca0c8d497} 
+\#define {\bfseries REG\+\_\+\+MODEM\+\_\+\+CONFIG\+\_\+3}~0x26
+\item 
+\Hypertarget{lora_8h_a9e8da2c01379eab6f008f92af7841fe7}\label{lora_8h_a9e8da2c01379eab6f008f92af7841fe7} 
+\#define {\bfseries REG\+\_\+\+RSSI\+\_\+\+WIDEBAND}~0x2c
+\item 
+\Hypertarget{lora_8h_ad85116bd2d6ebf421a4296b9e551b663}\label{lora_8h_ad85116bd2d6ebf421a4296b9e551b663} 
+\#define {\bfseries REG\+\_\+\+DETECTION\+\_\+\+OPTIMIZE}~0x31
+\item 
+\Hypertarget{lora_8h_a3c142b7e485eac98190fce78583eccd6}\label{lora_8h_a3c142b7e485eac98190fce78583eccd6} 
+\#define {\bfseries REG\+\_\+\+DETECTION\+\_\+\+THRESHOLD}~0x37
+\item 
+\Hypertarget{lora_8h_ab366a2eab16aac633cfee0085fa97ae5}\label{lora_8h_ab366a2eab16aac633cfee0085fa97ae5} 
+\#define {\bfseries REG\+\_\+\+SYNC\+\_\+\+WORD}~0x39
+\item 
+\Hypertarget{lora_8h_a668618a2983f1d1839eef58e27c9267a}\label{lora_8h_a668618a2983f1d1839eef58e27c9267a} 
+\#define {\bfseries REG\+\_\+\+DIO\+\_\+\+MAPPING\+\_\+1}~0x40
+\item 
+\Hypertarget{lora_8h_aa7075c0ae73420685bb4278ee580f3fa}\label{lora_8h_aa7075c0ae73420685bb4278ee580f3fa} 
+\#define {\bfseries REG\+\_\+\+VERSION}~0x42
+\item 
+\Hypertarget{lora_8h_a3fc02479d24561e80c3c13262de1c114}\label{lora_8h_a3fc02479d24561e80c3c13262de1c114} 
+\#define {\bfseries MODE\+\_\+\+LONG\+\_\+\+RANGE\+\_\+\+MODE}~0x80
+\item 
+\Hypertarget{lora_8h_a2d957317ff490fa73cd4377d5ebf0b0d}\label{lora_8h_a2d957317ff490fa73cd4377d5ebf0b0d} 
+\#define {\bfseries MODE\+\_\+\+SLEEP}~0x00
+\item 
+\Hypertarget{lora_8h_a3569020d5ac8f1fb0e294ae9fda53535}\label{lora_8h_a3569020d5ac8f1fb0e294ae9fda53535} 
+\#define {\bfseries MODE\+\_\+\+STDBY}~0x01
+\item 
+\Hypertarget{lora_8h_a77e098c32c4c29fe83f5c0010c70c146}\label{lora_8h_a77e098c32c4c29fe83f5c0010c70c146} 
+\#define {\bfseries MODE\+\_\+\+TX}~0x03
+\item 
+\Hypertarget{lora_8h_ae279c0f7a0a5c9521a088b2dad0df969}\label{lora_8h_ae279c0f7a0a5c9521a088b2dad0df969} 
+\#define {\bfseries MODE\+\_\+\+RX\+\_\+\+CONTINUOUS}~0x05
+\item 
+\Hypertarget{lora_8h_aeea6ba7699e25f331ed007501a9da392}\label{lora_8h_aeea6ba7699e25f331ed007501a9da392} 
+\#define {\bfseries MODE\+\_\+\+RX\+\_\+\+SINGLE}~0x06
+\item 
+\Hypertarget{lora_8h_a39afdedd4b8d71d6dbe5d497cde2ffd3}\label{lora_8h_a39afdedd4b8d71d6dbe5d497cde2ffd3} 
+\#define {\bfseries PA\+\_\+\+BOOST}~0x80
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{lora_8h_a013dfca54a0aa4bbf5551a2dedbd59c1}\label{lora_8h_a013dfca54a0aa4bbf5551a2dedbd59c1} 
+typedef bool(\texorpdfstring{$\ast$}{*} {\bfseries lora\+\_\+\+SPI\+\_\+transmit}) (uint8\+\_\+t \+\_\+in\mbox{[}2\mbox{]}, uint8\+\_\+t \+\_\+val\mbox{[}2\mbox{]})
+\item 
+\Hypertarget{lora_8h_ad61714042e58a6ae68e525cba9bc7100}\label{lora_8h_ad61714042e58a6ae68e525cba9bc7100} 
+typedef void(\texorpdfstring{$\ast$}{*} {\bfseries lora\+\_\+delay}) (size\+\_\+t \+\_\+ms)
+\item 
+\Hypertarget{lora_8h_ae3364516a93458fc71a9f241ef912a30}\label{lora_8h_ae3364516a93458fc71a9f241ef912a30} 
+typedef bool(\texorpdfstring{$\ast$}{*} {\bfseries lora\+\_\+\+GPIO\+\_\+set\+\_\+level}) (uint8\+\_\+t \+\_\+gpio\+\_\+num, uint32\+\_\+t \+\_\+level)
+\item 
+\Hypertarget{lora_8h_adadeac82169212d787faaa7bccc56cee}\label{lora_8h_adadeac82169212d787faaa7bccc56cee} 
+typedef void(\texorpdfstring{$\ast$}{*} {\bfseries lora\+\_\+log}) (const char \texorpdfstring{$\ast$}{*}info)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}\label{lora_8h_a7f339898dfe337e4fd6ccc16e0151889} 
+enum \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \{ \newline
+{\bfseries LORA\+\_\+\+OK} = 0
+, {\bfseries LORA\+\_\+\+INIT\+\_\+\+ERR}
+, {\bfseries LORA\+\_\+\+WRITE\+\_\+\+ERR}
+, {\bfseries LORA\+\_\+\+TRANSMIT\+\_\+\+ERR}
+, \newline
+{\bfseries LORA\+\_\+\+RECEIVE\+\_\+\+ERR}
+, {\bfseries LORA\+\_\+\+CONFIG\+\_\+\+ERR}
+ \}
+\begin{DoxyCompactList}\small\item\em Lora functions return values enum. \end{DoxyCompactList}\item 
+\Hypertarget{lora_8h_ac1b946644053049c9e9bf981d94f400f}\label{lora_8h_ac1b946644053049c9e9bf981d94f400f} 
+enum {\bfseries lora\+\_\+gpio\+\_\+mode\+\_\+t} \{ {\bfseries LORA\+\_\+\+GPIO\+\_\+\+MODE\+\_\+\+DISABLE} = 0
+, {\bfseries LORA\+\_\+\+GPIO\+\_\+\+MODE\+\_\+\+INPUT}
+, {\bfseries LORA\+\_\+\+GPIO\+\_\+\+MODE\+\_\+\+OUTPUT}
+ \}
+\item 
+\Hypertarget{lora_8h_ac2baec87624eb4d76cbb6eb03e067ca4}\label{lora_8h_ac2baec87624eb4d76cbb6eb03e067ca4} 
+enum \mbox{\hyperlink{lora_8h_ac2baec87624eb4d76cbb6eb03e067ca4}{lora\+\_\+bandwith\+\_\+t}} \{ \newline
+{\bfseries LORA\+\_\+\+BW\+\_\+7\+\_\+8\+\_\+k\+Hz} = 0
+, {\bfseries LORA\+\_\+\+BW\+\_\+10\+\_\+4\+\_\+k\+Hz}
+, {\bfseries LORA\+\_\+\+BW\+\_\+15\+\_\+6\+\_\+k\+Hz}
+, {\bfseries LORA\+\_\+\+BW\+\_\+20\+\_\+8\+\_\+k\+Hz}
+, \newline
+{\bfseries LORA\+\_\+\+BW\+\_\+31\+\_\+25\+\_\+k\+Hz}
+, {\bfseries LORA\+\_\+\+BW\+\_\+41\+\_\+7\+\_\+k\+Hz}
+, {\bfseries LORA\+\_\+\+BW\+\_\+62\+\_\+5\+\_\+k\+Hz}
+, {\bfseries LORA\+\_\+\+BW\+\_\+125\+\_\+k\+Hz}
+, \newline
+{\bfseries LORA\+\_\+\+BW\+\_\+250\+\_\+k\+Hz}
+, {\bfseries LORA\+\_\+\+BW\+\_\+500\+\_\+k\+Hz}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum for Lo\+Ra bandwith in Hz. \end{DoxyCompactList}\item 
+\Hypertarget{lora_8h_aa4ebaeb96309cab2bc39e00ca1a25160}\label{lora_8h_aa4ebaeb96309cab2bc39e00ca1a25160} 
+enum \mbox{\hyperlink{lora_8h_aa4ebaeb96309cab2bc39e00ca1a25160}{lora\+\_\+spreading\+\_\+factor\+\_\+t}} \{ \newline
+{\bfseries LORA\+\_\+\+SF\+\_\+64\+\_\+\+CoS} = 6
+, {\bfseries LORA\+\_\+\+SF\+\_\+128\+\_\+\+CoS}
+, {\bfseries LORA\+\_\+\+SF\+\_\+256\+\_\+\+CoS}
+, {\bfseries LORA\+\_\+\+SF\+\_\+512\+\_\+\+CoS}
+, \newline
+{\bfseries LORA\+\_\+\+SF\+\_\+1024\+\_\+\+CoS}
+, {\bfseries LORA\+\_\+\+SF\+\_\+2048\+\_\+\+CoS}
+, {\bfseries LORA\+\_\+\+SF\+\_\+4096\+\_\+\+CoS}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum for Lo\+Ra spreading factor in chips / symbol Used in the lora\+\_\+set\+\_\+spreading\+\_\+factor method. \end{DoxyCompactList}\item 
+\Hypertarget{lora_8h_af9d7f1431a4ea0c4be3b1e6602c8994c}\label{lora_8h_af9d7f1431a4ea0c4be3b1e6602c8994c} 
+enum \mbox{\hyperlink{lora_8h_af9d7f1431a4ea0c4be3b1e6602c8994c}{lora\+\_\+tx\+\_\+power\+\_\+t}} \{ {\bfseries LORA\+\_\+\+TX\+\_\+\+POWER\+\_\+14\+\_\+d\+Bm} = 2
+, {\bfseries LORA\+\_\+\+TX\+\_\+\+POWER\+\_\+20\+\_\+d\+Bm} = 17
+ \}
+\begin{DoxyCompactList}\small\item\em Enum for Lo\+Ra TX Power. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{lora_8h_a753109849aff0b16dc460924d170865d}\label{lora_8h_a753109849aff0b16dc460924d170865d} 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} {\bfseries lora\+\_\+init} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Perform hardware initialization. \end{DoxyCompactList}\item 
+\Hypertarget{lora_8h_aa68162464c5f77f43a2661093dd5cc7b}\label{lora_8h_aa68162464c5f77f43a2661093dd5cc7b} 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} {\bfseries lora\+\_\+default\+\_\+config} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Create default config and set parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a57e52fd2a2821285ae303b3a4723c8b5}{lora\+\_\+write\+\_\+reg}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, int16\+\_\+t reg, int16\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em Write a value to a register. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{lora_8h_ad0cafed158550592b817d944aee52878}{lora\+\_\+read\+\_\+reg}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, int16\+\_\+t reg)
+\begin{DoxyCompactList}\small\item\em Read the current value of a register. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lora_8h_afe2e3578791827aaa923a9304e0ced0d}{lora\+\_\+reset}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Perform physical reset on the Lora chip. \end{DoxyCompactList}\item 
+\Hypertarget{lora_8h_aa7b65274bfe2899cb57fe86ec4ed979a}\label{lora_8h_aa7b65274bfe2899cb57fe86ec4ed979a} 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} {\bfseries lora\+\_\+explicit\+\_\+header\+\_\+mode} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Configure explicit header mode. Packet size will be included in the frame. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a74ff1657a7f116c89c358a4d0e6a4d33}{lora\+\_\+implicit\+\_\+header\+\_\+mode}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, int16\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Configure implicit header mode. All packets will have a predefined size. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_aec2ce4662de361d539998b9872e0c31a}{lora\+\_\+idle}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Sets the radio transceiver in idle mode. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a657cb2ad5f50f71ad26faaf49b8eb1b4}{lora\+\_\+sleep}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Sets the radio transceiver in sleep mode. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_aa2af3946f7586a2c4204cb07d5b75f7c}{lora\+\_\+set\+\_\+receive\+\_\+mode}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Sets the radio transceiver in receive mode. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a3b8518e01aab7c88597d0c054138c751}{lora\+\_\+set\+\_\+tx\+\_\+power}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, \mbox{\hyperlink{lora_8h_af9d7f1431a4ea0c4be3b1e6602c8994c}{lora\+\_\+tx\+\_\+power\+\_\+t}} level)
+\begin{DoxyCompactList}\small\item\em Configure power level for transmission. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a7ee2817fc64bc580c403c764d7415ec1}{lora\+\_\+set\+\_\+frequency}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, int32\+\_\+t frequency)
+\begin{DoxyCompactList}\small\item\em Set carrier frequency. \end{DoxyCompactList}\item 
+int32\+\_\+t \mbox{\hyperlink{lora_8h_a1e7797fb0580c3684be3d60d7f80c247}{lora\+\_\+get\+\_\+frequency}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Get the frequency set on Lo\+Ra. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_aa57379674bdb88b387332451886ccebb}{lora\+\_\+set\+\_\+spreading\+\_\+factor}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, \mbox{\hyperlink{lora_8h_aa4ebaeb96309cab2bc39e00ca1a25160}{lora\+\_\+spreading\+\_\+factor\+\_\+t}} sf)
+\begin{DoxyCompactList}\small\item\em Set spreading factor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a513ada594427689c16fb18d03af7c631}{lora\+\_\+set\+\_\+bandwidth}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, \mbox{\hyperlink{lora_8h_ac2baec87624eb4d76cbb6eb03e067ca4}{lora\+\_\+bandwith\+\_\+t}} sbw)
+\begin{DoxyCompactList}\small\item\em Set bandwidth (bit rate) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a58aa248b99a0b859de27b39173f28b67}{lora\+\_\+set\+\_\+coding\+\_\+rate}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, int16\+\_\+t denominator)
+\begin{DoxyCompactList}\small\item\em Set coding rate. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a12ad5902bb5499607991c199afc942b7}{lora\+\_\+set\+\_\+preamble\+\_\+length}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, int32\+\_\+t length)
+\begin{DoxyCompactList}\small\item\em Set the size of preamble. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a751cc07309f9f148d6b40d41926f866e}{lora\+\_\+set\+\_\+sync\+\_\+word}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, int16\+\_\+t sw)
+\begin{DoxyCompactList}\small\item\em Change radio sync word. \end{DoxyCompactList}\item 
+\Hypertarget{lora_8h_a0622ea490051cf4ffc9b4bb9a4cc7db4}\label{lora_8h_a0622ea490051cf4ffc9b4bb9a4cc7db4} 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} {\bfseries lora\+\_\+enable\+\_\+crc} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Enable appending/verifying packet CRC. \end{DoxyCompactList}\item 
+\Hypertarget{lora_8h_a687ff5dbb425feecbb05925af0481f55}\label{lora_8h_a687ff5dbb425feecbb05925af0481f55} 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} {\bfseries lora\+\_\+disable\+\_\+crc} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Disable appending/verifying packet CRC. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_abc735e5b8898c3394f9bc22b6e1b5bda}{lora\+\_\+fill\+\_\+fifo\+\_\+buf\+\_\+to\+\_\+send}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, int16\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Fills the REG\+\_\+\+FIFO buffer with desired values, and the REG\+\_\+\+PAYLOAD\+\_\+\+LENGTH with buffer size. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a08e6c5dd5b2456721a1d89e7ceb83344}{lora\+\_\+start\+\_\+transmission}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Writes the REG\+\_\+\+OP\+\_\+\+MODE to mode TX. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{lora_8h_aea6bd878524f616b13c562eee5aaf62e}{lora\+\_\+check\+\_\+tx\+\_\+done}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Checks whether the transmission has finished. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_aaa9e16346621476f07367f7f536641e9}{lora\+\_\+write\+\_\+irq\+\_\+flags}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Writes the REG\+\_\+\+IRQ\+\_\+\+FLAGS buffer with IRQ\+\_\+\+TX\+\_\+\+DONE\+\_\+\+MASK. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a4bccf52de77c1e78ab89bb9d8bdd5776}{lora\+\_\+send\+\_\+packet}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, int16\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Send a packet. DOES NOT go into receive mode automatically afterwards. \end{DoxyCompactList}\item 
+int16\+\_\+t \mbox{\hyperlink{lora_8h_aad262636840172b4a8e01e58cf06cc41}{lora\+\_\+receive\+\_\+packet}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, int16\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Read a received packet. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} \mbox{\hyperlink{lora_8h_a809d896f799469533b72cb01fc71a8ab}{lora\+\_\+received}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\item 
+int16\+\_\+t \mbox{\hyperlink{lora_8h_aa26f2120f096e47beca335fbf010d3fe}{lora\+\_\+packet\+\_\+rssi}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\item 
+float \mbox{\hyperlink{lora_8h_a09cb951e28695a4a4b1e786e13cd57c6}{lora\+\_\+packet\+\_\+snr}} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\item 
+\Hypertarget{lora_8h_aed94ff927c77b7f20323a14fc4705a62}\label{lora_8h_aed94ff927c77b7f20323a14fc4705a62} 
+void {\bfseries lora\+\_\+close} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Shutdown hardware. \end{DoxyCompactList}\item 
+\Hypertarget{lora_8h_afc5206b8a760ef681e18aea786441010}\label{lora_8h_afc5206b8a760ef681e18aea786441010} 
+int16\+\_\+t {\bfseries lora\+\_\+initialized} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Not supported. \end{DoxyCompactList}\item 
+\Hypertarget{lora_8h_aa47808835f4ae254467a8222e0db5d74}\label{lora_8h_aa47808835f4ae254467a8222e0db5d74} 
+void {\bfseries lora\+\_\+dump\+\_\+registers} (\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}lora)
+\begin{DoxyCompactList}\small\item\em Dump registers \+:D. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+RFM95w Lo\+Ra library -\/ multi-\/\+MCU. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{lora_8h_aea6bd878524f616b13c562eee5aaf62e}\label{lora_8h_aea6bd878524f616b13c562eee5aaf62e} 
+\index{lora.h@{lora.h}!lora\_check\_tx\_done@{lora\_check\_tx\_done}}
+\index{lora\_check\_tx\_done@{lora\_check\_tx\_done}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_check\_tx\_done()}{lora\_check\_tx\_done()}}
+{\footnotesize\ttfamily bool lora\+\_\+check\+\_\+tx\+\_\+done (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora }\end{DoxyParamCaption})}
+
+
+
+Checks whether the transmission has finished. 
+
+\begin{DoxyReturn}{Returns}
+True if finished, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{lora_8h_abc735e5b8898c3394f9bc22b6e1b5bda}\label{lora_8h_abc735e5b8898c3394f9bc22b6e1b5bda} 
+\index{lora.h@{lora.h}!lora\_fill\_fifo\_buf\_to\_send@{lora\_fill\_fifo\_buf\_to\_send}}
+\index{lora\_fill\_fifo\_buf\_to\_send@{lora\_fill\_fifo\_buf\_to\_send}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_fill\_fifo\_buf\_to\_send()}{lora\_fill\_fifo\_buf\_to\_send()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+fill\+\_\+fifo\+\_\+buf\+\_\+to\+\_\+send (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{int16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Fills the REG\+\_\+\+FIFO buffer with desired values, and the REG\+\_\+\+PAYLOAD\+\_\+\+LENGTH with buffer size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & -\/ array of 8bit values \\
+\hline
+{\em size} & -\/ sizeof(buf) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+LORA\+\_\+\+OK if writing to buffers is ok, LORA\+\_\+\+WRITE\+\_\+\+ERR otherwise 
+\end{DoxyReturn}
+\Hypertarget{lora_8h_a1e7797fb0580c3684be3d60d7f80c247}\label{lora_8h_a1e7797fb0580c3684be3d60d7f80c247} 
+\index{lora.h@{lora.h}!lora\_get\_frequency@{lora\_get\_frequency}}
+\index{lora\_get\_frequency@{lora\_get\_frequency}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_get\_frequency()}{lora\_get\_frequency()}}
+{\footnotesize\ttfamily int32\+\_\+t lora\+\_\+get\+\_\+frequency (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora }\end{DoxyParamCaption})}
+
+
+
+Get the frequency set on Lo\+Ra. 
+
+\begin{DoxyReturn}{Returns}
+Lo\+Ra frequency in Hz 
+\end{DoxyReturn}
+\Hypertarget{lora_8h_aec2ce4662de361d539998b9872e0c31a}\label{lora_8h_aec2ce4662de361d539998b9872e0c31a} 
+\index{lora.h@{lora.h}!lora\_idle@{lora\_idle}}
+\index{lora\_idle@{lora\_idle}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_idle()}{lora\_idle()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+idle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora }\end{DoxyParamCaption})}
+
+
+
+Sets the radio transceiver in idle mode. 
+
+\begin{DoxyNote}{Note}
+Must be used to change registers and access the FIFO. 
+\end{DoxyNote}
+\Hypertarget{lora_8h_a74ff1657a7f116c89c358a4d0e6a4d33}\label{lora_8h_a74ff1657a7f116c89c358a4d0e6a4d33} 
+\index{lora.h@{lora.h}!lora\_implicit\_header\_mode@{lora\_implicit\_header\_mode}}
+\index{lora\_implicit\_header\_mode@{lora\_implicit\_header\_mode}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_implicit\_header\_mode()}{lora\_implicit\_header\_mode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+implicit\+\_\+header\+\_\+mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{int16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Configure implicit header mode. All packets will have a predefined size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & Size of the packets. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lora_8h_aa26f2120f096e47beca335fbf010d3fe}\label{lora_8h_aa26f2120f096e47beca335fbf010d3fe} 
+\index{lora.h@{lora.h}!lora\_packet\_rssi@{lora\_packet\_rssi}}
+\index{lora\_packet\_rssi@{lora\_packet\_rssi}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_packet\_rssi()}{lora\_packet\_rssi()}}
+{\footnotesize\ttfamily int16\+\_\+t lora\+\_\+packet\+\_\+rssi (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+last packet\textquotesingle{}s RSSI. 
+\end{DoxyReturn}
+\Hypertarget{lora_8h_a09cb951e28695a4a4b1e786e13cd57c6}\label{lora_8h_a09cb951e28695a4a4b1e786e13cd57c6} 
+\index{lora.h@{lora.h}!lora\_packet\_snr@{lora\_packet\_snr}}
+\index{lora\_packet\_snr@{lora\_packet\_snr}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_packet\_snr()}{lora\_packet\_snr()}}
+{\footnotesize\ttfamily float lora\+\_\+packet\+\_\+snr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+last packet\textquotesingle{}s SNR (signal to noise ratio). 
+\end{DoxyReturn}
+\Hypertarget{lora_8h_ad0cafed158550592b817d944aee52878}\label{lora_8h_ad0cafed158550592b817d944aee52878} 
+\index{lora.h@{lora.h}!lora\_read\_reg@{lora\_read\_reg}}
+\index{lora\_read\_reg@{lora\_read\_reg}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_read\_reg()}{lora\_read\_reg()}}
+{\footnotesize\ttfamily uint8\+\_\+t lora\+\_\+read\+\_\+reg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{int16\+\_\+t}]{reg }\end{DoxyParamCaption})}
+
+
+
+Read the current value of a register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Register index. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Value of the register. 
+\end{DoxyReturn}
+\Hypertarget{lora_8h_aad262636840172b4a8e01e58cf06cc41}\label{lora_8h_aad262636840172b4a8e01e58cf06cc41} 
+\index{lora.h@{lora.h}!lora\_receive\_packet@{lora\_receive\_packet}}
+\index{lora\_receive\_packet@{lora\_receive\_packet}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_receive\_packet()}{lora\_receive\_packet()}}
+{\footnotesize\ttfamily int16\+\_\+t lora\+\_\+receive\+\_\+packet (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{int16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Read a received packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & Buffer for the data. \\
+\hline
+{\em size} & Available size in buffer (bytes). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes received (zero if no packet available). 
+\end{DoxyReturn}
+\Hypertarget{lora_8h_a809d896f799469533b72cb01fc71a8ab}\label{lora_8h_a809d896f799469533b72cb01fc71a8ab} 
+\index{lora.h@{lora.h}!lora\_received@{lora\_received}}
+\index{lora\_received@{lora\_received}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_received()}{lora\_received()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+received (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+non-\/zero if there is data to read (packet received). 
+\end{DoxyReturn}
+\Hypertarget{lora_8h_afe2e3578791827aaa923a9304e0ced0d}\label{lora_8h_afe2e3578791827aaa923a9304e0ced0d} 
+\index{lora.h@{lora.h}!lora\_reset@{lora\_reset}}
+\index{lora\_reset@{lora\_reset}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_reset()}{lora\_reset()}}
+{\footnotesize\ttfamily void lora\+\_\+reset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora }\end{DoxyParamCaption})}
+
+
+
+Perform physical reset on the Lora chip. 
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Assert} & if \+\_\+gpio\+\_\+set\+\_\+level fails \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{lora_8h_a4bccf52de77c1e78ab89bb9d8bdd5776}\label{lora_8h_a4bccf52de77c1e78ab89bb9d8bdd5776} 
+\index{lora.h@{lora.h}!lora\_send\_packet@{lora\_send\_packet}}
+\index{lora\_send\_packet@{lora\_send\_packet}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_send\_packet()}{lora\_send\_packet()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+send\+\_\+packet (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{int16\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Send a packet. DOES NOT go into receive mode automatically afterwards. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & Data to be sent \\
+\hline
+{\em size} & Size of data. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lora_8h_a513ada594427689c16fb18d03af7c631}\label{lora_8h_a513ada594427689c16fb18d03af7c631} 
+\index{lora.h@{lora.h}!lora\_set\_bandwidth@{lora\_set\_bandwidth}}
+\index{lora\_set\_bandwidth@{lora\_set\_bandwidth}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_set\_bandwidth()}{lora\_set\_bandwidth()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+set\+\_\+bandwidth (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{\mbox{\hyperlink{lora_8h_ac2baec87624eb4d76cbb6eb03e067ca4}{lora\+\_\+bandwith\+\_\+t}}}]{sbw }\end{DoxyParamCaption})}
+
+
+
+Set bandwidth (bit rate) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sbw} & Bandwidth in Hz (up to 500000) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+When using low frequency (below 169 MHz), only sf up to 125 k\+Hz is supported 
+\end{DoxyNote}
+\Hypertarget{lora_8h_a58aa248b99a0b859de27b39173f28b67}\label{lora_8h_a58aa248b99a0b859de27b39173f28b67} 
+\index{lora.h@{lora.h}!lora\_set\_coding\_rate@{lora\_set\_coding\_rate}}
+\index{lora\_set\_coding\_rate@{lora\_set\_coding\_rate}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_set\_coding\_rate()}{lora\_set\_coding\_rate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+set\+\_\+coding\+\_\+rate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{int16\+\_\+t}]{denominator }\end{DoxyParamCaption})}
+
+
+
+Set coding rate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em denominator} & 5-\/8, Denominator for the coding rate 4/x \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lora_8h_a7ee2817fc64bc580c403c764d7415ec1}\label{lora_8h_a7ee2817fc64bc580c403c764d7415ec1} 
+\index{lora.h@{lora.h}!lora\_set\_frequency@{lora\_set\_frequency}}
+\index{lora\_set\_frequency@{lora\_set\_frequency}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_set\_frequency()}{lora\_set\_frequency()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+set\+\_\+frequency (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{int32\+\_\+t}]{frequency }\end{DoxyParamCaption})}
+
+
+
+Set carrier frequency. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frequency} & Frequency in Hz \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lora_8h_a12ad5902bb5499607991c199afc942b7}\label{lora_8h_a12ad5902bb5499607991c199afc942b7} 
+\index{lora.h@{lora.h}!lora\_set\_preamble\_length@{lora\_set\_preamble\_length}}
+\index{lora\_set\_preamble\_length@{lora\_set\_preamble\_length}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_set\_preamble\_length()}{lora\_set\_preamble\_length()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+set\+\_\+preamble\+\_\+length (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{int32\+\_\+t}]{length }\end{DoxyParamCaption})}
+
+
+
+Set the size of preamble. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em length} & Preamble length in symbols. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lora_8h_aa2af3946f7586a2c4204cb07d5b75f7c}\label{lora_8h_aa2af3946f7586a2c4204cb07d5b75f7c} 
+\index{lora.h@{lora.h}!lora\_set\_receive\_mode@{lora\_set\_receive\_mode}}
+\index{lora\_set\_receive\_mode@{lora\_set\_receive\_mode}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_set\_receive\_mode()}{lora\_set\_receive\_mode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+set\+\_\+receive\+\_\+mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora }\end{DoxyParamCaption})}
+
+
+
+Sets the radio transceiver in receive mode. 
+
+\begin{DoxyNote}{Note}
+Incoming packets will be received. 
+\end{DoxyNote}
+\Hypertarget{lora_8h_aa57379674bdb88b387332451886ccebb}\label{lora_8h_aa57379674bdb88b387332451886ccebb} 
+\index{lora.h@{lora.h}!lora\_set\_spreading\_factor@{lora\_set\_spreading\_factor}}
+\index{lora\_set\_spreading\_factor@{lora\_set\_spreading\_factor}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_set\_spreading\_factor()}{lora\_set\_spreading\_factor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+set\+\_\+spreading\+\_\+factor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{\mbox{\hyperlink{lora_8h_aa4ebaeb96309cab2bc39e00ca1a25160}{lora\+\_\+spreading\+\_\+factor\+\_\+t}}}]{sf }\end{DoxyParamCaption})}
+
+
+
+Set spreading factor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sf} & 6-\/12, Spreading factor to use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+LORA\+\_\+\+OK if operation successful, LORA\+\_\+\+CONFIG\+\_\+\+ERR otherwise 
+\end{DoxyReturn}
+\Hypertarget{lora_8h_a751cc07309f9f148d6b40d41926f866e}\label{lora_8h_a751cc07309f9f148d6b40d41926f866e} 
+\index{lora.h@{lora.h}!lora\_set\_sync\_word@{lora\_set\_sync\_word}}
+\index{lora\_set\_sync\_word@{lora\_set\_sync\_word}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_set\_sync\_word()}{lora\_set\_sync\_word()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+set\+\_\+sync\+\_\+word (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{int16\+\_\+t}]{sw }\end{DoxyParamCaption})}
+
+
+
+Change radio sync word. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sw} & New sync word to use. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lora_8h_a3b8518e01aab7c88597d0c054138c751}\label{lora_8h_a3b8518e01aab7c88597d0c054138c751} 
+\index{lora.h@{lora.h}!lora\_set\_tx\_power@{lora\_set\_tx\_power}}
+\index{lora\_set\_tx\_power@{lora\_set\_tx\_power}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_set\_tx\_power()}{lora\_set\_tx\_power()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+set\+\_\+tx\+\_\+power (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{\mbox{\hyperlink{lora_8h_af9d7f1431a4ea0c4be3b1e6602c8994c}{lora\+\_\+tx\+\_\+power\+\_\+t}}}]{level }\end{DoxyParamCaption})}
+
+
+
+Configure power level for transmission. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & 2 or 17, from least to most power \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lora_8h_a657cb2ad5f50f71ad26faaf49b8eb1b4}\label{lora_8h_a657cb2ad5f50f71ad26faaf49b8eb1b4} 
+\index{lora.h@{lora.h}!lora\_sleep@{lora\_sleep}}
+\index{lora\_sleep@{lora\_sleep}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_sleep()}{lora\_sleep()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+sleep (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora }\end{DoxyParamCaption})}
+
+
+
+Sets the radio transceiver in sleep mode. 
+
+\begin{DoxyNote}{Note}
+Low power consumption and FIFO is lost. 
+\end{DoxyNote}
+\Hypertarget{lora_8h_a08e6c5dd5b2456721a1d89e7ceb83344}\label{lora_8h_a08e6c5dd5b2456721a1d89e7ceb83344} 
+\index{lora.h@{lora.h}!lora\_start\_transmission@{lora\_start\_transmission}}
+\index{lora\_start\_transmission@{lora\_start\_transmission}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_start\_transmission()}{lora\_start\_transmission()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+start\+\_\+transmission (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora }\end{DoxyParamCaption})}
+
+
+
+Writes the REG\+\_\+\+OP\+\_\+\+MODE to mode TX. 
+
+\begin{DoxyReturn}{Returns}
+LORA\+\_\+\+OK if all goes good, LORA\+\_\+\+WRITE\+\_\+\+ERR otherwise 
+\end{DoxyReturn}
+\Hypertarget{lora_8h_aaa9e16346621476f07367f7f536641e9}\label{lora_8h_aaa9e16346621476f07367f7f536641e9} 
+\index{lora.h@{lora.h}!lora\_write\_irq\_flags@{lora\_write\_irq\_flags}}
+\index{lora\_write\_irq\_flags@{lora\_write\_irq\_flags}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_write\_irq\_flags()}{lora\_write\_irq\_flags()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+write\+\_\+irq\+\_\+flags (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora }\end{DoxyParamCaption})}
+
+
+
+Writes the REG\+\_\+\+IRQ\+\_\+\+FLAGS buffer with IRQ\+\_\+\+TX\+\_\+\+DONE\+\_\+\+MASK. 
+
+\begin{DoxyReturn}{Returns}
+LORA\+\_\+\+OK \+:D -\/ LORA\+\_\+\+WRITE\+\_\+\+ERR \+:C 
+\end{DoxyReturn}
+\Hypertarget{lora_8h_a57e52fd2a2821285ae303b3a4723c8b5}\label{lora_8h_a57e52fd2a2821285ae303b3a4723c8b5} 
+\index{lora.h@{lora.h}!lora\_write\_reg@{lora\_write\_reg}}
+\index{lora\_write\_reg@{lora\_write\_reg}!lora.h@{lora.h}}
+\doxysubsubsection{\texorpdfstring{lora\_write\_reg()}{lora\_write\_reg()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lora_8h_a7f339898dfe337e4fd6ccc16e0151889}{lora\+\_\+err\+\_\+t}} lora\+\_\+write\+\_\+reg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlora__struct__t}{lora\+\_\+struct\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lora,  }\item[{int16\+\_\+t}]{reg,  }\item[{int16\+\_\+t}]{val }\end{DoxyParamCaption})}
+
+
+
+Write a value to a register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Register index. \\
+\hline
+{\em val} & Value to write. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+lora\+\_\+err\+\_\+t value 
+\end{DoxyReturn}

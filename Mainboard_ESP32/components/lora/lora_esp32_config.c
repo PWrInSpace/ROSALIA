@@ -4,6 +4,11 @@
 
 static spi_device_handle_t __spi;
 
+/*!
+ * \file lora_esp32_config.c
+ * \brief ESP32 lora configuration
+ */
+
 #define CONFIG_CS_GPIO GPIO_NUM_5
 #define CONFIG_SCK_GPIO GPIO_NUM_18
 #define CONFIG_MOSI_GPIO GPIO_NUM_23

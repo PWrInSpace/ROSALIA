@@ -13,6 +13,17 @@ Developed software:
 - Can transceiver (Planned)
 - BLE with OTA capabilities (Planned)
 
+### Run unit tests
+
+To run unit tests:
+```bash
+cd Mainboard_ESP32/test
+idf.py build
+# if build does not work checkout idf.py menuconfig
+idf.py flash monitor
+# reset the board
+```
+
 ### Hardware mainboard
 
 The mainboard features:
