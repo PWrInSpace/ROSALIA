@@ -10,9 +10,11 @@ Developed software:
 - RFM95w LoRa library
 - SD Card support
 - External and internal flash memories
-- Can transceiver (Planned)
-- BLE with OTA capabilities (Planned)
+- Can transceiver 
+- BLE API
+- USB OTG/USB MSC
 
+<<<<<<< HEAD
 ### Building the project
 
 To build the project, one can use ESP-IDF build natively or build a docker image with the use of provided Dockerfile
@@ -45,6 +47,9 @@ This will create and put you into a virtual environment with idf.py already runn
 More info and how to run it: [esp-idf Docker image, documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/tools/idf-docker-image.html#usage)
 
 ### Run unit tests
+=======
+#### Run unit tests
+>>>>>>> master
 
 To run unit tests:
 ```bash
@@ -55,19 +60,25 @@ idf.py flash monitor
 # reset the board
 ```
 
+<<<<<<< HEAD
 ## Hardware mainboard
+=======
+### Hardware - ROSALIA mainboard rev.2
+>>>>>>> master
 
 The mainboard features:
-- ESP32 microcontroller
-    - RFM95w module for LoRa communication
-    - SD Card and external flash memories
-    - 2 servo controllers with limit switches
-    - BLE support
-- ESP32 Pico Microcontroller
-    - Power sustain and remote turn-off abilities
-    - Buzzer
-    - Can transceiver
+- ESP32S3 microcontroller with BLE support
+- RFM95w module for LoRa communication
+- SD Card and external flash memories
+- 2 servo controllers with limit switches
 
-![Board render](Docs/MiniHamowniav3_render.png)
+#### Development board overview
+
+The development board has been designed in Altium Designer. Documentation with schematics can be found in Docs/PCB_Documentation directory
+
+On the images below the 3D renders of ROSALIA rev.2 board are presented
+
+![Board render front](Docs/PCB_Documentation/ROSALIA_rev2_render_front.png)
+![Board render front](Docs/PCB_Documentation/ROSALIA_rev2_render_back.png)
 
 [Main project soundtrack](https://www.youtube.com/watch?v=jWlaaK7BxeU)
