@@ -14,7 +14,6 @@ Developed software:
 - BLE API
 - USB OTG/USB MSC
 
-<<<<<<< HEAD
 ### Building the project
 
 To build the project, one can use ESP-IDF build natively or build a docker image with the use of provided Dockerfile
@@ -47,9 +46,6 @@ This will create and put you into a virtual environment with idf.py already runn
 More info and how to run it: [esp-idf Docker image, documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/tools/idf-docker-image.html#usage)
 
 ### Run unit tests
-=======
-#### Run unit tests
->>>>>>> master
 
 To run unit tests:
 ```bash
@@ -60,11 +56,7 @@ idf.py flash monitor
 # reset the board
 ```
 
-<<<<<<< HEAD
 ## Hardware mainboard
-=======
-### Hardware - ROSALIA mainboard rev.2
->>>>>>> master
 
 The mainboard features:
 - ESP32S3 microcontroller with BLE support
