@@ -9,7 +9,9 @@
 #include "esp_log.h"
 #include "esp_rom_gpio.h"
 #include "freertos/task.h"
+#include "sdkconfig.h"
 #include "lora.h"
+
 
 /*!
  * \file lora_esp32_config.h

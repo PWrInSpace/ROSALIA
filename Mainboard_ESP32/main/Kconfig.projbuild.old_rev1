@@ -1,0 +1,141 @@
+menu "ROSALIA board Config"
+
+    config D0_LORA
+        int "D0_LORA pin number"
+        default 2
+        help
+            GPIO pin number for D0_LORA.
+
+    config RS_LORA
+        int "RS_LORA pin number"
+        default 4
+        help
+            GPIO pin number for RS_LORA.
+
+    config CS_LORA
+        int "CS_LORA pin number"
+        default 5
+        help
+            GPIO pin number for CS_LORA.
+
+    config TDI
+        int "TDI pin number"
+        default 12
+        help
+            GPIO pin number for TDI.
+
+    config TCK
+        int "TCK pin number"
+        default 13
+        help
+            GPIO pin number for TCK.
+
+    config TMS
+        int "TMS pin number"
+        default 14
+        help
+            GPIO pin number for TMS.
+
+    config TDO
+        int "TDO pin number"
+        default 15
+        help
+            GPIO pin number for TDO.
+
+    config IGN
+        int "IGN pin number"
+        default 16
+        help
+            GPIO pin number for IGN.
+
+    config ARM
+        int "ARM pin number"
+        default 17
+        help
+            GPIO pin number for ARM.
+
+    config SPI_SCK
+        int "SPI_SCK pin number"
+        default 18
+        help
+            GPIO pin number for SPI_SCK.
+
+    config SPI_MISO
+        int "SPI_MISO pin number"
+        default 19
+        help
+            GPIO pin number for SPI_MISO.
+
+    config SPI_MOSI
+        int "SPI_MOSI pin number"
+        default 23
+        help
+            GPIO pin number for SPI_MOSI.
+
+    config I2C_SDA
+        int "I2C_SDA pin number"
+        default 21
+        help
+            GPIO pin number for I2C_SDA.
+
+    config I2C_SCL
+        int "I2C_SCL pin number"
+        default 22
+        help
+            GPIO pin number for I2C_SCL.
+
+    config CS_FLASH
+        int "CS_FLASH pin number"
+        default 26
+        help
+            GPIO pin number for CS_FLASH.
+
+    config CS_SD
+        int "CS_SD pin number"
+        default 26
+        help
+            GPIO pin number for CS_SD.
+
+    config STATUS_LED
+        int "STATUS_LED pin number"
+        default 27
+        help
+            GPIO pin number for STATUS_LED.
+
+    config PWM1
+        int "PWM1 pin number"
+        default 32
+        help
+            GPIO pin number for PWM1.
+
+    config PWM2
+        int "PWM2 pin number"
+        default 33
+        help
+            GPIO pin number for PWM2.
+
+    config LIM2_1
+        int "LIM2_1 pin number"
+        default 34
+        help
+            GPIO pin number for LIM2_1.
+
+    config LIM2_2
+        int "LIM2_2 pin number"
+        default 35
+        help
+            GPIO pin number for LIM2_2.
+
+    config LIM1_1 
+        int "LIM1_1 pin number"
+        default 36
+        help
+            GPIO pin number for LIM1_1.
+
+    config LIM1_2
+        int "LIM1_2 pin number"
+        default 39
+        help
+            GPIO pin number for LLIM1_2.
+
+endmenu

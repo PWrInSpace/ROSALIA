@@ -12,14 +12,15 @@
 #include "sdkconfig.h"
 
 #define TAG "MAIN"
-
+// TODO (Glibus): Change the GPIO nums to another struct, make it able to be
+// pushed to the lora_esp32_config functions
 lora_struct_t lora = {._spi_transmit = _lora_SPI_transmit,
                       ._delay = _lora_delay,
                       ._gpio_set_level = _lora_GPIO_set_level,
                       .log = _lora_log,
-                      .rst_gpio_num = CONFIG_RS_LORA,
-                      .cs_gpio_num = CONFIG_CS_LORA,
-                      .d0_gpio_num = CONFIG_D0_LORA,
+                      .rst_gpio_num = CONFIG_LORA_RS,
+                      .cs_gpio_num = CONFIG_LORA_CS,
+                      .d0_gpio_num = CONFIG_LORA_D0,
                       .implicit_header = 0,
                       .frequency = 0};
 
