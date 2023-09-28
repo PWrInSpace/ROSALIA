@@ -106,7 +106,10 @@ void gap_event_handler(esp_gap_ble_cb_event_t event,
                        esp_ble_gap_cb_param_t* param) {
   switch (event) {
     case ESP_GAP_BLE_ADV_DATA_SET_COMPLETE_EVT:
-      esp_ble_gap_start_advertising(&(ble_gap_conf.adv_params));
+      esp_err_t ret = esp_ble_gap_start_advertising(&(ble_gap_conf.adv_params));
+      if (ret != ESP_OK) {
+        ESP_LOGE(BLE_APP_TAG, "Advertising start failed %s", __func__);
+      }
       break;
     default:
       break;
@@ -120,6 +123,8 @@ void gatt_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if,
       esp_ble_gap_set_device_name(BLE_DEVICE_NAME);
       esp_ble_gap_config_adv_data(&(ble_gap_conf.adv_data));
       esp_ble_gap_config_adv_data(&(ble_gap_conf.scan_rsp_data));
+      esp_ble_gatts_create_service(
+          gatts_if, &rosalia_gatt_profiles[PROFILE_A].service_id, 4);
       break;
     default:
       break;
