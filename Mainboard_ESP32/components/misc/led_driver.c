@@ -2,11 +2,10 @@
 
 #include "led_driver.h"
 
-esp_err_t led_driver_init(led_driver_t *led_drv, uint8_t led_gpio_num,
-                     uint8_t ledc_channel_num, uint8_t ledc_timer_num) {
+esp_err_t led_driver_init(led_driver_t *led_drv) {
   ledc_timer_config_t ledc_timer = {
       .speed_mode = LEDC_MODE,
-      .timer_num = ledc_timer_num,
+      .timer_num = led_drv->ledc_timer_num,
       .duty_resolution = LEDC_DUTY_RES,
       .freq_hz = LEDC_FREQUENCY,  // Set output frequency at 5 kHz
       .clk_cfg = LEDC_AUTO_CLK};
@@ -16,19 +15,17 @@ esp_err_t led_driver_init(led_driver_t *led_drv, uint8_t led_gpio_num,
   }
 
   ledc_channel_config_t ledc_channel = {.speed_mode = LEDC_MODE,
-                                        .channel = ledc_channel_num,
-                                        .timer_sel = ledc_timer_num,
+                                        .channel = led_drv->ledc_channel_num,
+                                        .timer_sel = led_drv->ledc_timer_num,
                                         .intr_type = LEDC_INTR_DISABLE,
-                                        .gpio_num = led_gpio_num,
+                                        .gpio_num = led_drv->led_gpio_num,
                                         .duty = 0,  // Set duty to 0%
                                         .hpoint = 0};
   if (ledc_channel_config(&ledc_channel) != ESP_OK) {
     ESP_LOGE(LED_DRIVER_TAG, "LEDc channel config failed");
     return ESP_FAIL;
   }
-  led_drv->led_gpio_num = led_gpio_num;
-  led_drv->ledc_channel_num = ledc_channel_num;
-  led_drv->ledc_timer_num = ledc_timer_num;
+
   return ESP_OK;
 }
 
@@ -47,6 +44,8 @@ esp_err_t led_driver_update_duty_cycle(led_driver_t *led_drv, uint16_t duty) {
     ESP_LOGE(LED_DRIVER_TAG, "LEDc Update duty failed");
     return ESP_FAIL;
   }
+
+  led_drv->duty = duty;
 
   return ESP_OK;
 }
