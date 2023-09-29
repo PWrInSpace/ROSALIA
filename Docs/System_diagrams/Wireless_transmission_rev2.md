@@ -36,6 +36,98 @@ Parts in __RED__ are hardset and are supposed to filter out junk and wrong comma
 
 #### Command definitions:
 
+TODO add what is the range of proper commands in HEX
+
+Normal mode:
+
 | GS COMMAND | HEX definition | Ascii definition | Optional values |
 | --- | --- | --- | --- |
-| TURN OFF ROSALIA | | |
+| START TEST PROCEDURE | 0x40 | @ | None |
+| TURN OFF ROSALIA | 0x41 | A | None |
+| CHANGE STATE | 0x42 | B | STATE NUMBER (INT) |
+| OPEN VALVE | 0x43 | C | VALVE NUMBER (INT) |
+| CLOSE VALVE | 0x44 | D | VALVE NUMBER (INT) |
+| TIMED OPEN VALVE | 0x45 | E | VALVE NUMBER (INT) TIME in ms (INT) |
+| ENTER SETTINGS MODE | 0x46 | F | None |
+
+Settings mode:
+
+| GS COMMAND | HEX definition | Ascii definition | Optional values |
+| --- | --- | --- | --- |
+| START LOADCELL CALIBRATION | 0x47 | G | LOADCELL NUMBER (INT) |
+| CHANGE LOADCELL CALFACTOR | 0x48 | H | LOADCELL NUMBER (INT) CALFACTOR (INT) |
+| START SENSOR CALIBRATION | 0x47 | G | SENSOR NUMBER (INT) |
+| CHANGE SENSOR CALFACTOR | 0x48 | H | SENSOR NUMBER (INT) CALFACTOR (INT) |
+| CHANGE COUNTDOWN LENGTH | 0x49 | I | COUNTDOWN LENGTH TIME in ms (INT) |
+| CHANGE FREQUENCY OF LORA FRAMES FROM ROSALIA | 0x4A | J | FREQUENCY in ms (INT) |
+| SAVE SETTINGS AND EXIT | 0x4B | K | None |
+| EXIT WITHOUT SAVING | 0x4C | L | None |
+
+Available in all modes:
+| GS COMMAND | HEX definition | Ascii definition | Optional values |
+| --- | --- | --- | --- |
+| SHOW ALL SELECTED SETTINGS | 0x4D | M | None |
+| TOGGLE DATA DUMP THROUGH LORA | 0x4E | N | None |
+
+Some of the commands will need to be confirmed after ROSALIA receives them. 
+
+Confirmation commands:
+| GS COMMAND | HEX definition | Ascii definition | Optional values |
+| --- | --- | --- | --- |
+| CONFIRM | 0x4F | O | None |
+| DENY | 0x50 | P | None |
+
+#### ROSALIA->GS frame definition
+
+The frame will be constructed from structs presented below:
+```C
+typedef struct {
+  struct rosalia_mainboard{
+       uint16_t vbat_adc : 16;
+       bool sd_save : 1;
+       bool flash_save : 1;
+       bool hardware_arm : 1;
+       bool software_arm : 1;
+       uint8_t ble_state : 2;
+       uint32_t t_minus : 32; // test time: until (negative) or after (positive) test start
+       bool test_running : 1; // Is the test ongoing
+       uint8_t rosalia_state : 8;
+  };
+  struct available_slaves {
+      bool loadcell[2] : 2;
+      bool vent : 1;
+      bool main : 1;
+      bool filling_station : 1;
+  };
+  struct vent_data {
+      bool wakenUp : 1;
+      uint8_t valveState : 2;
+      uint32_t pressure;
+      int8_t termistor1;
+      int8_t termistor2;
+      uint32_t batteryVoltage;
+  };
+  struct main_data {
+      bool wakenUp : 1;
+      uint8_t valveState : 2;
+      uint32_t thermocouple1;
+      uint32_t thermocouple2;
+      uint32_t batteryVoltage;
+  };
+  struct loadcell_data[2] {
+      uint16_t thrust : 16;
+      uint16_t pressure : 16;
+  };
+  struct filling_data {
+      uint8_t solenoid_state[3] : 2;
+      uint16_t pressure[2] : 16;
+      uint16_t thermistor[3] : 48;
+      uint16_t thermocouple[3] : 48;
+  };
+}
+lora_data_t;
+```
+
+## BLE data transmission
+
+TBD when BLE API is finished
