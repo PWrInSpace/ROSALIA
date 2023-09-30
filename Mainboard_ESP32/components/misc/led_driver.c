@@ -31,7 +31,7 @@ esp_err_t led_driver_init(led_driver_t *led_drv, ledc_timer_bit_t ledc_duty_res,
     ESP_LOGE(LED_DRIVER_TAG, "LED driver toggle failed");
     return ESP_FAIL;
   }
-  
+
   ESP_LOGI(LED_DRIVER_TAG, "LED driver initialized");
 
   return ESP_OK;

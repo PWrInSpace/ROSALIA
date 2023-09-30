@@ -8,20 +8,6 @@
  * \brief RGB LED driver for ESP32
  */
 
-// /*!
-//  * \brief RGB LED color enum
-//  */
-// typedef enum {
-//   NONE = 0b000,
-//   RED = 0b001,
-//   GREEN = 0b010,
-//   BLUE = 0b100,
-//   YELLOW = RED | GREEN,
-//   CYAN = GREEN | BLUE,
-//   MAGENTA = RED | BLUE,
-//   WHITE = RED | GREEN | BLUE
-// } rgb_led_color_t;
-
 /*!
  * \brief RGB LED driver table index enum
  */

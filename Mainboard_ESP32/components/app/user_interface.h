@@ -8,7 +8,6 @@
  * \brief User interface app header file
  * Contains task for rgb LED, status LED, buzzer and button handling
  */
- 
 
 /*!
  * \brief RGB LED color enum
@@ -23,3 +22,7 @@ typedef enum {
   MAGENTA = RED | BLUE,
   WHITE = RED | GREEN | BLUE
 } rgb_led_color_t;
+
+#define RGB_BLUE_GPIO
+#define RGB_RED_GPIO
+#define RGB_GREEN_GPIO
