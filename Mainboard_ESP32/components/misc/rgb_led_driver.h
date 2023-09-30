@@ -22,6 +22,8 @@ typedef enum {
  * \brief RGB LED driver struct for ESP32
  * \param led_drv LED driver struct
  * \param max_duty Maximum duty cycle: \note forces all colors to have the same
+ * \param inverted Inverted LED logic: for common anode set to true, for common
+ * cathode set to false
  */
 typedef struct {
   led_driver_t led_drv[MAX_COLOR_INDEX];
@@ -47,3 +49,11 @@ esp_err_t rgb_led_driver_init(rgb_led_driver_t *rgb_led_drv,
  */
 esp_err_t rgb_led_update_duty_cycle(rgb_led_driver_t *rgb_led_drv,
                                     uint16_t duty[MAX_COLOR_INDEX]);
+
+/*!
+ * \brief Toggle RGB LED
+ * \param rgb_led_drv Pointer to rgb_led_driver_t struct
+ * \param toggle LED_ON or LED_OFF
+ * \return ESP_OK on success, ESP_FAIL otherwise
+ */
+esp_err_t rgb_led_toggle(rgb_led_driver_t *rgb_led_drv, led_state_t toggle);

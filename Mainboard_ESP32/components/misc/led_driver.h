@@ -13,7 +13,14 @@
  * \brief LED driver for ESP32
  */
 
-#define LED_DRIVER_TAG "LED_Driver"
+/// \brief Flag for calculating duty cycle if LED is common anode
+#define INVERTED_LED_LOGIC 1
+
+#ifdef INVERTED_LED_LOGIC
+#define CALCULATE_DUTY_CYCLE(duty, max_duty) (max_duty - duty)
+#else
+#define CALCULATE_DUTY_CYCLE(duty, max_duty) (duty)
+#endif
 
 /*!
  * \brief LED state enum

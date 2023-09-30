@@ -1,4 +1,4 @@
-idf_component_register(SRCS "ble.c"
+idf_component_register(SRCS "ble.c" "user_interface.c"
                     INCLUDE_DIRS "."
                     REQUIRES cmock driver app_test_mode lora console fatfs app ble misc)
 

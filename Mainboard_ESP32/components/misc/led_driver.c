@@ -2,13 +2,15 @@
 
 #include "led_driver.h"
 
+#define LED_DRIVER_TAG "LED_Driver"
+
 esp_err_t led_driver_init(led_driver_t *led_drv, ledc_timer_bit_t ledc_duty_res,
                           uint32_t ledc_freq) {
   ledc_timer_config_t ledc_timer = {
       .speed_mode = led_drv->ledc_mode,
       .timer_num = led_drv->ledc_timer_num,
       .duty_resolution = ledc_duty_res,
-      .freq_hz = ledc_freq,  // Set output frequency at 5 kHz
+      .freq_hz = ledc_freq,
       .clk_cfg = LEDC_AUTO_CLK};
   if (ledc_timer_config(&ledc_timer) != ESP_OK) {
     ESP_LOGE(LED_DRIVER_TAG, "Ledc timer config failed!");
@@ -38,6 +40,7 @@ esp_err_t led_driver_init(led_driver_t *led_drv, ledc_timer_bit_t ledc_duty_res,
 }
 
 esp_err_t led_driver_update_duty_cycle(led_driver_t *led_drv, uint16_t duty) {
+  duty = CALCULATE_DUTY_CYCLE(duty, led_drv->max_duty);
   if (duty > led_drv->max_duty) {
     ESP_LOGE(LED_DRIVER_TAG, "Duty too large, expected max. %d, actual: %d",
              led_drv->max_duty, duty);
