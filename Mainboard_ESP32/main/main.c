@@ -20,7 +20,6 @@ void app_main(void) {
   ble_init_task(NULL);
   ESP_LOGI(TAG, "Starting user interface");
   init_user_interface_task(NULL);
-  
   while (1) {
     ESP_LOGI(TAG, "Main loop");
     vTaskDelay(pdMS_TO_TICKS(1000));

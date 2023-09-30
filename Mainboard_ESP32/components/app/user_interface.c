@@ -17,29 +17,22 @@ static rgb_led_driver_t rgb_led_driver = {
                     .max_duty = MAX_DUTY,
                     .toggle = LED_OFF,
                 },
-            [GREEN_INDEX] =
-                {
-                    .ledc_mode = LEDC_HS_MODE,
-                    .led_gpio_num = CONFIG_LED_K_G,
-                    .ledc_channel_num = LEDC_CHANNEL_1,
-                    .ledc_timer_num = LEDC_HS_TIMER,
-                    .duty = 0,
-                    .max_duty = MAX_DUTY,
-                    .toggle = LED_OFF,
-                },
-            [BLUE_INDEX] =
-                {
-                    .ledc_mode = LEDC_HS_MODE,
-                    .led_gpio_num = CONFIG_LED_K_B,
-                    .ledc_channel_num = LEDC_CHANNEL_2,
-                    .ledc_timer_num = LEDC_HS_TIMER,
-                    .duty = 0,
-                    .max_duty = MAX_DUTY,
-                    .toggle = LED_OFF,
-                },
+            [GREEN_INDEX] = {.ledc_mode = LEDC_HS_MODE,
+                             .led_gpio_num = CONFIG_LED_K_G,
+                             .ledc_channel_num = LEDC_CHANNEL_1,
+                             .ledc_timer_num = LEDC_HS_TIMER,
+                             .duty = 0,
+                             .max_duty = MAX_DUTY,
+                             .toggle = LED_OFF},
+            [BLUE_INDEX] = {.ledc_mode = LEDC_HS_MODE,
+                            .led_gpio_num = CONFIG_LED_K_B,
+                            .ledc_channel_num = LEDC_CHANNEL_2,
+                            .ledc_timer_num = LEDC_HS_TIMER,
+                            .duty = 0,
+                            .max_duty = MAX_DUTY,
+                            .toggle = LED_OFF},
         },
-    .max_duty = MAX_DUTY
-};
+    .max_duty = MAX_DUTY};
 void user_interface_task(void* arg) {
   rgb_led_driver_init(&rgb_led_driver, LEDC_DUTY_RES, LEDC_FREQ_HZ);
   ESP_LOGI(USER_INTERFACE_TAG, "RGB LED driver initialized");

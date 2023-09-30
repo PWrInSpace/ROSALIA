@@ -27,8 +27,8 @@ esp_err_t rgb_led_update_duty_cycle(rgb_led_driver_t *rgb_led_drv,
       return ESP_FAIL;
     }
   }
-  ESP_LOGI(RGB_LED_DRIVER_TAG, "Updated duty cycle to %d %d %d", duty[0], duty[1],
-           duty[2]);
+  ESP_LOGI(RGB_LED_DRIVER_TAG, "Updated duty cycle to %d %d %d", duty[0],
+           duty[1], duty[2]);
   return ESP_OK;
 }
 
