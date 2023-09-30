@@ -63,7 +63,7 @@ esp_err_t led_driver_init(led_driver_t *led_drv, ledc_timer_bit_t ledc_duty_res,
  * \param duty Duty cycle in range 0-max_duty
  * \return ESP_OK on success, ESP_FAIL otherwise
  */
-esp_err_t led_driver_update_duty_cycle(led_driver_t *led_drv, uint16_t duty);
+esp_err_t led_update_duty_cycle(led_driver_t *led_drv, uint16_t duty);
 
 /*!
  * \brief Toggle LED on/off, and save toggle state to led_drv struct
@@ -72,4 +72,4 @@ esp_err_t led_driver_update_duty_cycle(led_driver_t *led_drv, uint16_t duty);
  * \return ESP_OK on success, ESP_FAIL otherwise
  */
 
-esp_err_t led_driver_toggle(led_driver_t *led_drv, led_state_t toggle);
+esp_err_t led_toggle(led_driver_t *led_drv, led_state_t toggle);

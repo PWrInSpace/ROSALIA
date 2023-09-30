@@ -33,6 +33,7 @@ static rgb_led_driver_t rgb_led_driver = {
                             .toggle = LED_OFF},
         },
     .max_duty = MAX_DUTY};
+
 void user_interface_task(void* arg) {
   rgb_led_driver_init(&rgb_led_driver, LEDC_DUTY_RES, LEDC_FREQ_HZ);
   ESP_LOGI(USER_INTERFACE_TAG, "RGB LED driver initialized");

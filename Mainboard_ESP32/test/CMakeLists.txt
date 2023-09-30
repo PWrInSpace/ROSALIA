@@ -13,6 +13,7 @@ set(EXTRA_COMPONENT_DIRS "../components")
 set(TEST_FILES_DIRS
     "lora"
     "ble"
+    "misc"
 )
 
 set(TEST_COMPONENTS ${TEST_FILES_DIRS} CACHE STRING "List of components to test")
@@ -20,4 +21,4 @@ set(TEST_COMPONENTS ${TEST_FILES_DIRS} CACHE STRING "List of components to test"
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(ROSALIA_MainBoard)
 
-spiffs_create_partition_image(storage test_spiffs_data FLASH_IN_PROJECT)
+# spiffs_create_partition_image(storage test_spiffs_data FLASH_IN_PROJECT)

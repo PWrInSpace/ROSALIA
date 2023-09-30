@@ -29,7 +29,7 @@ esp_err_t led_driver_init(led_driver_t *led_drv, ledc_timer_bit_t ledc_duty_res,
     return ESP_FAIL;
   }
 
-  if (led_driver_toggle(led_drv, LED_ON) != ESP_OK) {
+  if (led_toggle(led_drv, LED_ON) != ESP_OK) {
     ESP_LOGE(LED_DRIVER_TAG, "LED driver toggle failed");
     return ESP_FAIL;
   }
@@ -39,7 +39,7 @@ esp_err_t led_driver_init(led_driver_t *led_drv, ledc_timer_bit_t ledc_duty_res,
   return ESP_OK;
 }
 
-esp_err_t led_driver_update_duty_cycle(led_driver_t *led_drv, uint16_t duty) {
+esp_err_t led_update_duty_cycle(led_driver_t *led_drv, uint16_t duty) {
   duty = CALCULATE_DUTY_CYCLE(duty, led_drv->max_duty);
   if (duty > led_drv->max_duty) {
     ESP_LOGE(LED_DRIVER_TAG, "Duty too large, expected max. %d, actual: %d",
@@ -63,20 +63,20 @@ esp_err_t led_driver_update_duty_cycle(led_driver_t *led_drv, uint16_t duty) {
   return ESP_OK;
 }
 
-esp_err_t led_driver_toggle(led_driver_t *led_drv, led_state_t toggle) {
+esp_err_t led_toggle(led_driver_t *led_drv, led_state_t toggle) {
   if (toggle == led_drv->toggle) {
     ESP_LOGI(LED_DRIVER_TAG, "LED already in state %d", toggle);
     return ESP_OK;
   }
   switch (toggle) {
     case LED_OFF:
-      if (led_driver_update_duty_cycle(led_drv, 0) != ESP_OK) {
+      if (led_update_duty_cycle(led_drv, 0) != ESP_OK) {
         ESP_LOGE(LED_DRIVER_TAG, "LED driver update duty cycle failed");
         return ESP_FAIL;
       }
       break;
     case LED_ON:
-      if (led_driver_update_duty_cycle(led_drv, led_drv->max_duty) != ESP_OK) {
+      if (led_update_duty_cycle(led_drv, led_drv->duty) != ESP_OK) {
         ESP_LOGE(LED_DRIVER_TAG, "LED driver update duty cycle failed");
         return ESP_FAIL;
       }
