@@ -17,7 +17,12 @@ esp_err_t ble_gatt_init(ble_gatts_t *gatts_conf) {
     return ESP_ERR_INVALID_ARG;
   }
 
-  esp_ble_gatts_register_callback(gatts_conf->event_handler_cb);
+  ret = esp_ble_gatts_register_callback(gatts_conf->event_handler_cb);
+  if (ret != ESP_OK) {
+    ESP_LOGE(BLE_GATT_TAG, "Failed to register GATT callback: %s",
+             esp_err_to_name(ret));
+    return ret;
+  }
 
   for (uint16_t i = 0; i < gatts_conf->profiles_num; ++i) {
     ESP_LOGI(BLE_GATT_TAG, "Registering app: %d", i);
