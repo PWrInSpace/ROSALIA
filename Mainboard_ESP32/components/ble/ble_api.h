@@ -29,7 +29,7 @@ typedef enum { BLE_OK = 0, BLE_HARDWARE_INIT_ERR, BLE_ERR } ble_err_t;
 typedef struct {
   ble_gatts_t *gatt_config;
   ble_gap_t *gap_config;
-  esp_bt_controller_config_t bt_controller_config;
+  esp_bt_controller_config_t bt_cfg;
 } ble_config_t;
 
 /*!
