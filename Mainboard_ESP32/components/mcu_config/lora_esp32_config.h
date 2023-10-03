@@ -1,4 +1,4 @@
-// Copyright 2023 PWr in Space, Gliwuś
+// Copyright 2023 PWr in Space, Krzysztof Gliwiński
 #pragma once
 
 #include <stdbool.h>

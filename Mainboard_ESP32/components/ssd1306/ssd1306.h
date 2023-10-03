@@ -128,7 +128,7 @@ typedef struct {
 //   int scroll_direction;
 //   PAGE_t screen_pages[8];
 //   bool flip;
-// } SSD1306_t;
+// } ssd1306_t;
 
 typedef struct {
   uint8_t width;
@@ -142,42 +142,42 @@ typedef struct {
   PAGE_t screen_pages[8];
   bool flip;
   uint8_t i2c_address;
-} SSD1306_t;
+} ssd1306_t;
 
-void ssd1306_init(SSD1306_t* ssd, uint8_t width, uint8_t height);
+void ssd1306_init(ssd1306_t* ssd, uint8_t width, uint8_t height);
 
-void ssd1306_show_buffer(SSD1306_t* ssd);
-void ssd1306_set_buffer(SSD1306_t* ssd, uint8_t* buffer);
-void ssd1306_get_buffer(SSD1306_t* ssd, uint8_t* buffer);
-void ssd1306_display_image(SSD1306_t* ssd, int page, int seg, uint8_t* images,
+void ssd1306_show_buffer(ssd1306_t* ssd);
+void ssd1306_set_buffer(ssd1306_t* ssd, uint8_t* buffer);
+void ssd1306_get_buffer(ssd1306_t* ssd, uint8_t* buffer);
+void ssd1306_display_image(ssd1306_t* ssd, int page, int seg, uint8_t* images,
                            uint8_t width);
-void ssd1306_display_text(SSD1306_t* ssd, int page, char* text, int text_len,
+void ssd1306_display_text(ssd1306_t* ssd, int page, char* text, int text_len,
                           bool invert);
-void ssd1306_display_text_x3(SSD1306_t* ssd, int page, char* text, int text_len,
+void ssd1306_display_text_x3(ssd1306_t* ssd, int page, char* text, int text_len,
                              bool invert);
-void ssd1306_clear_screen(SSD1306_t* ssd, bool invert);
-void ssd1306_clear_line(SSD1306_t* ssd, int page, bool invert);
-void ssd1306_contrast(SSD1306_t* ssd, int contrast);
-void ssd1306_software_scroll(SSD1306_t* ssd, int start, int end);
-void ssd1306_scroll_text(SSD1306_t* ssd, char* text, int text_len, bool invert);
-void ssd1306_scroll_clear(SSD1306_t* ssd);
-void ssd1306_hardware_scroll(SSD1306_t* ssd, ssd1306_scroll_type_t scroll);
-void ssd1306_wrap_arround(SSD1306_t* ssd, ssd1306_scroll_type_t scroll,
+void ssd1306_clear_screen(ssd1306_t* ssd, bool invert);
+void ssd1306_clear_line(ssd1306_t* ssd, int page, bool invert);
+void ssd1306_contrast(ssd1306_t* ssd, int contrast);
+void ssd1306_software_scroll(ssd1306_t* ssd, int start, int end);
+void ssd1306_scroll_text(ssd1306_t* ssd, char* text, int text_len, bool invert);
+void ssd1306_scroll_clear(ssd1306_t* ssd);
+void ssd1306_hardware_scroll(ssd1306_t* ssd, ssd1306_scroll_type_t scroll);
+void ssd1306_wrap_arround(ssd1306_t* ssd, ssd1306_scroll_type_t scroll,
                           int start, int end, int8_t delay);
-void ssd1306_bitmaps(SSD1306_t* ssd, int xpos, int ypos, uint8_t* bitmap,
+void ssd1306_bitmaps(ssd1306_t* ssd, int xpos, int ypos, uint8_t* bitmap,
                      uint8_t width, uint8_t height, bool invert);
-void _ssd1306_pixel(SSD1306_t* ssd, int xpos, int ypos, bool invert);
-void _ssd1306_line(SSD1306_t* ssd, int x1, int y1, int x2, int y2, bool invert);
+void _ssd1306_pixel(ssd1306_t* ssd, int xpos, int ypos, bool invert);
+void _ssd1306_line(ssd1306_t* ssd, int x1, int y1, int x2, int y2, bool invert);
 void ssd1306_invert(uint8_t* buf, size_t blen);
 void ssd1306_flip(uint8_t* buf, size_t blen);
 uint8_t ssd1306_copy_bit(uint8_t src, int srcBits, uint8_t dst, int dstBits);
 uint8_t ssd1306_rotate_byte(uint8_t ch1);
-void ssd1306_fadeout(SSD1306_t* ssd);
-void ssd1306_dump_page(SSD1306_t* ssd, int page, int seg);
+void ssd1306_fadeout(ssd1306_t* ssd);
+void ssd1306_dump_page(ssd1306_t* ssd, int page, int seg);
 
-void i2c_master_init(SSD1306_t* ssd, int16_t sda, int16_t scl, int16_t reset);
-void i2c_init(SSD1306_t* ssd, uint8_t width, uint8_t height);
-void i2c_display_image(SSD1306_t* ssd, int page, int seg, uint8_t* images,
+void i2c_master_init(ssd1306_t* ssd, int16_t sda, int16_t scl, int16_t reset);
+void i2c_init(ssd1306_t* ssd, uint8_t width, uint8_t height);
+void i2c_display_image(ssd1306_t* ssd, int page, int seg, uint8_t* images,
                        uint8_t width);
-void i2c_contrast(SSD1306_t* ssd, int contrast);
-void i2c_hardware_scroll(SSD1306_t* ssd, ssd1306_scroll_type_t scroll);
+void i2c_contrast(ssd1306_t* ssd, int contrast);
+void i2c_hardware_scroll(ssd1306_t* ssd, ssd1306_scroll_type_t scroll);

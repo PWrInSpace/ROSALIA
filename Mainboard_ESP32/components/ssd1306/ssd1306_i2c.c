@@ -25,7 +25,7 @@
 #define CONFIG_OFFSETX 0
 
 //TODO(Glibus): i2c init moved to another lib
-void i2c_master_init(SSD1306_t* ssd, int16_t sda, int16_t scl, int16_t reset) {
+void i2c_master_init(ssd1306_t* ssd, int16_t sda, int16_t scl, int16_t reset) {
   i2c_config_t i2c_config = {.mode = I2C_MODE_MASTER,
                              .sda_io_num = sda,
                              .scl_io_num = scl,
@@ -47,7 +47,7 @@ void i2c_master_init(SSD1306_t* ssd, int16_t sda, int16_t scl, int16_t reset) {
   ssd->flip = false;
 }
 
-void i2c_init(SSD1306_t* ssd, uint8_t width, uint8_t height) {
+void i2c_init(ssd1306_t* ssd, uint8_t width, uint8_t height) {
   ssd->width = width;
   ssd->height = height;
   ssd->pages = 8;
@@ -118,7 +118,7 @@ void i2c_init(SSD1306_t* ssd, uint8_t width, uint8_t height) {
   i2c_cmd_link_delete(cmd);
 }
 
-void i2c_display_image(SSD1306_t* ssd, int page, int seg, uint8_t* images,
+void i2c_display_image(ssd1306_t* ssd, int page, int seg, uint8_t* images,
                        uint8_t width) {
   i2c_cmd_handle_t cmd;
 
@@ -166,7 +166,7 @@ void i2c_display_image(SSD1306_t* ssd, int page, int seg, uint8_t* images,
   i2c_cmd_link_delete(cmd);
 }
 
-void i2c_contrast(SSD1306_t* ssd, int contrast) {
+void i2c_contrast(ssd1306_t* ssd, int contrast) {
   i2c_cmd_handle_t cmd;
   int _contrast = contrast;
   if (contrast < 0x0) {
@@ -187,7 +187,7 @@ void i2c_contrast(SSD1306_t* ssd, int contrast) {
   i2c_cmd_link_delete(cmd);
 }
 
-void i2c_hardware_scroll(SSD1306_t* ssd, ssd1306_scroll_type_t scroll) {
+void i2c_hardware_scroll(ssd1306_t* ssd, ssd1306_scroll_type_t scroll) {
   esp_err_t espRc;
 
   i2c_cmd_handle_t cmd = i2c_cmd_link_create();
