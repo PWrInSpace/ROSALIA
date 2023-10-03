@@ -10,13 +10,15 @@ void ssd1306_esp32_config_mount_i2c_config(mcu_i2c_config_t* _i2c_config) {
   i2c_config = _i2c_config;
 }
 
-bool _ssd1306_i2c_master_write_byte(ssd1306_i2c_cmd_handle_t cmd, uint8_t _data, bool _ack_en) {
+bool _ssd1306_i2c_master_write_byte(ssd1306_i2c_cmd_handle_t cmd, uint8_t _data,
+                                    bool _ack_en) {
   return i2c_master_write_byte((i2c_cmd_handle_t)cmd, _data, _ack_en) == ESP_OK
              ? true
              : false;
 }
 
-bool _ssd1306_i2c_master_write(ssd1306_i2c_cmd_handle_t cmd, const uint8_t* _data, size_t _data_len,
+bool _ssd1306_i2c_master_write(ssd1306_i2c_cmd_handle_t cmd,
+                               const uint8_t* _data, size_t _data_len,
                                bool _ack_en) {
   return i2c_master_write((i2c_cmd_handle_t)cmd, _data, _data_len, _ack_en) ==
                  ESP_OK
@@ -34,7 +36,8 @@ bool _ssd1306_i2c_master_stop(ssd1306_i2c_cmd_handle_t cmd) {
 
 bool _ssd1306_i2c_master_cmd_begin(ssd1306_i2c_cmd_handle_t cmd,
                                    uint16_t ticks_to_wait) {
-  return i2c_master_cmd_begin((*i2c_config).port, (i2c_cmd_handle_t)cmd, ticks_to_wait) == ESP_OK
+  return i2c_master_cmd_begin((*i2c_config).port, (i2c_cmd_handle_t)cmd,
+                              ticks_to_wait) == ESP_OK
              ? true
              : false;
 }

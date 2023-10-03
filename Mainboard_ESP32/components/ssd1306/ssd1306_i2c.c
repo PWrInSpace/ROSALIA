@@ -148,7 +148,7 @@ void ssd1306_i2c_display_image(ssd1306_t* ssd, int page, int seg,
       cmd, (ssd->i2c_address << 1) | ssd->i2c_master_write_flag, true);
 
   ssd->_i2c_master_write_byte(cmd, OLED_CONTROL_BYTE_DATA_STREAM, true);
-  ssd->_i2c_master_write(cmd,images, width, true);
+  ssd->_i2c_master_write(cmd, images, width, true);
 
   ssd->_i2c_master_stop(cmd);
   ssd->_i2c_master_cmd_begin(cmd, 10);

@@ -6,6 +6,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
+
 #include "font8x8_basic.h"
 /*!
  * \file ssd1306.h
@@ -110,8 +111,10 @@ typedef enum {
 
 typedef void* ssd1306_i2c_cmd_handle_t;
 
-typedef bool (*ssd1306_i2c_master_write_byte)(ssd1306_i2c_cmd_handle_t cmd, uint8_t _data, bool _ack_en);
-typedef bool (*ssd1306_i2c_master_write)(ssd1306_i2c_cmd_handle_t cmd, const uint8_t* _data, size_t _data_len,
+typedef bool (*ssd1306_i2c_master_write_byte)(ssd1306_i2c_cmd_handle_t cmd,
+                                              uint8_t _data, bool _ack_en);
+typedef bool (*ssd1306_i2c_master_write)(ssd1306_i2c_cmd_handle_t cmd,
+                                         const uint8_t* _data, size_t _data_len,
                                          bool _ack_en);
 typedef bool (*ssd1306_i2c_master_start)(ssd1306_i2c_cmd_handle_t cmd);
 typedef bool (*ssd1306_i2c_master_stop)();
