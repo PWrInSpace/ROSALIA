@@ -1,6 +1,6 @@
 // Copyright 2023 PWr in Space, Krzysztof Gliwiński
 
-#include "mcu_i2c_config.h
+#include "mcu_i2c_config.h"
 
 esp_err_t i2c_init(mcu_i2c_config_t *i2c) {
   if (i2c->i2c_init_flag == false) {

@@ -27,7 +27,8 @@ void ssd1306_init(ssd1306_t *ssd, uint8_t width, uint8_t height) {
 
 void ssd1306_show_buffer(ssd1306_t *ssd) {
   for (int page = 0; page < ssd->pages; page++) {
-    ssd1306_i2c_display_image(ssd, page, 0, ssd->screen_pages[page]._segs, ssd->width);
+    ssd1306_i2c_display_image(ssd, page, 0, ssd->screen_pages[page]._segs,
+                              ssd->width);
   }
 }
 
@@ -403,7 +404,8 @@ void ssd1306_wrap_arround(ssd1306_t *ssd, ssd1306_scroll_type_t scroll,
 
   if (delay >= 0) {
     for (int page = 0; page < ssd->pages; page++) {
-      ssd1306_i2c_display_image(ssd, page, 0, ssd->screen_pages[page]._segs, 128);
+      ssd1306_i2c_display_image(ssd, page, 0, ssd->screen_pages[page]._segs,
+                                128);
 
       if (delay) {
         vTaskDelay(delay);

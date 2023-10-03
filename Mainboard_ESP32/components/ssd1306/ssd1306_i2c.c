@@ -113,8 +113,8 @@ void ssd1306_i2c_init(ssd1306_t* ssd, uint8_t width, uint8_t height) {
   ssd->_i2c_cmd_link_delete();
 }
 
-void ssd1306_ssd1306_i2c_display_image(ssd1306_t* ssd, int page, int seg, uint8_t* images,
-                       uint8_t width) {
+void ssd1306_ssd1306_i2c_display_image(ssd1306_t* ssd, int page, int seg,
+                                       uint8_t* images, uint8_t width) {
   ssd1306_i2c_cmd_handle_t cmd = cmd;
 
   if (page >= ssd->pages) {

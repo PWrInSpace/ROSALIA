@@ -2,10 +2,10 @@
 
 #pragma once
 
-#include "mcu_i2c_config.h
+#include "mcu_i2c_config.h"
 #include "lora.h "
 #include "lora_esp32_config.h"
-#include "mcu_spi_config.h
+#include "mcu_spi_config.h"
 #include "ssd1306_esp32_config.h"
 #include "uart_config.h"
 
