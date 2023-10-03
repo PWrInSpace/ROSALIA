@@ -1,10 +1,10 @@
 // Copyright 2023 PWr in Space, Krzysztof Gliwiński
 
-#include "i2c_config.h"
+#include "mcu_i2c_config.h
 
-esp_err_t i2c_init(i2c_config_t *i2c) {
+esp_err_t i2c_init(mcu_i2c_config_t *i2c) {
   if (i2c->i2c_init_flag == false) {
-    i2c_config_t conf = {
+    mcu_i2c_config_t conf = {
         .mode = I2C_MODE_MASTER,
         .sda_io_num = i2c->sda,
         .scl_io_num = i2c->scl,

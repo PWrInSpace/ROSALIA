@@ -34,6 +34,22 @@ static rgb_led_driver_t rgb_led_driver = {
         },
     .max_duty = MAX_DUTY};
 
+static ssd1306_t oled_display = {
+    ._i2c_master_write_byte = _ssd1306_i2c_master_write_byte,
+    ._i2c_master_write = _ssd1306_i2c_master_write,
+    ._i2c_master_start = _ssd1306_i2c_master_start,
+    ._i2c_master_stop = _ssd1306_i2c_master_stop,
+    ._i2c_master_cmd_begin = _ssd1306_i2c_master_cmd_begin,
+    ._i2c_cmd_link_create = _ssd1306_i2c_cmd_link_create,
+    ._i2c_cmd_link_delete = _ssd1306_i2c_cmd_link_delete,
+    ._delay = _ssd1306_delay,
+    ._log = _ssd1306_log,
+    .width = 128,
+    .height = 64,
+    .pages = 1,
+    .i2c_address = 0x3c,
+};
+
 void user_interface_task(void* arg) {
   rgb_led_driver_init(&rgb_led_driver, LEDC_DUTY_RES, LEDC_FREQ_HZ);
   ESP_LOGI(USER_INTERFACE_TAG, "RGB LED driver initialized");

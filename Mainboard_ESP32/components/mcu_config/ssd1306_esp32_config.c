@@ -4,9 +4,9 @@
 
 #define SSD1306_TAG "SSD1306_ESP32"
 
-static i2c_config_t* i2c_config;
+static mcu_i2c_config_t* i2c_config;
 
-void ssd1306_esp32_config_mount_i2c_config(i2c_config_t* _i2c_config) {
+void ssd1306_esp32_config_mount_i2c_config(mcu_i2c_config_t* _i2c_config) {
   i2c_config = _i2c_config;
 }
 

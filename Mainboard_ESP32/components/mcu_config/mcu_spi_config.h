@@ -16,7 +16,7 @@ typedef struct {
     spi_device_handle_t spi;
     spi_bus_config_t bus_config;
     spi_device_interface_config_t dev_config;
-} spi_config_t;
+} mcu_spi_config_t;
 
 /*!
  * \brief Initiates the SPI bus
@@ -25,4 +25,4 @@ typedef struct {
     * \note This function will only initiate SPI peripheral,
     *      it will not configure the GPIO for CS pins.
 */
-esp_err_t spi_init(spi_config_t *spi);
+esp_err_t spi_init(mcu_spi_config_t *spi);

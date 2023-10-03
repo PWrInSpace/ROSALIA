@@ -19,7 +19,7 @@ typedef union out_column_t {
 } PACK8 out_column_t;
 
 void ssd1306_init(ssd1306_t *ssd, uint8_t width, uint8_t height) {
-  i2c_init(ssd, width, height);
+  ssd1306_i2c_init(ssd, width, height);
   for (int i = 0; i < ssd->pages; i++) {
     memset(ssd->screen_pages[i]._segs, 0, OLED_BUFFER_SIZE);
   }
@@ -27,7 +27,7 @@ void ssd1306_init(ssd1306_t *ssd, uint8_t width, uint8_t height) {
 
 void ssd1306_show_buffer(ssd1306_t *ssd) {
   for (int page = 0; page < ssd->pages; page++) {
-    i2c_display_image(ssd, page, 0, ssd->screen_pages[page]._segs, ssd->width);
+    ssd1306_i2c_display_image(ssd, page, 0, ssd->screen_pages[page]._segs, ssd->width);
   }
 }
 
@@ -49,7 +49,7 @@ void ssd1306_get_buffer(ssd1306_t *ssd, uint8_t *buffer) {
 
 void ssd1306_display_image(ssd1306_t *ssd, int page, int seg, uint8_t *images,
                            uint8_t width) {
-  i2c_display_image(ssd, page, seg, images, width);
+  ssd1306_i2c_display_image(ssd, page, seg, images, width);
 
   // Set to internal buffer
   memcpy(&ssd->screen_pages[page]._segs[seg], images, width);
@@ -129,7 +129,7 @@ void ssd1306_display_text_x3(ssd1306_t *ssd, int page, char *text, int text_len,
         ssd1306_flip(image, 24);
       }
 
-      i2c_display_image(ssd, page + yy, seg, image, 24);
+      ssd1306_i2c_display_image(ssd, page + yy, seg, image, 24);
 
       memcpy(&ssd->screen_pages[page + yy]._segs[seg], image, 24);
     }
@@ -152,7 +152,7 @@ void ssd1306_clear_line(ssd1306_t *ssd, int page, bool invert) {
 }
 
 void ssd1306_contrast(ssd1306_t *ssd, int contrast) {
-  i2c_contrast(ssd, contrast);
+  ssd1306_i2c_contrast(ssd, contrast);
 }
 
 void ssd1306_software_scroll(ssd1306_t *ssd, int start, int end) {
@@ -183,7 +183,7 @@ void ssd1306_scroll_text(ssd1306_t *ssd, char *text, int text_len,
   void (*func)(ssd1306_t *ssd, int page, int seg, uint8_t *images,
                uint8_t width);
 
-  func = i2c_display_image;
+  func = ssd1306_i2c_display_image;
 
   int srcIndex = ssd->scroll_end - ssd->scroll_direction;
   while (1) {
@@ -228,7 +228,7 @@ void ssd1306_scroll_clear(ssd1306_t *ssd) {
 }
 
 void ssd1306_hardware_scroll(ssd1306_t *ssd, ssd1306_scroll_type_t scroll) {
-  i2c_hardware_scroll(ssd, scroll);
+  ssd1306_i2c_hardware_scroll(ssd, scroll);
 }
 
 // delay = 0 : display with no wait
@@ -403,7 +403,7 @@ void ssd1306_wrap_arround(ssd1306_t *ssd, ssd1306_scroll_type_t scroll,
 
   if (delay >= 0) {
     for (int page = 0; page < ssd->pages; page++) {
-      i2c_display_image(ssd, page, 0, ssd->screen_pages[page]._segs, 128);
+      ssd1306_i2c_display_image(ssd, page, 0, ssd->screen_pages[page]._segs, 128);
 
       if (delay) {
         vTaskDelay(delay);
@@ -582,7 +582,7 @@ void ssd1306_fadeout(ssd1306_t *ssd) {
         image[0] = image[0] << 1;
       }
       for (int seg = 0; seg < 128; seg++) {
-        i2c_display_image(ssd, page, seg, image, 1);
+        ssd1306_i2c_display_image(ssd, page, seg, image, 1);
         ssd->screen_pages[page]._segs[seg] = image[0];
       }
     }

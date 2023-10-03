@@ -111,7 +111,8 @@ typedef bool (*ssd1306_i2c_master_cmd_begin)(ssd1306_i2c_cmd_handle_t cmd,
 typedef ssd1306_i2c_cmd_handle_t (*ssd1306_i2c_cmd_link_create)();
 typedef void (*ssd1306_i2c_cmd_link_delete)();
 typedef void (*ssd1306_delay)(size_t _ms);
-typedef void (*ssd1306_log)(const ssd1306_debug_level_t level, char* info);
+typedef void (*ssd1306_log)(const ssd1306_debug_level_t level, const char* tag,
+                            char* info);
 
 typedef struct {
   bool _valid;  // Not using it anymore
@@ -189,9 +190,10 @@ uint8_t ssd1306_rotate_byte(uint8_t ch1);
 void ssd1306_fadeout(ssd1306_t* ssd);
 void ssd1306_dump_page(ssd1306_t* ssd, int page, int seg);
 
-void i2c_master_init(ssd1306_t* ssd, int16_t sda, int16_t scl, int16_t reset);
-void i2c_init(ssd1306_t* ssd, uint8_t width, uint8_t height);
-void i2c_display_image(ssd1306_t* ssd, int page, int seg, uint8_t* images,
-                       uint8_t width);
-void i2c_contrast(ssd1306_t* ssd, int contrast);
-void i2c_hardware_scroll(ssd1306_t* ssd, ssd1306_scroll_type_t scroll);
+void ssd1306_i2c_master_init(ssd1306_t* ssd, int16_t sda, int16_t scl,
+                             int16_t reset);
+void ssd1306_i2c_init(ssd1306_t* ssd, uint8_t width, uint8_t height);
+void ssd1306_i2c_display_image(ssd1306_t* ssd, int page, int seg,
+                               uint8_t* images, uint8_t width);
+void ssd1306_i2c_contrast(ssd1306_t* ssd, int contrast);
+void ssd1306_i2c_hardware_scroll(ssd1306_t* ssd, ssd1306_scroll_type_t scroll);

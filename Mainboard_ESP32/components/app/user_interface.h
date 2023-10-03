@@ -4,6 +4,8 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "rgb_led_driver.h"
+#include "ssd1306.h"
+#include "ssd1306_esp32_config.h"
 #include "sdkconfig.h"
 
 /*!
