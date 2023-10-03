@@ -49,7 +49,7 @@ void _ssd1306_i2c_cmd_link_delete() {
 
 void _ssd1306_delay(size_t _ms) { vTaskDelay(pdMS_TO_TICKS(_ms)); }
 
-void _ssd1306_log(const ssd1306_debug_level_t level, const char* tag,
+void _ssd1306_log(const ssd1306_log_level_t level, const char* tag,
                   char* info) {
   switch (level) {
     case SSD1306_NONE:

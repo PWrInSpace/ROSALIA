@@ -1,8 +1,8 @@
 // Copyright 2023 PWr in Space, Krzysztof Gliwiński
 
-#include "ssd1306.h"
-
 #include <string.h>
+
+#include "ssd1306.h"
 
 #include "esp_log.h"
 #include "font8x8_basic.h"

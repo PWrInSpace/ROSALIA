@@ -7,7 +7,7 @@
 #include "lora_esp32_config.h"
 #include "mcu_spi_config.h"
 #include "ssd1306_esp32_config.h"
-#include "uart_config.h"
+#include "mcu_uart_config.h"
 
 typedef struct {
   mcu_spi_config_t spi;

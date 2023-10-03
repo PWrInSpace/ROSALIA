@@ -2,7 +2,10 @@
 
 #pragma once
 
-#include "driver/spi_master.h"
+#include <stdbool.h>
+#include <stdint.h>
+#include <stddef.h>
+#include <string.h>
 
 /*!
  * \file ssd1306.h
@@ -97,7 +100,7 @@ typedef enum {
   SSD1306_ERROR,
   SSD1306_INFO,
   SSD1306_DEBUG,
-} ssd1306_debug_level_t;
+} ssd1306_log_level_t;
 
 typedef void* ssd1306_i2c_cmd_handle_t;
 
@@ -111,7 +114,7 @@ typedef bool (*ssd1306_i2c_master_cmd_begin)(ssd1306_i2c_cmd_handle_t cmd,
 typedef ssd1306_i2c_cmd_handle_t (*ssd1306_i2c_cmd_link_create)();
 typedef void (*ssd1306_i2c_cmd_link_delete)();
 typedef void (*ssd1306_delay)(size_t _ms);
-typedef void (*ssd1306_log)(const ssd1306_debug_level_t level, const char* tag,
+typedef void (*ssd1306_log)(const ssd1306_log_level_t level, const char* tag,
                             char* info);
 
 typedef struct {
@@ -149,7 +152,6 @@ typedef struct {
   uint8_t width;
   uint8_t height;
   int pages;
-  spi_device_handle_t _SPIHandle;  // TODO(Glibus): replace with function ptrs
   bool scroll_enable;
   int scroll_start;
   int scroll_end;
@@ -189,9 +191,6 @@ uint8_t ssd1306_copy_bit(uint8_t src, int srcBits, uint8_t dst, int dstBits);
 uint8_t ssd1306_rotate_byte(uint8_t ch1);
 void ssd1306_fadeout(ssd1306_t* ssd);
 void ssd1306_dump_page(ssd1306_t* ssd, int page, int seg);
-
-void ssd1306_i2c_master_init(ssd1306_t* ssd, int16_t sda, int16_t scl,
-                             int16_t reset);
 void ssd1306_i2c_init(ssd1306_t* ssd, uint8_t width, uint8_t height);
 void ssd1306_i2c_display_image(ssd1306_t* ssd, int page, int seg,
                                uint8_t* images, uint8_t width);

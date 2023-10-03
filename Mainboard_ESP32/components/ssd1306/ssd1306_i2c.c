@@ -1,11 +1,5 @@
 // Copyright 2023 PWr in Space, Krzysztof Gliwiński
 
-#include <string.h>
-
-#include "driver/i2c.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
 #include "ssd1306.h"
 
 #define tag "SSD1306"
@@ -104,17 +98,17 @@ void ssd1306_i2c_init(ssd1306_t* ssd, uint8_t width, uint8_t height) {
 
   ssd->_i2c_master_stop();
 
-  esp_err_t espRc = ssd->_i2c_master_cmd_begin(cmd, 10);
-  if (espRc == ESP_OK) {
-    ESP_LOGI(tag, "OLED configured successfully");
+  bool ret = ssd->_i2c_master_cmd_begin(cmd, 10);
+  if (ret == true) {
+    ssd->_log(SSD1306_INFO, tag, "OLED configured successfully");
   } else {
-    ESP_LOGE(tag, "OLED configuration failed. code: 0x%.2X", espRc);
+    ssd->_log(SSD1306_ERROR, tag, "OLED configuration failed.");
   }
   ssd->_i2c_cmd_link_delete();
 }
 
-void ssd1306_ssd1306_i2c_display_image(ssd1306_t* ssd, int page, int seg,
-                                       uint8_t* images, uint8_t width) {
+void ssd1306_i2c_display_image(ssd1306_t* ssd, int page, int seg,
+                               uint8_t* images, uint8_t width) {
   ssd1306_i2c_cmd_handle_t cmd = cmd;
 
   if (page >= ssd->pages) {
@@ -186,7 +180,7 @@ void ssd1306_i2c_contrast(ssd1306_t* ssd, int contrast) {
 }
 
 void ssd1306_i2c_hardware_scroll(ssd1306_t* ssd, ssd1306_scroll_type_t scroll) {
-  esp_err_t espRc;
+  bool ret;
 
   ssd1306_i2c_cmd_handle_t cmd = cmd = ssd->_i2c_cmd_link_create();
   ssd->_i2c_master_start(cmd);
@@ -264,11 +258,11 @@ void ssd1306_i2c_hardware_scroll(ssd1306_t* ssd, ssd1306_scroll_type_t scroll) {
   }
 
   ssd->_i2c_master_stop();
-  espRc = ssd->_i2c_master_cmd_begin(cmd, 10);
-  if (espRc == ESP_OK) {
-    ESP_LOGD(tag, "Scroll command succeeded");
+  ret = ssd->_i2c_master_cmd_begin(cmd, 10);
+  if (ret == true) {
+    ssd->_log(SSD1306_DEBUG, tag, "Scroll command succeeded");
   } else {
-    ESP_LOGE(tag, "Scroll command failed. code: 0x%.2X", espRc);
+    ssd->_log(SSD1306_ERROR, tag, "Scroll command failed.");
   }
 
   ssd->_i2c_cmd_link_delete();
