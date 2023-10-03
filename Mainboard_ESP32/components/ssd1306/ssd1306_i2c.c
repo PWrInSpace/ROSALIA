@@ -18,34 +18,27 @@
 #define I2C_NUM I2C_NUM_0  // if spi is selected
 #endif
 
-//TODO(Glibus): move to sdkconfig (kconfig.projbuild)
+// TODO(Glibus): move to sdkconfig (kconfig.projbuild)
 #define I2C_MASTER_FREQ_HZ \
   400000 /*!< I2C clock of SSD1306 can run at 400 kHz max. */
 
 #define CONFIG_OFFSETX 0
 
-//TODO(Glibus): i2c init moved to another lib
-void i2c_master_init(ssd1306_t* ssd, int16_t sda, int16_t scl, int16_t reset) {
-  i2c_config_t i2c_config = {.mode = I2C_MODE_MASTER,
-                             .sda_io_num = sda,
-                             .scl_io_num = scl,
-                             .sda_pullup_en = GPIO_PULLUP_ENABLE,
-                             .scl_pullup_en = GPIO_PULLUP_ENABLE,
-                             .master.clk_speed = I2C_MASTER_FREQ_HZ};
-  ESP_ERROR_CHECK(i2c_param_config(I2C_NUM, &i2c_config));
-  ESP_ERROR_CHECK(i2c_driver_install(I2C_NUM, I2C_MODE_MASTER, 0, 0, 0));
+// TODO(Glibus): i2c init moved to another lib
+//  void i2c_master_init(ssd1306_t* ssd, int16_t sda, int16_t scl, int16_t
+//  reset) {
+//    i2c_config_t i2c_config = {.mode = I2C_MODE_MASTER,
+//                               .sda_io_num = sda,
+//                               .scl_io_num = scl,
+//                               .sda_pullup_en = GPIO_PULLUP_ENABLE,
+//                               .scl_pullup_en = GPIO_PULLUP_ENABLE,
+//                               .master.clk_speed = I2C_MASTER_FREQ_HZ};
+//    ESP_ERROR_CHECK(i2c_param_config( &i2c_config));
+//    ESP_ERROR_CHECK(i2c_driver_install( I2C_MODE_MASTER, 0, 0, 0));
 
-  if (reset >= 0) {
-    // gpio_pad_select_gpio(reset);
-    gpio_reset_pin(reset);
-    gpio_set_direction(reset, GPIO_MODE_OUTPUT);
-    gpio_set_level(reset, 0);
-    vTaskDelay(50 / portTICK_PERIOD_MS);
-    gpio_set_level(reset, 1);
-  }
-  ssd->i2c_address = I2CAddress;
-  ssd->flip = false;
-}
+// //   ssd->i2c_address = I2CAddress;
+//   ssd->flip = false;
+// }
 
 void i2c_init(ssd1306_t* ssd, uint8_t width, uint8_t height) {
   ssd->width = width;
@@ -55,72 +48,74 @@ void i2c_init(ssd1306_t* ssd, uint8_t width, uint8_t height) {
     ssd->pages = 4;
   }
 
-  i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+  ssd1306_i2c_cmd_handle_t cmd = ssd->_i2c_cmd_link_create();
 
-  i2c_master_start(cmd);
-  i2c_master_write_byte(cmd, (ssd->i2c_address << 1) | I2C_MASTER_WRITE, true);
-  i2c_master_write_byte(cmd, OLED_CONTROL_BYTE_CMD_STREAM, true);
-  i2c_master_write_byte(cmd, OLED_CMD_DISPLAY_OFF, true);    // AE
-  i2c_master_write_byte(cmd, OLED_CMD_SET_MUX_RATIO, true);  // A8
+  ssd->_i2c_master_start(cmd);
+  ssd->_i2c_master_write_byte(
+      (ssd->i2c_address << 1) | ssd->i2c_master_write_flag, true);
+  ssd->_i2c_master_write_byte(OLED_CONTROL_BYTE_CMD_STREAM, true);
+  ssd->_i2c_master_write_byte(OLED_CMD_DISPLAY_OFF, true);    // AE
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_MUX_RATIO, true);  // A8
   if (ssd->height == 64) {
-    i2c_master_write_byte(cmd, 0x3F, true);
+    ssd->_i2c_master_write_byte(0x3F, true);
   }
+
   if (ssd->height == 32) {
-    i2c_master_write_byte(cmd, 0x1F, true);
+    ssd->_i2c_master_write_byte(0x1F, true);
   }
-  i2c_master_write_byte(cmd, OLED_CMD_SET_DISPLAY_OFFSET, true);  // D3
-  i2c_master_write_byte(cmd, 0x00, true);
-  // i2c_master_write_byte(cmd, OLED_CONTROL_BYTE_DATA_STREAM, true);  // 40
-  i2c_master_write_byte(cmd, OLED_CMD_SET_DISPLAY_START_LINE, true);  // 40
-  // i2c_master_write_byte(cmd, OLED_CMD_SET_SEGMENT_REMAP, true);
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_DISPLAY_OFFSET, true);  // D3
+  ssd->_i2c_master_write_byte(0x00, true);
+  // ssd->_i2c_master_write_byte( OLED_CONTROL_BYTE_DATA_STREAM, true);  // 40
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_DISPLAY_START_LINE, true);  // 40
+  // ssd->_i2c_master_write_byte( OLED_CMD_SET_SEGMENT_REMAP, true);
   // // A1
   if (ssd->flip) {
-    i2c_master_write_byte(cmd, OLED_CMD_SET_SEGMENT_REMAP_0, true);  // A0
+    ssd->_i2c_master_write_byte(OLED_CMD_SET_SEGMENT_REMAP_0, true);  // A0
   } else {
-    i2c_master_write_byte(cmd, OLED_CMD_SET_SEGMENT_REMAP_1, true);  // A1
+    ssd->_i2c_master_write_byte(OLED_CMD_SET_SEGMENT_REMAP_1, true);  // A1
   }
-  i2c_master_write_byte(cmd, OLED_CMD_SET_COM_SCAN_MODE, true);    // C8
-  i2c_master_write_byte(cmd, OLED_CMD_SET_DISPLAY_CLK_DIV, true);  // D5
-  i2c_master_write_byte(cmd, 0x80, true);
-  i2c_master_write_byte(cmd, OLED_CMD_SET_COM_PIN_MAP, true);  // DA
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_COM_SCAN_MODE, true);    // C8
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_DISPLAY_CLK_DIV, true);  // D5
+  ssd->_i2c_master_write_byte(0x80, true);
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_COM_PIN_MAP, true);  // DA
   if (ssd->height == 64) {
-    i2c_master_write_byte(cmd, 0x12, true);
+    ssd->_i2c_master_write_byte(0x12, true);
   }
   if (ssd->height == 32) {
-    i2c_master_write_byte(cmd, 0x02, true);
+    ssd->_i2c_master_write_byte(0x02, true);
   }
-  i2c_master_write_byte(cmd, OLED_CMD_SET_CONTRAST, true);  // 81
-  i2c_master_write_byte(cmd, 0xFF, true);
-  i2c_master_write_byte(cmd, OLED_CMD_DISPLAY_RAM, true);        // A4
-  i2c_master_write_byte(cmd, OLED_CMD_SET_VCOMH_DESELCT, true);  // DB
-  i2c_master_write_byte(cmd, 0x40, true);
-  i2c_master_write_byte(cmd, OLED_CMD_SET_MEMORY_ADDR_MODE, true);  // 20
-// i2c_master_write_byte(cmd, OLED_CMD_SET_HORI_ADDR_MODE, true);  // 00
-  i2c_master_write_byte(cmd, OLED_CMD_SET_PAGE_ADDR_MODE, true);  // 02
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_CONTRAST, true);  // 81
+  ssd->_i2c_master_write_byte(0xFF, true);
+  ssd->_i2c_master_write_byte(OLED_CMD_DISPLAY_RAM, true);        // A4
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_VCOMH_DESELCT, true);  // DB
+  ssd->_i2c_master_write_byte(0x40, true);
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_MEMORY_ADDR_MODE, true);  // 20
+  // ssd->_i2c_master_write_byte( OLED_CMD_SET_HORI_ADDR_MODE, true);  // 00
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_PAGE_ADDR_MODE, true);  // 02
   // Set Lower Column Start Address for Page Addressing Mode
-  i2c_master_write_byte(cmd, 0x00, true);
+  ssd->_i2c_master_write_byte(0x00, true);
   // Set Higher Column Start Address for Page Addressing Mode
-  i2c_master_write_byte(cmd, 0x10, true);
-  i2c_master_write_byte(cmd, OLED_CMD_SET_CHARGE_PUMP, true);  // 8D
-  i2c_master_write_byte(cmd, 0x14, true);
-  i2c_master_write_byte(cmd, OLED_CMD_DEACTIVE_SCROLL, true);  // 2E
-  i2c_master_write_byte(cmd, OLED_CMD_DISPLAY_NORMAL, true);   // A6
-  i2c_master_write_byte(cmd, OLED_CMD_DISPLAY_ON, true);       // AF
+  ssd->_i2c_master_write_byte(0x10, true);
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_CHARGE_PUMP, true);  // 8D
+  ssd->_i2c_master_write_byte(0x14, true);
+  ssd->_i2c_master_write_byte(OLED_CMD_DEACTIVE_SCROLL, true);  // 2E
+  ssd->_i2c_master_write_byte(OLED_CMD_DISPLAY_NORMAL, true);   // A6
+  ssd->_i2c_master_write_byte(OLED_CMD_DISPLAY_ON, true);       // AF
 
-  i2c_master_stop(cmd);
+  ssd->_i2c_master_stop();
 
-  esp_err_t espRc = i2c_master_cmd_begin(I2C_NUM, cmd, 10 / portTICK_PERIOD_MS);
+  esp_err_t espRc = ssd->_i2c_master_cmd_begin(cmd, 10);
   if (espRc == ESP_OK) {
     ESP_LOGI(tag, "OLED configured successfully");
   } else {
     ESP_LOGE(tag, "OLED configuration failed. code: 0x%.2X", espRc);
   }
-  i2c_cmd_link_delete(cmd);
+  ssd->_i2c_cmd_link_delete();
 }
 
 void i2c_display_image(ssd1306_t* ssd, int page, int seg, uint8_t* images,
                        uint8_t width) {
-  i2c_cmd_handle_t cmd;
+  ssd1306_i2c_cmd_handle_t cmd = cmd;
 
   if (page >= ssd->pages) {
     return;
@@ -138,36 +133,38 @@ void i2c_display_image(ssd1306_t* ssd, int page, int seg, uint8_t* images,
     screen_pages = (ssd->pages - page) - 1;
   }
 
-  cmd = i2c_cmd_link_create();
-  i2c_master_start(cmd);
-  i2c_master_write_byte(cmd, (ssd->i2c_address << 1) | I2C_MASTER_WRITE, true);
+  ssd->_i2c_cmd_link_create();
+  ssd->_i2c_master_start(cmd);
+  ssd->_i2c_master_write_byte(
+      (ssd->i2c_address << 1) | ssd->i2c_master_write_flag, true);
 
-  i2c_master_write_byte(cmd, OLED_CONTROL_BYTE_CMD_STREAM, true);
+  ssd->_i2c_master_write_byte(OLED_CONTROL_BYTE_CMD_STREAM, true);
   // Set Lower Column Start Address for Page Addressing Mode
-  i2c_master_write_byte(cmd, (0x00 + columLow), true);
+  ssd->_i2c_master_write_byte((0x00 + columLow), true);
   // Set Higher Column Start Address for Page Addressing Mode
-  i2c_master_write_byte(cmd, (0x10 + columHigh), true);
+  ssd->_i2c_master_write_byte((0x10 + columHigh), true);
   // Set Page Start Address for Page Addressing Mode
-  i2c_master_write_byte(cmd, 0xB0 | screen_pages, true);
+  ssd->_i2c_master_write_byte(0xB0 | screen_pages, true);
 
-  i2c_master_stop(cmd);
-  i2c_master_cmd_begin(I2C_NUM, cmd, 10 / portTICK_PERIOD_MS);
-  i2c_cmd_link_delete(cmd);
+  ssd->_i2c_master_stop();
+  ssd->_i2c_master_cmd_begin(cmd, 10);
+  ssd->_i2c_cmd_link_delete();
 
-  cmd = i2c_cmd_link_create();
-  i2c_master_start(cmd);
-  i2c_master_write_byte(cmd, (ssd->i2c_address << 1) | I2C_MASTER_WRITE, true);
+  ssd->_i2c_cmd_link_create();
+  ssd->_i2c_master_start(cmd);
+  ssd->_i2c_master_write_byte(
+      (ssd->i2c_address << 1) | ssd->i2c_master_write_flag, true);
 
-  i2c_master_write_byte(cmd, OLED_CONTROL_BYTE_DATA_STREAM, true);
-  i2c_master_write(cmd, images, width, true);
+  ssd->_i2c_master_write_byte(OLED_CONTROL_BYTE_DATA_STREAM, true);
+  ssd->_i2c_master_write(images, width, true);
 
-  i2c_master_stop(cmd);
-  i2c_master_cmd_begin(I2C_NUM, cmd, 10 / portTICK_PERIOD_MS);
-  i2c_cmd_link_delete(cmd);
+  ssd->_i2c_master_stop();
+  ssd->_i2c_master_cmd_begin(cmd, 10);
+  ssd->_i2c_cmd_link_delete();
 }
 
 void i2c_contrast(ssd1306_t* ssd, int contrast) {
-  i2c_cmd_handle_t cmd;
+  ssd1306_i2c_cmd_handle_t cmd = cmd;
   int _contrast = contrast;
   if (contrast < 0x0) {
     _contrast = 0;
@@ -176,101 +173,103 @@ void i2c_contrast(ssd1306_t* ssd, int contrast) {
     _contrast = 0xFF;
   }
 
-  cmd = i2c_cmd_link_create();
-  i2c_master_start(cmd);
-  i2c_master_write_byte(cmd, (ssd->i2c_address << 1) | I2C_MASTER_WRITE, true);
-  i2c_master_write_byte(cmd, OLED_CONTROL_BYTE_CMD_STREAM, true);
-  i2c_master_write_byte(cmd, OLED_CMD_SET_CONTRAST, true);  // 81
-  i2c_master_write_byte(cmd, _contrast, true);
-  i2c_master_stop(cmd);
-  i2c_master_cmd_begin(I2C_NUM, cmd, 10 / portTICK_PERIOD_MS);
-  i2c_cmd_link_delete(cmd);
+  ssd->_i2c_cmd_link_create();
+  ssd->_i2c_master_start(cmd);
+  ssd->_i2c_master_write_byte(
+      (ssd->i2c_address << 1) | ssd->i2c_master_write_flag, true);
+  ssd->_i2c_master_write_byte(OLED_CONTROL_BYTE_CMD_STREAM, true);
+  ssd->_i2c_master_write_byte(OLED_CMD_SET_CONTRAST, true);  // 81
+  ssd->_i2c_master_write_byte(_contrast, true);
+  ssd->_i2c_master_stop();
+  ssd->_i2c_master_cmd_begin(cmd, 10);
+  ssd->_i2c_cmd_link_delete();
 }
 
 void i2c_hardware_scroll(ssd1306_t* ssd, ssd1306_scroll_type_t scroll) {
   esp_err_t espRc;
 
-  i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-  i2c_master_start(cmd);
+  ssd1306_i2c_cmd_handle_t cmd = cmd = ssd->_i2c_cmd_link_create();
+  ssd->_i2c_master_start(cmd);
 
-  i2c_master_write_byte(cmd, (ssd->i2c_address << 1) | I2C_MASTER_WRITE, true);
-  i2c_master_write_byte(cmd, OLED_CONTROL_BYTE_CMD_STREAM, true);
+  ssd->_i2c_master_write_byte(
+      (ssd->i2c_address << 1) | ssd->i2c_master_write_flag, true);
+  ssd->_i2c_master_write_byte(OLED_CONTROL_BYTE_CMD_STREAM, true);
 
   if (scroll == SCROLL_RIGHT) {
-    i2c_master_write_byte(cmd, OLED_CMD_HORIZONTAL_RIGHT, true);  // 26
-    i2c_master_write_byte(cmd, 0x00, true);                       // Dummy byte
-    i2c_master_write_byte(cmd, 0x00, true);  // Define start page address
-    i2c_master_write_byte(cmd, 0x07, true);  // Frame frequency
-    i2c_master_write_byte(cmd, 0x07, true);  // Define end page address
-    i2c_master_write_byte(cmd, 0x00, true);  //
-    i2c_master_write_byte(cmd, 0xFF, true);  //
-    i2c_master_write_byte(cmd, OLED_CMD_ACTIVE_SCROLL, true);  // 2F
+    ssd->_i2c_master_write_byte(OLED_CMD_HORIZONTAL_RIGHT, true);  // 26
+    ssd->_i2c_master_write_byte(0x00, true);                       // Dummy byte
+    ssd->_i2c_master_write_byte(0x00, true);  // Define start page address
+    ssd->_i2c_master_write_byte(0x07, true);  // Frame frequency
+    ssd->_i2c_master_write_byte(0x07, true);  // Define end page address
+    ssd->_i2c_master_write_byte(0x00, true);  //
+    ssd->_i2c_master_write_byte(0xFF, true);  //
+    ssd->_i2c_master_write_byte(OLED_CMD_ACTIVE_SCROLL, true);  // 2F
   }
 
   if (scroll == SCROLL_LEFT) {
-    i2c_master_write_byte(cmd, OLED_CMD_HORIZONTAL_LEFT, true);  // 27
-    i2c_master_write_byte(cmd, 0x00, true);                      // Dummy byte
-    i2c_master_write_byte(cmd, 0x00, true);  // Define start page address
-    i2c_master_write_byte(cmd, 0x07, true);  // Frame frequency
-    i2c_master_write_byte(cmd, 0x07, true);  // Define end page address
-    i2c_master_write_byte(cmd, 0x00, true);  //
-    i2c_master_write_byte(cmd, 0xFF, true);  //
-    i2c_master_write_byte(cmd, OLED_CMD_ACTIVE_SCROLL, true);  // 2F
+    ssd->_i2c_master_write_byte(OLED_CMD_HORIZONTAL_LEFT, true);  // 27
+    ssd->_i2c_master_write_byte(0x00, true);                      // Dummy byte
+    ssd->_i2c_master_write_byte(0x00, true);  // Define start page address
+    ssd->_i2c_master_write_byte(0x07, true);  // Frame frequency
+    ssd->_i2c_master_write_byte(0x07, true);  // Define end page address
+    ssd->_i2c_master_write_byte(0x00, true);  //
+    ssd->_i2c_master_write_byte(0xFF, true);  //
+    ssd->_i2c_master_write_byte(OLED_CMD_ACTIVE_SCROLL, true);  // 2F
   }
 
   if (scroll == SCROLL_DOWN) {
-    i2c_master_write_byte(cmd, OLED_CMD_CONTINUOUS_SCROLL, true);  // 29
-    i2c_master_write_byte(cmd, 0x00, true);                        // Dummy byte
-    i2c_master_write_byte(cmd, 0x00, true);  // Define start page address
-    i2c_master_write_byte(cmd, 0x07, true);  // Frame frequency
-    // i2c_master_write_byte(cmd, 0x01, true); // Define end page address
-    i2c_master_write_byte(cmd, 0x00, true);  // Define end page address
-    i2c_master_write_byte(cmd, 0x3F, true);  // Vertical scrolling offset
+    ssd->_i2c_master_write_byte(OLED_CMD_CONTINUOUS_SCROLL, true);  // 29
+    ssd->_i2c_master_write_byte(0x00, true);  // Dummy byte
+    ssd->_i2c_master_write_byte(0x00, true);  // Define start page address
+    ssd->_i2c_master_write_byte(0x07, true);  // Frame frequency
+    // ssd->_i2c_master_write_byte( 0x01, true); // Define end page address
+    ssd->_i2c_master_write_byte(0x00, true);  // Define end page address
+    ssd->_i2c_master_write_byte(0x3F, true);  // Vertical scrolling offset
 
-    i2c_master_write_byte(cmd, OLED_CMD_VERTICAL, true);  // A3
-    i2c_master_write_byte(cmd, 0x00, true);
+    ssd->_i2c_master_write_byte(OLED_CMD_VERTICAL, true);  // A3
+    ssd->_i2c_master_write_byte(0x00, true);
     if (ssd->height == 64) {
-      // i2c_master_write_byte(cmd, 0x7F, true);
-      i2c_master_write_byte(cmd, 0x40, true);
+      // ssd->_i2c_master_write_byte( 0x7F, true);
+      ssd->_i2c_master_write_byte(0x40, true);
     }
     if (ssd->height == 32) {
-      i2c_master_write_byte(cmd, 0x20, true);
+      ssd->_i2c_master_write_byte(0x20, true);
     }
-    i2c_master_write_byte(cmd, OLED_CMD_ACTIVE_SCROLL, true);  // 2F
+    ssd->_i2c_master_write_byte(OLED_CMD_ACTIVE_SCROLL, true);  // 2F
   }
 
   if (scroll == SCROLL_UP) {
-    i2c_master_write_byte(cmd, OLED_CMD_CONTINUOUS_SCROLL, true);  // 29
-    i2c_master_write_byte(cmd, 0x00, true);                        // Dummy byte
-    i2c_master_write_byte(cmd, 0x00, true);  // Define start page address
-    i2c_master_write_byte(cmd, 0x07, true);  // Frame frequency
-    // i2c_master_write_byte(cmd, 0x01, true); // Define end page address
-    i2c_master_write_byte(cmd, 0x00, true);  // Define end page address
-    i2c_master_write_byte(cmd, 0x01, true);  // Vertical scrolling offset
+    ssd->_i2c_master_write_byte(OLED_CMD_CONTINUOUS_SCROLL, true);  // 29
+    ssd->_i2c_master_write_byte(0x00, true);  // Dummy byte
+    ssd->_i2c_master_write_byte(0x00, true);  // Define start page address
+    ssd->_i2c_master_write_byte(0x07, true);  // Frame frequency
+    // ssd->_i2c_master_write_byte( 0x01, true); // Define end page address
+    ssd->_i2c_master_write_byte(0x00, true);  // Define end page address
+    ssd->_i2c_master_write_byte(0x01, true);  // Vertical scrolling offset
 
-    i2c_master_write_byte(cmd, OLED_CMD_VERTICAL, true);  // A3
-    i2c_master_write_byte(cmd, 0x00, true);
+    ssd->_i2c_master_write_byte(OLED_CMD_VERTICAL, true);  // A3
+    ssd->_i2c_master_write_byte(0x00, true);
     if (ssd->height == 64) {
-      // i2c_master_write_byte(cmd, 0x7F, true);
-      i2c_master_write_byte(cmd, 0x40, true);
+      // ssd->_i2c_master_write_byte( 0x7F, true);
+      ssd->_i2c_master_write_byte(0x40, true);
     }
     if (ssd->height == 32) {
-      i2c_master_write_byte(cmd, 0x20, true);
+      ssd->_i2c_master_write_byte(0x20, true);
     }
-    i2c_master_write_byte(cmd, OLED_CMD_ACTIVE_SCROLL, true);  // 2F
+    ssd->_i2c_master_write_byte(OLED_CMD_ACTIVE_SCROLL, true);  // 2F
   }
 
   if (scroll == SCROLL_STOP) {
-    i2c_master_write_byte(cmd, OLED_CMD_DEACTIVE_SCROLL, true);  // 2E
+    ssd->_i2c_master_write_byte(OLED_CMD_DEACTIVE_SCROLL, true);  // 2E
   }
 
-  i2c_master_stop(cmd);
-  espRc = i2c_master_cmd_begin(I2C_NUM, cmd, 10 / portTICK_PERIOD_MS);
+  ssd->_i2c_master_stop();
+  espRc = ssd->_i2c_master_cmd_begin(cmd, 10);
   if (espRc == ESP_OK) {
     ESP_LOGD(tag, "Scroll command succeeded");
   } else {
     ESP_LOGE(tag, "Scroll command failed. code: 0x%.2X", espRc);
   }
 
-  i2c_cmd_link_delete(cmd);
+  ssd->_i2c_cmd_link_delete();
 }

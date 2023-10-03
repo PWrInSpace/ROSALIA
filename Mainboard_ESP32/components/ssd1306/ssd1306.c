@@ -180,7 +180,8 @@ void ssd1306_scroll_text(ssd1306_t *ssd, char *text, int text_len,
     return;
   }
 
-  void (*func)(ssd1306_t *ssd, int page, int seg, uint8_t *images, uint8_t width);
+  void (*func)(ssd1306_t *ssd, int page, int seg, uint8_t *images,
+               uint8_t width);
 
   func = i2c_display_image;
 
@@ -189,7 +190,8 @@ void ssd1306_scroll_text(ssd1306_t *ssd, char *text, int text_len,
     int dstIndex = srcIndex + ssd->scroll_direction;
     ESP_LOGD(TAG, "srcIndex=%d dstIndex=%d", srcIndex, dstIndex);
     for (int seg = 0; seg < ssd->width; seg++) {
-      ssd->screen_pages[dstIndex]._segs[seg] = ssd->screen_pages[srcIndex]._segs[seg];
+      ssd->screen_pages[dstIndex]._segs[seg] =
+          ssd->screen_pages[srcIndex]._segs[seg];
     }
     (*func)(ssd, dstIndex, 0, ssd->screen_pages[dstIndex]._segs,
             sizeof(ssd->screen_pages[dstIndex]._segs));
@@ -245,7 +247,8 @@ void ssd1306_wrap_arround(ssd1306_t *ssd, ssd1306_scroll_type_t scroll,
     for (int page = _start; page <= _end; page++) {
       wk = ssd->screen_pages[page]._segs[127];
       for (int seg = 127; seg > 0; seg--) {
-        ssd->screen_pages[page]._segs[seg] = ssd->screen_pages[page]._segs[seg - 1];
+        ssd->screen_pages[page]._segs[seg] =
+            ssd->screen_pages[page]._segs[seg - 1];
       }
       ssd->screen_pages[page]._segs[0] = wk;
     }
@@ -261,7 +264,8 @@ void ssd1306_wrap_arround(ssd1306_t *ssd, ssd1306_scroll_type_t scroll,
     for (int page = _start; page <= _end; page++) {
       wk = ssd->screen_pages[page]._segs[0];
       for (int seg = 0; seg < 127; seg++) {
-        ssd->screen_pages[page]._segs[seg] = ssd->screen_pages[page]._segs[seg + 1];
+        ssd->screen_pages[page]._segs[seg] =
+            ssd->screen_pages[page]._segs[seg + 1];
       }
       ssd->screen_pages[page]._segs[127] = wk;
     }
@@ -414,7 +418,7 @@ void ssd1306_bitmaps(ssd1306_t *ssd, int xpos, int ypos, uint8_t *bitmap,
     ESP_LOGE(TAG, "width must be a multiple of 8");
     return;
   }
-  width/=8;
+  width /= 8;
   uint8_t wk0;
   uint8_t wk1;
   uint8_t wk2;
@@ -423,7 +427,8 @@ void ssd1306_bitmaps(ssd1306_t *ssd, int xpos, int ypos, uint8_t *bitmap,
   uint8_t dstBits = (ypos % 8);
   ESP_LOGD(TAG, "ypos=%d page=%d dstBits=%d", ypos, page, dstBits);
   int offset = 0;
-  for (int i = 0; i < height; i++) { //TODO(Glibus): Something may have broken here
+  for (int i = 0; i < height;
+       i++) {  // TODO(Glibus): Something may have broken here
     for (int index = 0; index < width; index++) {
       for (int srcBits = 7; srcBits >= 0; srcBits--) {
         wk0 = ssd->screen_pages[page]._segs[_seg];
@@ -467,8 +472,8 @@ void _ssd1306_pixel(ssd1306_t *ssd, int xpos, int ypos, bool invert) {
   uint8_t _seg = xpos;
   uint8_t wk0 = ssd->screen_pages[screen_pages]._segs[_seg];
   uint8_t wk1 = 1 << _bits;
-  ESP_LOGD(TAG, "ypos=%d screen_pages=%d _bits=%d wk0=0x%02x wk1=0x%02x", ypos, screen_pages,
-           _bits, wk0, wk1);
+  ESP_LOGD(TAG, "ypos=%d screen_pages=%d _bits=%d wk0=0x%02x wk1=0x%02x", ypos,
+           screen_pages, _bits, wk0, wk1);
   if (invert) {
     wk0 = wk0 & ~wk1;
   } else {

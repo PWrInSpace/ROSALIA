@@ -99,13 +99,17 @@ typedef enum {
   SSD1306_DEBUG,
 } ssd1306_debug_level_t;
 
+typedef void* ssd1306_i2c_cmd_handle_t;
+
 typedef bool (*ssd1306_i2c_master_write_byte)(uint8_t _data, bool _ack_en);
 typedef bool (*ssd1306_i2c_master_write)(const uint8_t* _data, size_t _data_len,
                                          bool _ack_en);
-typedef bool (*ssd1306_i2c_master_start)();
+typedef bool (*ssd1306_i2c_master_start)(ssd1306_i2c_cmd_handle_t cmd);
 typedef bool (*ssd1306_i2c_master_stop)();
-typedef bool (*ssd1306_i2c_master_cmd_begin)(uint16_t ticks_to_wait);
-typedef bool (*ssd1306_i2c_cmd_link_delete)();
+typedef bool (*ssd1306_i2c_master_cmd_begin)(ssd1306_i2c_cmd_handle_t cmd,
+                                             uint16_t ticks_to_wait);
+typedef ssd1306_i2c_cmd_handle_t (*ssd1306_i2c_cmd_link_create)();
+typedef void (*ssd1306_i2c_cmd_link_delete)();
 typedef void (*ssd1306_delay)(size_t _ms);
 typedef void (*ssd1306_log)(const ssd1306_debug_level_t level, char* info);
 
@@ -131,6 +135,16 @@ typedef struct {
 // } ssd1306_t;
 
 typedef struct {
+  ssd1306_i2c_master_write_byte _i2c_master_write_byte;
+  ssd1306_i2c_master_write _i2c_master_write;
+  ssd1306_i2c_master_start _i2c_master_start;
+  ssd1306_i2c_master_stop _i2c_master_stop;
+  ssd1306_i2c_master_cmd_begin _i2c_master_cmd_begin;
+  ssd1306_i2c_cmd_link_create _i2c_cmd_link_create;
+  ssd1306_i2c_cmd_link_delete _i2c_cmd_link_delete;
+  ssd1306_delay _delay;
+  ssd1306_log _log;
+  uint8_t i2c_master_write_flag;
   uint8_t width;
   uint8_t height;
   int pages;
