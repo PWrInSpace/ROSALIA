@@ -18,46 +18,46 @@ typedef union out_column_t {
   uint8_t u8[4];
 } PACK8 out_column_t;
 
-void ssd1306_init(SSD1306_t *dev, int width, int height) {
-  i2c_init(dev, width, height);
-  for (int i = 0; i < dev->_pages; i++) {
-    memset(dev->_page[i]._segs, 0, OLED_BUFFER_SIZE);
+void ssd1306_init(SSD1306_t *ssd, uint8_t width, uint8_t height) {
+  i2c_init(ssd, width, height);
+  for (int i = 0; i < ssd->pages; i++) {
+    memset(ssd->screen_pages[i]._segs, 0, OLED_BUFFER_SIZE);
   }
 }
 
-void ssd1306_show_buffer(SSD1306_t *dev) {
-  for (int page = 0; page < dev->_pages; page++) {
-    i2c_display_image(dev, page, 0, dev->_page[page]._segs, dev->_width);
+void ssd1306_show_buffer(SSD1306_t *ssd) {
+  for (int page = 0; page < ssd->pages; page++) {
+    i2c_display_image(ssd, page, 0, ssd->screen_pages[page]._segs, ssd->width);
   }
 }
 
-void ssd1306_set_buffer(SSD1306_t *dev, uint8_t *buffer) {
+void ssd1306_set_buffer(SSD1306_t *ssd, uint8_t *buffer) {
   int index = 0;
-  for (int page = 0; page < dev->_pages; page++) {
-    memcpy(&dev->_page[page]._segs, &buffer[index], 128);
+  for (int page_num = 0; page_num < ssd->pages; page_num++) {
+    memcpy(&ssd->screen_pages[page_num]._segs, &buffer[index], 128);
     index = index + 128;
   }
 }
 
-void ssd1306_get_buffer(SSD1306_t *dev, uint8_t *buffer) {
+void ssd1306_get_buffer(SSD1306_t *ssd, uint8_t *buffer) {
   int index = 0;
-  for (int page = 0; page < dev->_pages; page++) {
-    memcpy(&buffer[index], &dev->_page[page]._segs, 128);
+  for (int page = 0; page < ssd->pages; page++) {
+    memcpy(&buffer[index], &ssd->screen_pages[page]._segs, 128);
     index = index + 128;
   }
 }
 
-void ssd1306_display_image(SSD1306_t *dev, int page, int seg, uint8_t *images,
-                           int width) {
-  i2c_display_image(dev, page, seg, images, width);
+void ssd1306_display_image(SSD1306_t *ssd, int page, int seg, uint8_t *images,
+                           uint8_t width) {
+  i2c_display_image(ssd, page, seg, images, width);
 
   // Set to internal buffer
-  memcpy(&dev->_page[page]._segs[seg], images, width);
+  memcpy(&ssd->screen_pages[page]._segs[seg], images, width);
 }
 
-void ssd1306_display_text(SSD1306_t *dev, int page, char *text, int text_len,
+void ssd1306_display_text(SSD1306_t *ssd, int page, char *text, int text_len,
                           bool invert) {
-  if (page >= dev->_pages) {
+  if (page >= ssd->pages) {
     return;
   }
   int _text_len = text_len;
@@ -72,19 +72,19 @@ void ssd1306_display_text(SSD1306_t *dev, int page, char *text, int text_len,
     if (invert) {
       ssd1306_invert(image, 8);
     }
-    if (dev->_flip) {
+    if (ssd->flip) {
       ssd1306_flip(image, 8);
     }
-    ssd1306_display_image(dev, page, seg, image, 8);
+    ssd1306_display_image(ssd, page, seg, image, 8);
 
     seg = seg + 8;
   }
 }
 
 // by Coert Vonk
-void ssd1306_display_text_x3(SSD1306_t *dev, int page, char *text, int text_len,
+void ssd1306_display_text_x3(SSD1306_t *ssd, int page, char *text, int text_len,
                              bool invert) {
-  if (page >= dev->_pages) {
+  if (page >= ssd->pages) {
     return;
   }
   int _text_len = text_len;
@@ -125,78 +125,78 @@ void ssd1306_display_text_x3(SSD1306_t *dev, int page, char *text, int text_len,
       if (invert) {
         ssd1306_invert(image, 24);
       }
-      if (dev->_flip) {
+      if (ssd->flip) {
         ssd1306_flip(image, 24);
       }
 
-      i2c_display_image(dev, page + yy, seg, image, 24);
+      i2c_display_image(ssd, page + yy, seg, image, 24);
 
-      memcpy(&dev->_page[page + yy]._segs[seg], image, 24);
+      memcpy(&ssd->screen_pages[page + yy]._segs[seg], image, 24);
     }
     seg = seg + 24;
   }
 }
 
-void ssd1306_clear_screen(SSD1306_t *dev, bool invert) {
+void ssd1306_clear_screen(SSD1306_t *ssd, bool invert) {
   char space[16];
   memset(space, 0x00, sizeof(space));
-  for (int page = 0; page < dev->_pages; page++) {
-    ssd1306_display_text(dev, page, space, sizeof(space), invert);
+  for (int page = 0; page < ssd->pages; page++) {
+    ssd1306_display_text(ssd, page, space, sizeof(space), invert);
   }
 }
 
-void ssd1306_clear_line(SSD1306_t *dev, int page, bool invert) {
+void ssd1306_clear_line(SSD1306_t *ssd, int page, bool invert) {
   char space[16];
   memset(space, 0x00, sizeof(space));
-  ssd1306_display_text(dev, page, space, sizeof(space), invert);
+  ssd1306_display_text(ssd, page, space, sizeof(space), invert);
 }
 
-void ssd1306_contrast(SSD1306_t *dev, int contrast) {
-  i2c_contrast(dev, contrast);
+void ssd1306_contrast(SSD1306_t *ssd, int contrast) {
+  i2c_contrast(ssd, contrast);
 }
 
-void ssd1306_software_scroll(SSD1306_t *dev, int start, int end) {
-  ESP_LOGD(TAG, "software_scroll start=%d end=%d _pages=%d", start, end,
-           dev->_pages);
+void ssd1306_software_scroll(SSD1306_t *ssd, int start, int end) {
+  ESP_LOGD(TAG, "software_scroll start=%d end=%d pages=%d", start, end,
+           ssd->pages);
   if (start < 0 || end < 0) {
-    dev->_scEnable = false;
-  } else if (start >= dev->_pages || end >= dev->_pages) {
-    dev->_scEnable = false;
+    ssd->scroll_enable = false;
+  } else if (start >= ssd->pages || end >= ssd->pages) {
+    ssd->scroll_enable = false;
   } else {
-    dev->_scEnable = true;
-    dev->_scStart = start;
-    dev->_scEnd = end;
-    dev->_scDirection = 1;
+    ssd->scroll_enable = true;
+    ssd->scroll_start = start;
+    ssd->scroll_end = end;
+    ssd->scroll_direction = 1;
     if (start > end) {
-      dev->_scDirection = -1;
+      ssd->scroll_direction = -1;
     }
   }
 }
 
-void ssd1306_scroll_text(SSD1306_t *dev, char *text, int text_len,
+void ssd1306_scroll_text(SSD1306_t *ssd, char *text, int text_len,
                          bool invert) {
-  ESP_LOGD(TAG, "dev->_scEnable=%d", dev->_scEnable);
-  if (dev->_scEnable == false) {
+  ESP_LOGD(TAG, "ssd->scroll_enable=%d", ssd->scroll_enable);
+  if (ssd->scroll_enable == false) {
     return;
   }
 
-  void (*func)(SSD1306_t *dev, int page, int seg, uint8_t *images, int width);
+  void (*func)(SSD1306_t *ssd, int page, int seg, uint8_t *images, uint8_t width);
 
   func = i2c_display_image;
 
-  int srcIndex = dev->_scEnd - dev->_scDirection;
+  int srcIndex = ssd->scroll_end - ssd->scroll_direction;
   while (1) {
-    int dstIndex = srcIndex + dev->_scDirection;
+    int dstIndex = srcIndex + ssd->scroll_direction;
     ESP_LOGD(TAG, "srcIndex=%d dstIndex=%d", srcIndex, dstIndex);
-    for (int seg = 0; seg < dev->_width; seg++) {
-      dev->_page[dstIndex]._segs[seg] = dev->_page[srcIndex]._segs[seg];
+    for (int seg = 0; seg < ssd->width; seg++) {
+      ssd->screen_pages[dstIndex]._segs[seg] = ssd->screen_pages[srcIndex]._segs[seg];
     }
-    (*func)(dev, dstIndex, 0, dev->_page[dstIndex]._segs,
-            sizeof(dev->_page[dstIndex]._segs));
-    if (srcIndex == dev->_scStart) {
+    (*func)(ssd, dstIndex, 0, ssd->screen_pages[dstIndex]._segs,
+            sizeof(ssd->screen_pages[dstIndex]._segs));
+    if (srcIndex == ssd->scroll_start) {
       break;
     }
-    srcIndex = srcIndex - dev->_scDirection;
+    srcIndex = srcIndex - ssd->scroll_direction;
   }
 
   int _text_len = text_len;
@@ -204,73 +204,73 @@ void ssd1306_scroll_text(SSD1306_t *dev, char *text, int text_len,
     _text_len = 16;
   }
 
-  ssd1306_display_text(dev, srcIndex, text, text_len, invert);
+  ssd1306_display_text(ssd, srcIndex, text, text_len, invert);
 }
 
-void ssd1306_scroll_clear(SSD1306_t *dev) {
-  ESP_LOGD(TAG, "dev->_scEnable=%d", dev->_scEnable);
-  if (dev->_scEnable == false) {
+void ssd1306_scroll_clear(SSD1306_t *ssd) {
+  ESP_LOGD(TAG, "ssd->scroll_enable=%d", ssd->scroll_enable);
+  if (ssd->scroll_enable == false) {
     return;
   }
 
-  int srcIndex = dev->_scEnd - dev->_scDirection;
+  int srcIndex = ssd->scroll_end - ssd->scroll_direction;
   while (1) {
-    int dstIndex = srcIndex + dev->_scDirection;
+    int dstIndex = srcIndex + ssd->scroll_direction;
     ESP_LOGD(TAG, "srcIndex=%d dstIndex=%d", srcIndex, dstIndex);
-    ssd1306_clear_line(dev, dstIndex, false);
-    if (dstIndex == dev->_scStart) {
+    ssd1306_clear_line(ssd, dstIndex, false);
+    if (dstIndex == ssd->scroll_start) {
       break;
     }
-    srcIndex = srcIndex - dev->_scDirection;
+    srcIndex = srcIndex - ssd->scroll_direction;
   }
 }
 
-void ssd1306_hardware_scroll(SSD1306_t *dev, ssd1306_scroll_type_t scroll) {
-  i2c_hardware_scroll(dev, scroll);
+void ssd1306_hardware_scroll(SSD1306_t *ssd, ssd1306_scroll_type_t scroll) {
+  i2c_hardware_scroll(ssd, scroll);
 }
 
 // delay = 0 : display with no wait
 // delay > 0 : display with wait
 // delay < 0 : no display
-void ssd1306_wrap_arround(SSD1306_t *dev, ssd1306_scroll_type_t scroll,
+void ssd1306_wrap_arround(SSD1306_t *ssd, ssd1306_scroll_type_t scroll,
                           int start, int end, int8_t delay) {
   if (scroll == SCROLL_RIGHT) {
     int _start = start;  // 0 to 7
     int _end = end;      // 0 to 7
-    if (_end >= dev->_pages) {
-      _end = dev->_pages - 1;
+    if (_end >= ssd->pages) {
+      _end = ssd->pages - 1;
     }
     uint8_t wk;
-    // for (int page=0;page<dev->_pages;page++) {
+    // for (int page=0;page<ssd->pages;page++) {
     for (int page = _start; page <= _end; page++) {
-      wk = dev->_page[page]._segs[127];
+      wk = ssd->screen_pages[page]._segs[127];
       for (int seg = 127; seg > 0; seg--) {
-        dev->_page[page]._segs[seg] = dev->_page[page]._segs[seg - 1];
+        ssd->screen_pages[page]._segs[seg] = ssd->screen_pages[page]._segs[seg - 1];
       }
-      dev->_page[page]._segs[0] = wk;
+      ssd->screen_pages[page]._segs[0] = wk;
     }
 
   } else if (scroll == SCROLL_LEFT) {
     int _start = start;  // 0 to 7
     int _end = end;      // 0 to 7
-    if (_end >= dev->_pages) {
-      _end = dev->_pages - 1;
+    if (_end >= ssd->pages) {
+      _end = ssd->pages - 1;
     }
     uint8_t wk;
-    // for (int page=0;page<dev->_pages;page++) {
+    // for (int page=0;page<ssd->pages;page++) {
     for (int page = _start; page <= _end; page++) {
-      wk = dev->_page[page]._segs[0];
+      wk = ssd->screen_pages[page]._segs[0];
       for (int seg = 0; seg < 127; seg++) {
-        dev->_page[page]._segs[seg] = dev->_page[page]._segs[seg + 1];
+        ssd->screen_pages[page]._segs[seg] = ssd->screen_pages[page]._segs[seg + 1];
       }
-      dev->_page[page]._segs[127] = wk;
+      ssd->screen_pages[page]._segs[127] = wk;
     }
 
   } else if (scroll == SCROLL_UP) {
     int _start = start;  // 0 to {width-1}
     int _end = end;      // 0 to {width-1}
-    if (_end >= dev->_width) {
-      _end = dev->_width - 1;
+    if (_end >= ssd->width) {
+      _end = ssd->width - 1;
     }
     uint8_t wk0;
     uint8_t wk1;
@@ -278,18 +278,18 @@ void ssd1306_wrap_arround(SSD1306_t *dev, ssd1306_scroll_type_t scroll,
     uint8_t save[128];
     // Save pages 0
     for (int seg = 0; seg < 128; seg++) {
-      save[seg] = dev->_page[0]._segs[seg];
+      save[seg] = ssd->screen_pages[0]._segs[seg];
     }
     // Page0 to Page6
-    for (int page = 0; page < dev->_pages - 1; page++) {
+    for (int page = 0; page < ssd->pages - 1; page++) {
       // for (int seg=0;seg<128;seg++) {
       for (int seg = _start; seg <= _end; seg++) {
-        wk0 = dev->_page[page]._segs[seg];
-        wk1 = dev->_page[page + 1]._segs[seg];
-        if (dev->_flip) {
+        wk0 = ssd->screen_pages[page]._segs[seg];
+        wk1 = ssd->screen_pages[page + 1]._segs[seg];
+        if (ssd->flip) {
           wk0 = ssd1306_rotate_byte(wk0);
         }
-        if (dev->_flip) {
+        if (ssd->flip) {
           wk1 = ssd1306_rotate_byte(wk1);
         }
         if (seg == 0) {
@@ -303,59 +303,59 @@ void ssd1306_wrap_arround(SSD1306_t *dev, ssd1306_scroll_type_t scroll,
           ESP_LOGD(TAG, "a page=%d wk0=%02x wk1=%02x wk2=%02x", page, wk0, wk1,
                    wk2);
         }
-        if (dev->_flip) {
+        if (ssd->flip) {
           wk2 = ssd1306_rotate_byte(wk2);
         }
-        dev->_page[page]._segs[seg] = wk2;
+        ssd->screen_pages[page]._segs[seg] = wk2;
       }
     }
     // Page7
-    int pages = dev->_pages - 1;
+    int pages = ssd->pages - 1;
     // for (int seg=0;seg<128;seg++) {
     for (int seg = _start; seg <= _end; seg++) {
-      wk0 = dev->_page[pages]._segs[seg];
+      wk0 = ssd->screen_pages[pages]._segs[seg];
       wk1 = save[seg];
-      if (dev->_flip) {
+      if (ssd->flip) {
         wk0 = ssd1306_rotate_byte(wk0);
       }
-      if (dev->_flip) {
+      if (ssd->flip) {
         wk1 = ssd1306_rotate_byte(wk1);
       }
       wk0 = wk0 >> 1;
       wk1 = wk1 & 0x01;
       wk1 = wk1 << 7;
       wk2 = wk0 | wk1;
-      if (dev->_flip) {
+      if (ssd->flip) {
         wk2 = ssd1306_rotate_byte(wk2);
       }
-      dev->_page[pages]._segs[seg] = wk2;
+      ssd->screen_pages[pages]._segs[seg] = wk2;
     }
 
   } else if (scroll == SCROLL_DOWN) {
     int _start = start;  // 0 to {width-1}
     int _end = end;      // 0 to {width-1}
-    if (_end >= dev->_width) {
-      _end = dev->_width - 1;
+    if (_end >= ssd->width) {
+      _end = ssd->width - 1;
     }
     uint8_t wk0;
     uint8_t wk1;
     uint8_t wk2;
     uint8_t save[128];
     // Save pages 7
-    int pages = dev->_pages - 1;
+    int pages = ssd->pages - 1;
     for (int seg = 0; seg < 128; seg++) {
-      save[seg] = dev->_page[pages]._segs[seg];
+      save[seg] = ssd->screen_pages[pages]._segs[seg];
     }
     // Page7 to Page1
     for (int page = pages; page > 0; page--) {
       // for (int seg=0;seg<128;seg++) {
       for (int seg = _start; seg <= _end; seg++) {
-        wk0 = dev->_page[page]._segs[seg];
-        wk1 = dev->_page[page - 1]._segs[seg];
-        if (dev->_flip) {
+        wk0 = ssd->screen_pages[page]._segs[seg];
+        wk1 = ssd->screen_pages[page - 1]._segs[seg];
+        if (ssd->flip) {
           wk0 = ssd1306_rotate_byte(wk0);
         }
-        if (dev->_flip) {
+        if (ssd->flip) {
           wk1 = ssd1306_rotate_byte(wk1);
         }
         if (seg == 0) {
@@ -369,37 +369,37 @@ void ssd1306_wrap_arround(SSD1306_t *dev, ssd1306_scroll_type_t scroll,
           ESP_LOGD(TAG, "a page=%d wk0=%02x wk1=%02x wk2=%02x", page, wk0, wk1,
                    wk2);
         }
-        if (dev->_flip) {
+        if (ssd->flip) {
           wk2 = ssd1306_rotate_byte(wk2);
         }
-        dev->_page[page]._segs[seg] = wk2;
+        ssd->screen_pages[page]._segs[seg] = wk2;
       }
     }
     // Page0
     // for (int seg=0;seg<128;seg++) {
     for (int seg = _start; seg <= _end; seg++) {
-      wk0 = dev->_page[0]._segs[seg];
+      wk0 = ssd->screen_pages[0]._segs[seg];
       wk1 = save[seg];
-      if (dev->_flip) {
+      if (ssd->flip) {
         wk0 = ssd1306_rotate_byte(wk0);
       }
-      if (dev->_flip) {
+      if (ssd->flip) {
         wk1 = ssd1306_rotate_byte(wk1);
       }
       wk0 = wk0 << 1;
       wk1 = wk1 & 0x80;
       wk1 = wk1 >> 7;
       wk2 = wk0 | wk1;
-      if (dev->_flip) {
+      if (ssd->flip) {
         wk2 = ssd1306_rotate_byte(wk2);
       }
-      dev->_page[0]._segs[seg] = wk2;
+      ssd->screen_pages[0]._segs[seg] = wk2;
     }
   }
 
   if (delay >= 0) {
-    for (int page = 0; page < dev->_pages; page++) {
-      i2c_display_image(dev, page, 0, dev->_page[page]._segs, 128);
+    for (int page = 0; page < ssd->pages; page++) {
+      i2c_display_image(ssd, page, 0, ssd->screen_pages[page]._segs, 128);
 
       if (delay) {
         vTaskDelay(delay);
@@ -408,13 +408,13 @@ void ssd1306_wrap_arround(SSD1306_t *dev, ssd1306_scroll_type_t scroll,
   }
 }
 
-void ssd1306_bitmaps(SSD1306_t *dev, int xpos, int ypos, uint8_t *bitmap,
-                     int width, int height, bool invert) {
+void ssd1306_bitmaps(SSD1306_t *ssd, int xpos, int ypos, uint8_t *bitmap,
+                     uint8_t width, uint8_t height, bool invert) {
   if ((width % 8) != 0) {
     ESP_LOGE(TAG, "width must be a multiple of 8");
     return;
   }
-  int _width = width / 8;
+  width/=8;
   uint8_t wk0;
   uint8_t wk1;
   uint8_t wk2;
@@ -423,11 +423,11 @@ void ssd1306_bitmaps(SSD1306_t *dev, int xpos, int ypos, uint8_t *bitmap,
   uint8_t dstBits = (ypos % 8);
   ESP_LOGD(TAG, "ypos=%d page=%d dstBits=%d", ypos, page, dstBits);
   int offset = 0;
-  for (int _height = 0; _height < height; _height++) {
-    for (int index = 0; index < _width; index++) {
+  for (int i = 0; i < height; i++) { //TODO(Glibus): Something may have broken here
+    for (int index = 0; index < width; index++) {
       for (int srcBits = 7; srcBits >= 0; srcBits--) {
-        wk0 = dev->_page[page]._segs[_seg];
-        if (dev->_flip) {
+        wk0 = ssd->screen_pages[page]._segs[_seg];
+        if (ssd->flip) {
           wk0 = ssd1306_rotate_byte(wk0);
         }
 
@@ -438,18 +438,18 @@ void ssd1306_bitmaps(SSD1306_t *dev, int xpos, int ypos, uint8_t *bitmap,
 
         // wk2 = ssd1306_copy_bit(bitmap[index+offset], srcBits, wk0, dstBits);
         wk2 = ssd1306_copy_bit(wk1, srcBits, wk0, dstBits);
-        if (dev->_flip) {
+        if (ssd->flip) {
           wk2 = ssd1306_rotate_byte(wk2);
         }
 
         ESP_LOGD(TAG, "index=%d offset=%d page=%d _seg=%d, wk2=%02x", index,
                  offset, page, _seg, wk2);
-        dev->_page[page]._segs[_seg] = wk2;
+        ssd->screen_pages[page]._segs[_seg] = wk2;
         _seg++;
       }
     }
     vTaskDelay(1);
-    offset = offset + _width;
+    offset = offset + width;
     dstBits++;
     _seg = xpos;
     if (dstBits == 8) {
@@ -457,32 +457,32 @@ void ssd1306_bitmaps(SSD1306_t *dev, int xpos, int ypos, uint8_t *bitmap,
       dstBits = 0;
     }
   }
-  ssd1306_show_buffer(dev);
+  ssd1306_show_buffer(ssd);
 }
 
 // Set pixel to internal buffer. Not show it.
-void _ssd1306_pixel(SSD1306_t *dev, int xpos, int ypos, bool invert) {
-  uint8_t _page = (ypos / 8);
+void _ssd1306_pixel(SSD1306_t *ssd, int xpos, int ypos, bool invert) {
+  uint8_t screen_pages = (ypos / 8);
   uint8_t _bits = (ypos % 8);
   uint8_t _seg = xpos;
-  uint8_t wk0 = dev->_page[_page]._segs[_seg];
+  uint8_t wk0 = ssd->screen_pages[screen_pages]._segs[_seg];
   uint8_t wk1 = 1 << _bits;
-  ESP_LOGD(TAG, "ypos=%d _page=%d _bits=%d wk0=0x%02x wk1=0x%02x", ypos, _page,
+  ESP_LOGD(TAG, "ypos=%d screen_pages=%d _bits=%d wk0=0x%02x wk1=0x%02x", ypos, screen_pages,
            _bits, wk0, wk1);
   if (invert) {
     wk0 = wk0 & ~wk1;
   } else {
     wk0 = wk0 | wk1;
   }
-  if (dev->_flip) {
+  if (ssd->flip) {
     wk0 = ssd1306_rotate_byte(wk0);
   }
   ESP_LOGD(TAG, "wk0=0x%02x wk1=0x%02x", wk0, wk1);
-  dev->_page[_page]._segs[_seg] = wk0;
+  ssd->screen_pages[screen_pages]._segs[_seg] = wk0;
 }
 
 // Set line to internal buffer. Not show it.
-void _ssd1306_line(SSD1306_t *dev, int x1, int y1, int x2, int y2,
+void _ssd1306_line(SSD1306_t *ssd, int x1, int y1, int x2, int y2,
                    bool invert) {
   int i;
   int dx, dy;
@@ -501,7 +501,7 @@ void _ssd1306_line(SSD1306_t *dev, int x1, int y1, int x2, int y2,
   if (dx > dy) {
     E = -dx;
     for (i = 0; i <= dx; i++) {
-      _ssd1306_pixel(dev, x1, y1, invert);
+      _ssd1306_pixel(ssd, x1, y1, invert);
       x1 += sx;
       E += 2 * dy;
       if (E >= 0) {
@@ -514,7 +514,7 @@ void _ssd1306_line(SSD1306_t *dev, int x1, int y1, int x2, int y2,
   } else {
     E = -dy;
     for (i = 0; i <= dy; i++) {
-      _ssd1306_pixel(dev, x1, y1, invert);
+      _ssd1306_pixel(ssd, x1, y1, invert);
       y1 += sy;
       E += 2 * dx;
       if (E >= 0) {
@@ -566,25 +566,25 @@ uint8_t ssd1306_rotate_byte(uint8_t ch1) {
   return ch2;
 }
 
-void ssd1306_fadeout(SSD1306_t *dev) {
+void ssd1306_fadeout(SSD1306_t *ssd) {
   uint8_t image[1];
-  for (int page = 0; page < dev->_pages; page++) {
+  for (int page = 0; page < ssd->pages; page++) {
     image[0] = 0xFF;
     for (int line = 0; line < 8; line++) {
-      if (dev->_flip) {
+      if (ssd->flip) {
         image[0] = image[0] >> 1;
       } else {
         image[0] = image[0] << 1;
       }
       for (int seg = 0; seg < 128; seg++) {
-        i2c_display_image(dev, page, seg, image, 1);
-        dev->_page[page]._segs[seg] = image[0];
+        i2c_display_image(ssd, page, seg, image, 1);
+        ssd->screen_pages[page]._segs[seg] = image[0];
       }
     }
   }
 }
 
-void ssd1306_dump_page(SSD1306_t *dev, int page, int seg) {
-  ESP_LOGI(TAG, "dev->_page[%d]._segs[%d]=%02x", page, seg,
-           dev->_page[page]._segs[seg]);
+void ssd1306_dump_page(SSD1306_t *ssd, int page, int seg) {
+  ESP_LOGI(TAG, "ssd->screen_pages[%d]._segs[%d]=%02x", page, seg,
+           ssd->screen_pages[page]._segs[seg]);
 }

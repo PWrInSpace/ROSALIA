@@ -10,8 +10,8 @@
 #include "esp_rom_gpio.h"
 #include "freertos/task.h"
 #include "sdkconfig.h"
-#include "lora.h"
-
+#include "rom/gpio.h"
+#include "soc/gpio_struct.h"
 
 /*!
  * \file lora_esp32_config.h

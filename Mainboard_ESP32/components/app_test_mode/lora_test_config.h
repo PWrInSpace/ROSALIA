@@ -9,6 +9,7 @@
 #include "esp_vfs_fat.h"
 #include "freertos/FreeRTOS.h"
 #include "lora_esp32_config.h"
+#include "lora.h"
 #include "sdkconfig.h"
 
 #define TAG "MAIN"
