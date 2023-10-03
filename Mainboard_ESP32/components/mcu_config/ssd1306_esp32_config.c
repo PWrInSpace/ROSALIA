@@ -64,6 +64,6 @@ void _ssd1306_log(const ssd1306_debug_level_t level, const char* tag,
       ESP_LOGD(tag, "%s", info);
       break;
     default:
-      ESP_LOGE(SSD1306_TAG, "Unknown debug level");
+      ESP_LOGE(SSD1306_TAG, "Unknown debug level, %s", __func__);
   }
 }
