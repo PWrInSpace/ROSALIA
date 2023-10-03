@@ -4,7 +4,7 @@
 
 esp_err_t i2c_init(mcu_i2c_config_t *i2c) {
   if (i2c->i2c_init_flag == false) {
-    mcu_i2c_config_t conf = {
+    i2c_config_t conf = {
         .mode = I2C_MODE_MASTER,
         .sda_io_num = i2c->sda,
         .scl_io_num = i2c->scl,

@@ -3,10 +3,10 @@
 #pragma once
 
 #include <stdbool.h>
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <string.h>
-
+#include "font8x8_basic.h"
 /*!
  * \file ssd1306.h
  * \brief SSD1306 OLED display driver through I2C
@@ -87,6 +87,9 @@ Usage:
 // Internal buffer size
 #define OLED_BUFFER_SIZE 128
 
+/*!
+ * \brief enum for scroll type
+ */
 typedef enum {
   SCROLL_RIGHT = 1,
   SCROLL_LEFT = 2,
@@ -95,6 +98,9 @@ typedef enum {
   SCROLL_STOP = 5
 } ssd1306_scroll_type_t;
 
+/*!
+ * \brief enum for log level
+ */
 typedef enum {
   SSD1306_NONE,
   SSD1306_ERROR,
@@ -104,40 +110,29 @@ typedef enum {
 
 typedef void* ssd1306_i2c_cmd_handle_t;
 
-typedef bool (*ssd1306_i2c_master_write_byte)(uint8_t _data, bool _ack_en);
-typedef bool (*ssd1306_i2c_master_write)(const uint8_t* _data, size_t _data_len,
+typedef bool (*ssd1306_i2c_master_write_byte)(ssd1306_i2c_cmd_handle_t cmd, uint8_t _data, bool _ack_en);
+typedef bool (*ssd1306_i2c_master_write)(ssd1306_i2c_cmd_handle_t cmd, const uint8_t* _data, size_t _data_len,
                                          bool _ack_en);
 typedef bool (*ssd1306_i2c_master_start)(ssd1306_i2c_cmd_handle_t cmd);
 typedef bool (*ssd1306_i2c_master_stop)();
 typedef bool (*ssd1306_i2c_master_cmd_begin)(ssd1306_i2c_cmd_handle_t cmd,
                                              uint16_t ticks_to_wait);
 typedef ssd1306_i2c_cmd_handle_t (*ssd1306_i2c_cmd_link_create)();
-typedef void (*ssd1306_i2c_cmd_link_delete)();
+typedef void (*ssd1306_i2c_cmd_link_delete)(ssd1306_i2c_cmd_handle_t cmd);
 typedef void (*ssd1306_delay)(size_t _ms);
 typedef void (*ssd1306_log)(const ssd1306_log_level_t level, const char* tag,
                             char* info);
 
+/*!
+ * \brief SSD1306 display page structure
+ */
 typedef struct {
-  bool _valid;  // Not using it anymore
-  int _segLen;  // Not using it anymore
-  uint8_t _segs[OLED_BUFFER_SIZE];
+  uint8_t segments[OLED_BUFFER_SIZE];
 } PAGE_t;
 
-// typedef struct {
-//   int _address;
-//   uint8_t width;
-//   uint8_t height;
-//   int pages;
-//   int _dc;
-//   spi_device_handle_t _SPIHandle;
-//   bool scroll_enable;
-//   int scroll_start;
-//   int scroll_end;
-//   int scroll_direction;
-//   PAGE_t screen_pages[8];
-//   bool flip;
-// } ssd1306_t;
-
+/*!
+ * \brief SSD1306 display structure
+ */
 typedef struct {
   ssd1306_i2c_master_write_byte _i2c_master_write_byte;
   ssd1306_i2c_master_write _i2c_master_write;
@@ -161,38 +156,225 @@ typedef struct {
   uint8_t i2c_address;
 } ssd1306_t;
 
+/*!
+ * \brief Initialize SSD1306 display
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] width Display width
+ * \param[in] height Display height
+ */
 void ssd1306_init(ssd1306_t* ssd, uint8_t width, uint8_t height);
 
+/*!
+ * \brief Display whole image from buffer
+ * \param[in] ssd SSD1306 display structure
+ */
 void ssd1306_show_buffer(ssd1306_t* ssd);
+
+/*!
+ * \brief Set buffer for display from array to pages
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] buffer Buffer to set
+ */
 void ssd1306_set_buffer(ssd1306_t* ssd, uint8_t* buffer);
+
+/*!
+ * \brief Get buffer from display and save to buffer array
+ * \param[in] ssd SSD1306 display structure
+ * \param[out] buffer Buffer to get
+ */
 void ssd1306_get_buffer(ssd1306_t* ssd, uint8_t* buffer);
+
+/*!
+ * \brief Display image from buffer
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] page Page to display
+ * \param[in] seg Segment to display
+ * \param[in] images Image to display
+ * \param[in] width Image width
+ */
 void ssd1306_display_image(ssd1306_t* ssd, int page, int seg, uint8_t* images,
                            uint8_t width);
+
+/*!
+ * \brief Display text on display
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] page Page to display
+ * \param[in] text Text to display
+ * \param[in] text_len Text length
+ * \param[in] invert Invert text
+ */
 void ssd1306_display_text(ssd1306_t* ssd, int page, char* text, int text_len,
                           bool invert);
+
+/*!
+ * \brief Display text on display with x3 size
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] page Page to display
+ * \param[in] text Text to display
+ * \param[in] text_len Text length
+ * \param[in] invert Invert text
+ */
 void ssd1306_display_text_x3(ssd1306_t* ssd, int page, char* text, int text_len,
                              bool invert);
+
+/*!
+ * \brief Clear the whole screen
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] invert Invert screen
+ */
 void ssd1306_clear_screen(ssd1306_t* ssd, bool invert);
+
+/*!
+ * \brief Clear the whole screen
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] page Page to clear
+ * \param[in] invert Invert screen
+ */
 void ssd1306_clear_line(ssd1306_t* ssd, int page, bool invert);
-void ssd1306_contrast(ssd1306_t* ssd, int contrast);
+
+/*!
+ * \brief Set contrast of display
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] contrast Contrast value
+ */
+void ssd1306_set_contrast(ssd1306_t* ssd, int contrast);
+
+/*!
+ * \brief Perform software scroll of pixels
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] start Start page
+ * \param[in] end End page
+ */
 void ssd1306_software_scroll(ssd1306_t* ssd, int start, int end);
+
+/*!
+ * \brief Perform hardware scroll of text
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] text Text to scroll
+ * \param[in] text_len Text length
+ * \param[in] invert Invert text
+ */
 void ssd1306_scroll_text(ssd1306_t* ssd, char* text, int text_len, bool invert);
+
+/*!
+ * \brief Clear image with scroll
+ * \param[in] ssd SSD1306 display structure
+ */
 void ssd1306_scroll_clear(ssd1306_t* ssd);
+
+/*!
+ * \brief Perform hardware scroll of pixels
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] scroll Scroll type
+ */
 void ssd1306_hardware_scroll(ssd1306_t* ssd, ssd1306_scroll_type_t scroll);
+
+/*!
+ * \brief Wrap around image through scroll
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] scroll Scroll type
+ * \param[in] start Start page
+ * \param[in] end End page
+ * \param[in] delay Delay between scroll
+ */
 void ssd1306_wrap_arround(ssd1306_t* ssd, ssd1306_scroll_type_t scroll,
                           int start, int end, int8_t delay);
-void ssd1306_bitmaps(ssd1306_t* ssd, int xpos, int ypos, uint8_t* bitmap,
-                     uint8_t width, uint8_t height, bool invert);
+/*!
+ * \brief Show bitmap on display
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] xpos X position
+ * \param[in] ypos Y position
+ * \param[in] bitmap Bitmap to display
+ * \param[in] width Bitmap width
+ * \param[in] height Bitmap height
+ * \param[in] invert Invert bitmap
+ */
+void ssd1306_show_bitmap(ssd1306_t* ssd, int xpos, int ypos, uint8_t* bitmap,
+                         uint8_t width, uint8_t height, bool invert);
+
+/*!
+ * \brief Save pixel to internal buffer, without displaying
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] xpos X position
+ * \param[in] ypos Y position
+ * \param[in] invert Invert pixel
+ */
 void _ssd1306_pixel(ssd1306_t* ssd, int xpos, int ypos, bool invert);
+/*!
+ * \brief Save a line to internal buffer, without displaying
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] x1 X1 position
+ * \param[in] y1 Y1 position
+ * \param[in] x2 X2 position
+ * \param[in] y2 Y2 position
+ * \param[in] invert Invert line
+ */
 void _ssd1306_line(ssd1306_t* ssd, int x1, int y1, int x2, int y2, bool invert);
+/*!
+ * \brief Invert a buffer
+ * \param[in] buf Buffer to invert, after this operation buffer will be inverted
+ * \param[in] blen Buffer length
+ */
 void ssd1306_invert(uint8_t* buf, size_t blen);
+/*!
+ * \brief Flip a buffer
+ * \param[in] buf Buffer to flip, after this operation buffer will be flipped
+ * \param[in] blen Buffer length
+ */
 void ssd1306_flip(uint8_t* buf, size_t blen);
+/*!
+ * \brief Copy a bit from one byte to another
+ * \param[in] src Source byte
+ * \param[in] srcBits Source bit position
+ * \param[in] dst Destination byte
+ * \param[in] dstBits Destination bit position
+ */
 uint8_t ssd1306_copy_bit(uint8_t src, int srcBits, uint8_t dst, int dstBits);
+/*!
+ * \brief Rotate a byte
+ * \param[in] ch1 Byte to rotate
+ * \return Rotated byte
+ */
 uint8_t ssd1306_rotate_byte(uint8_t ch1);
+/*!
+ * \brief Perform a fade out effect
+ * \param[in] ssd SSD1306 display structure
+ */
 void ssd1306_fadeout(ssd1306_t* ssd);
-void ssd1306_dump_page(ssd1306_t* ssd, int page, int seg);
+
+/*!
+ * \brief Init of the screen through i2c
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] width Display width
+ * \param[in] height Display height
+ * \note This function is defined in ssd1306_i2c.c
+ */
 void ssd1306_i2c_init(ssd1306_t* ssd, uint8_t width, uint8_t height);
+
+/*!
+ * \brief Display an image through i2c
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] page Page to display
+ * \param[in] seg Segment to display
+ * \param[in] images Image to display
+ * \param[in] width Image width
+ * \note This function is defined in ssd1306_i2c.c
+ */
 void ssd1306_i2c_display_image(ssd1306_t* ssd, int page, int seg,
                                uint8_t* images, uint8_t width);
-void ssd1306_i2c_contrast(ssd1306_t* ssd, int contrast);
+
+/*!
+ * \brief Set the display contrast through i2c
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] contrast Contrast to set
+ * \note This function is defined in ssd1306_i2c.c
+ */
+void ssd1306_i2c_set_contrast(ssd1306_t* ssd, int contrast);
+
+/*!
+ * \brief Perform hardware scroll of pixels through i2c
+ * \param[in] ssd SSD1306 display structure
+ * \param[in] scroll Scroll type
+ * \note This function is defined in ssd1306_i2c.c
+ */
 void ssd1306_i2c_hardware_scroll(ssd1306_t* ssd, ssd1306_scroll_type_t scroll);

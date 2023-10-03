@@ -4,7 +4,6 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "rgb_led_driver.h"
-#include "ssd1306.h"
 #include "ssd1306_esp32_config.h"
 #include "sdkconfig.h"
 
@@ -33,6 +32,7 @@ typedef enum {
   MAGENTA = RED | BLUE,
   WHITE = RED | GREEN | BLUE
 } rgb_led_color_t;
+
 
 void user_interface_task(void* arg);
 

@@ -4,6 +4,8 @@
 
 #define USER_INTERFACE_TAG "USER_INTERFACE"
 
+#define I2C_MASTER_FREQ_HZ 400000
+
 static rgb_led_driver_t rgb_led_driver = {
     .led_drv =
         {
@@ -50,8 +52,25 @@ static ssd1306_t oled_display = {
     .i2c_address = 0x3c,
 };
 
+static mcu_i2c_config_t i2c = {
+    .port = I2C_NUM_0,
+    .sda = CONFIG_I2C_SDA,
+    .scl = CONFIG_I2C_SCL,
+    .clk_speed = I2C_MASTER_FREQ_HZ,
+    .i2c_init_flag = false,
+};
+
 void user_interface_task(void* arg) {
+  i2c_init(&i2c);
+  ssd1306_esp32_config_mount_i2c_config(&i2c);
+  ssd1306_init(&oled_display, 128, 64);
+  ssd1306_clear_screen(&oled_display, false);
+  ssd1306_set_contrast(&oled_display, 0xff);
+  ssd1306_display_text_x3(&oled_display, 0, "Hello", 5, false);
+  vTaskDelay(3000 / portTICK_PERIOD_MS);
   rgb_led_driver_init(&rgb_led_driver, LEDC_DUTY_RES, LEDC_FREQ_HZ);
+
+  int center, top, bottom;
   ESP_LOGI(USER_INTERFACE_TAG, "RGB LED driver initialized");
   led_state_t toggle = LED_OFF;
   for (;;) {
