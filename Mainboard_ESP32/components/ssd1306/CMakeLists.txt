@@ -1,5 +1,5 @@
-idf_component_register(SRCS "lora.c"
+idf_component_register(SRC_DIRS "."
                     INCLUDE_DIRS "."
-                    REQUIRES cmock driver soc esp_rom lora)
+                    REQUIRES driver ssd1306)
 
 target_compile_options(${COMPONENT_LIB} PRIVATE -Wno-format -Wall -W -Werror)
