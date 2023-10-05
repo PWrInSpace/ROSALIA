@@ -58,5 +58,7 @@ dkms.conf
 build/
 **/sdkconfig
 **/sdkconfig.old
+**/managed_components/**
+**/dependencies.lock
 /.vscode/**
 __pycache__/

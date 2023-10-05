@@ -51,7 +51,11 @@ To run unit tests:
 ```bash
 cd Mainboard_ESP32/test
 idf.py build
-# if build does not work checkout idf.py menuconfig
+# if build does not work checkout
+idf.py set-target esp32s3
+idf.py update-dependencies # needed for usb msc device
+# optional: menuconfig to check for 
+idf.py menuconfig
 idf.py flash monitor
 # reset the board
 ```
