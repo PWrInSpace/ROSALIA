@@ -14,6 +14,7 @@ set(TEST_FILES_DIRS
     "lora"
     "ble"
     "misc"
+    "usb_msc"
 )
 
 set(TEST_COMPONENTS ${TEST_FILES_DIRS} CACHE STRING "List of components to test")
