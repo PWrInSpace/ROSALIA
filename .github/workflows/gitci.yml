@@ -38,7 +38,7 @@ jobs:
         with: 
           esp_idf_version: release-v5.1
           target: 'esp32s3'
-          command: idf.py update-dependencies
+          command: idf.py add-dependency espressif/esp_tinyusb
           path: 'Mainboard_ESP32'
       - name: esp-idf build
         uses: espressif/esp-idf-ci-action@v1
