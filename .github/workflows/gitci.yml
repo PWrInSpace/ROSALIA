@@ -11,8 +11,8 @@ jobs:
       with:
         submodules: 'recursive'
     - name: esp-idf update_dependencies
-        uses: espressif/esp-idf-ci-action@v1
-        with: 
+      uses: espressif/esp-idf-ci-action@v1
+      with: 
           esp_idf_version: release-v5.1
           target: 'esp32s3'
           command: idf.py update-dependencies
