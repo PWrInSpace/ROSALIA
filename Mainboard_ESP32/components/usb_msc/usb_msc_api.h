@@ -21,6 +21,7 @@
 typedef struct {
   tusb_desc_device_t desc_device;
   tusb_desc_configuration_t desc_cfg;
+  tinyusb_config_t tusb_cfg;
 } usb_msc_config_t;
 
 /*!

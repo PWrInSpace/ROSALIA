@@ -34,6 +34,6 @@ usb_msc_config_t usb_cfg = {
         },
 };
 
-TEST_CASE("LED driver init test", "[LED]") {
+TEST_CASE("USB MSC init test", "[LED]") {
   TEST_ASSERT_EQUAL(ESP_OK, usb_msc_init(&usb_cfg));
 }
