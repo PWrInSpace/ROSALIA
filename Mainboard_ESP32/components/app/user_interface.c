@@ -66,20 +66,21 @@ static voltage_measure_config_t v_mes = {
     .adc_cal = {1.0f, 1.0f, 1.0f},
     .adc_chan = {CAN_CHANNEL, VBAT_CHANNEL, ADJV_CHANNEL},
     .adc_chan_num = MAX_CHANNEL_INDEX,
-    .oneshot_chan_cfg = {
-        .bitwidth = ADC_BITWIDTH_12 ,
-        .atten = ADC_ATTEN_DB_11,
-    },
-    .oneshot_unit_cfg = {
-        .unit_id = ADC_UNIT_1,
-    },
-    .oneshot_unit_handle = &adc1_handle
-};
+    .oneshot_chan_cfg =
+        {
+            .bitwidth = ADC_BITWIDTH_12,
+            .atten = ADC_ATTEN_DB_11,
+        },
+    .oneshot_unit_cfg =
+        {
+            .unit_id = ADC_UNIT_1,
+        },
+    .oneshot_unit_handle = &adc1_handle};
 
 void user_interface_task(void* arg) {
   i2c_init(&i2c);
   voltage_measure_init(&v_mes);
-  for(int i = 0; i < 3; i++) {
+  for (int i = 0; i < 3; i++) {
     ESP_LOGI(USER_INTERFACE_TAG, "%d", v_mes.adc_chan[i]);
   }
   ssd1306_esp32_config_mount_i2c_config(&i2c);

@@ -39,13 +39,13 @@ typedef enum {
   VBAT_CHANNEL = ADC_CHANNEL_1,
   ADJV_CHANNEL = ADC_CHANNEL_3,
 } adc_chan_cfg_t;
+
 typedef enum {
   CAN_CHANNEL_INDEX = 0,
   VBAT_CHANNEL_INDEX,
   ADJV_CHANNEL_INDEX,
   MAX_CHANNEL_INDEX
-}
-adc_chan_cfg_t;
+} adc_chan_index_cfg_t;
 
 void user_interface_task(void* arg);
 
