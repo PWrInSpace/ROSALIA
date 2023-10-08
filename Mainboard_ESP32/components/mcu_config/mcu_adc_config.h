@@ -39,8 +39,8 @@ typedef struct {
   uint8_t adc_chan[MAX_ADC_CHANNELS];
   uint8_t adc_chan_num;
   adc_oneshot_unit_init_cfg_t oneshot_unit_cfg;
-  adc_oneshot_unit_handle_t oneshot_unit_handle;
   adc_oneshot_chan_cfg_t oneshot_chan_cfg;
+  adc_oneshot_unit_handle_t* oneshot_unit_handle;
 } voltage_measure_config_t;
 
 /*!

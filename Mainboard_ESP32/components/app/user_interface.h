@@ -3,9 +3,10 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "mcu_adc_config.h"
 #include "rgb_led_driver.h"
-#include "ssd1306_esp32_config.h"
 #include "sdkconfig.h"
+#include "ssd1306_esp32_config.h"
 
 /*!
  * \file user_interface.h
@@ -33,6 +34,18 @@ typedef enum {
   WHITE = RED | GREEN | BLUE
 } rgb_led_color_t;
 
+typedef enum {
+  CAN_CHANNEL = ADC_CHANNEL_0,
+  VBAT_CHANNEL = ADC_CHANNEL_1,
+  ADJV_CHANNEL = ADC_CHANNEL_3,
+} adc_chan_cfg_t;
+typedef enum {
+  CAN_CHANNEL_INDEX = 0,
+  VBAT_CHANNEL_INDEX,
+  ADJV_CHANNEL_INDEX,
+  MAX_CHANNEL_INDEX
+}
+adc_chan_cfg_t;
 
 void user_interface_task(void* arg);
 
