@@ -100,7 +100,6 @@ void user_interface_task(void* arg) {
     ESP_LOGI(USER_INTERFACE_TAG, "%f", voltage_measure_read_voltage(&v_mes, 0));
     ESP_LOGI(USER_INTERFACE_TAG, "%f", voltage_measure_read_voltage(&v_mes, 1));
     ESP_LOGI(USER_INTERFACE_TAG, "%f", voltage_measure_read_voltage(&v_mes, 2));
-    voltage_measure_read_voltage(&v_mes, ADJV_CHANNEL);
     vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }
