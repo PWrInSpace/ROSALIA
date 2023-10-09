@@ -60,8 +60,29 @@ static mcu_i2c_config_t i2c = {
     .i2c_init_flag = false,
 };
 
+static adc_oneshot_unit_handle_t adc1_handle;
+
+static voltage_measure_config_t v_mes = {
+    .adc_cal = {1.0f, 1.0f, 1.0f},
+    .adc_chan = {CAN_CHANNEL, VBAT_CHANNEL, ADJV_CHANNEL},
+    .adc_chan_num = MAX_CHANNEL_INDEX,
+    .oneshot_chan_cfg =
+        {
+            .bitwidth = ADC_BITWIDTH_12,
+            .atten = ADC_ATTEN_DB_11,
+        },
+    .oneshot_unit_cfg =
+        {
+            .unit_id = ADC_UNIT_1,
+        },
+    .oneshot_unit_handle = &adc1_handle};
+
 void user_interface_task(void* arg) {
   i2c_init(&i2c);
+  voltage_measure_init(&v_mes);
+  for (int i = 0; i < 3; i++) {
+    ESP_LOGI(USER_INTERFACE_TAG, "%d", v_mes.adc_chan[i]);
+  }
   ssd1306_esp32_config_mount_i2c_config(&i2c);
   ssd1306_init(&oled_display, 128, 64);
   ssd1306_clear_screen(&oled_display, false);
@@ -76,6 +97,9 @@ void user_interface_task(void* arg) {
   for (;;) {
     toggle = !toggle;
     rgb_led_toggle(&rgb_led_driver, toggle);
+    ESP_LOGI(USER_INTERFACE_TAG, "%f", voltage_measure_read_voltage(&v_mes, 0));
+    ESP_LOGI(USER_INTERFACE_TAG, "%f", voltage_measure_read_voltage(&v_mes, 1));
+    ESP_LOGI(USER_INTERFACE_TAG, "%f", voltage_measure_read_voltage(&v_mes, 2));
     vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }
