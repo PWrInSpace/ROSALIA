@@ -18,6 +18,7 @@ static spi_device_handle_t __spi;
 #define TAG "LORA"
 
 bool _lora_spi_and_pins_init() {
+  // TODO(Glibus): modify to check for spi_initiated flag
   esp_err_t ret;
   spi_bus_config_t bus = {.miso_io_num = CONFIG_SPI_MISO,
                           .mosi_io_num = CONFIG_SPI_MOSI,
