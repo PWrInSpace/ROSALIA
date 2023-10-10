@@ -3,15 +3,8 @@
 
 #include <stdint.h>
 #include <string.h>
-
-#include "driver/gpio.h"
-#include "driver/spi_master.h"
-#include "esp_log.h"
-#include "esp_system.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "rom/gpio.h"
-#include "soc/gpio_struct.h"
+#include <stdio.h>
+#include <stdbool.h>
 
 /*!
  * \file lora.h

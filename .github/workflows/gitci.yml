@@ -13,9 +13,24 @@ jobs:
     - name: esp-idf build
       uses: espressif/esp-idf-ci-action@v1
       with: 
-        esp_idf_version: v5.0
+        esp_idf_version: release-v5.1
         path: 'Mainboard_ESP32'
         
+  build_ESP32_tests:
+      
+      runs-on: ubuntu-latest
+  
+      steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: esp-idf build
+        uses: espressif/esp-idf-ci-action@v1
+        with: 
+          esp_idf_version: release-v5.1
+          path: 'Mainboard_ESP32/test'
+
   lint:
     runs-on: ubuntu-latest
 

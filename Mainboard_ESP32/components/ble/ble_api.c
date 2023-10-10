@@ -16,13 +16,16 @@ ble_err_t ble_esp_hardware_init(ble_config_t *ble) {
   ESP_ERROR_CHECK(ret);
 
   ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT));
+  esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
 
-  ret = esp_bt_controller_init(&ble->bt_controller_config);
+  ret = esp_bt_controller_init(&bt_cfg);
   if (ret != ESP_OK) {
     ESP_LOGE(BLE_TAG, "%s initialize controller failed: %s\n", __func__,
              esp_err_to_name(ret));
     return BLE_HARDWARE_INIT_ERR;
   }
+
+  ble->bt_cfg = bt_cfg;
 
   ret = esp_bt_controller_enable(ESP_BT_MODE_BLE);
   if (ret != ESP_OK) {
@@ -52,12 +55,12 @@ ble_err_t ble_init(ble_config_t *ble) {
     return ret;
   }
 
-  ret = ble_gatt_init(ble->gatt_config);
+  ret = ble_gap_init(ble->gap_config);
   if (ret != BLE_OK) {
     return ret;
   }
 
-  ret = ble_gap_init(ble->gap_config);
+  ret = ble_gatt_init(ble->gatt_config);
   if (ret != BLE_OK) {
     return ret;
   }
