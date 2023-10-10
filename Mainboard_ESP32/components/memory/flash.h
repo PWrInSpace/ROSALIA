@@ -4,12 +4,12 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
+
 #include "esp_flash.h"
 #include "esp_flash_spi_init.h"
-#include "spi_flash_mmap.h"
-
 #include "esp_log.h"
 #include "esp_spiffs.h"
+#include "spi_flash_mmap.h"
 
 #define PATH "/spiffs"
 #define FLASH_FILE_NAME "flash"
@@ -36,7 +36,7 @@
                 data.txt.
     \subsection Then at the end of CMakeLists.txt in /main folder add
     spiffs_create_partition_image(storage ../spiffs_data FLASH_IN_PROJECT)
-    
+
     \subsection Launch idf.py menuconfig, and go to > Serial flasher condif
     \subsection Go to partition table and make sure that these are set:
               Flash SPI mode (DIO)  --->
@@ -48,21 +48,21 @@
               (0x8000) Offset of partition table
               [*] Generate an MD5 checksum for the partition table
     ! NOTE: if you change the phy_init or app partition offset,
-            make sure to change the partition table offset (above) accordingly  
+            make sure to change the partition table offset (above) accordingly
 */
 
 typedef enum {
-    FLASH_OK,
-    FLASH_INIT_ERROR,
-    FLASH_ALREADY_INITIALIZED,
-    FLASH_IS_NOT_INITIALIZED,
-    FLASH_CHECK_FAILED,
-    FLASH_WRITE_ERROR,
-    FLASH_OPEN_ERROR,
-    FLASH_FORMAT_ERROR,
-    FLASH_READ_NO_DATA,
-    FLASH_READ_ALL_SIZE,
-    FLASH_ALLOC_ERROR,
+  FLASH_OK,
+  FLASH_INIT_ERROR,
+  FLASH_ALREADY_INITIALIZED,
+  FLASH_IS_NOT_INITIALIZED,
+  FLASH_CHECK_FAILED,
+  FLASH_WRITE_ERROR,
+  FLASH_OPEN_ERROR,
+  FLASH_FORMAT_ERROR,
+  FLASH_READ_NO_DATA,
+  FLASH_READ_ALL_SIZE,
+  FLASH_ALLOC_ERROR,
 } FlashResult;
 
 FlashResult FLASH_init(uint8_t max_files);

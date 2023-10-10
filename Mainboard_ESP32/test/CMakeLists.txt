@@ -13,11 +13,8 @@ set(EXTRA_COMPONENT_DIRS "../components")
 set(TEST_FILES_DIRS
     "lora"
     "ble"
-<<<<<<< HEAD
-    "flash_memory"
-=======
+    "memory"
     "misc"
->>>>>>> master
 )
 
 set(TEST_COMPONENTS ${TEST_FILES_DIRS} CACHE STRING "List of components to test")
