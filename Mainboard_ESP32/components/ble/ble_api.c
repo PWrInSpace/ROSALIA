@@ -64,3 +64,20 @@ ble_err_t ble_init(ble_config_t *ble) {
 
   return BLE_OK;
 }
+
+const char *ble_err_to_string(ble_err_t err) {
+  switch (err) {
+    case BLE_OK:
+      return "BLE OK";
+      break;
+    case BLE_HARDWARE_INIT_ERR:
+      return "BLE Api Hardware init error";
+      break;
+    case BLE_ERR:
+      return "BLE Api error";
+      break;
+    default:
+      return "UNKNOWN BLE Api error";
+      break;
+  }
+}

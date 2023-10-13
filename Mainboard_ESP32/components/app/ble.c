@@ -20,9 +20,6 @@ static esp_ble_adv_params_t adv_params = BLE_ADV_PARAMS_CONFIG_DEFAULT();
 static ble_gap_t ble_gap_conf = {.conf_type = BLE_GAP_BROADCASTER_CENTRAL,
                                  .event_handler_cb = gap_event_handler};
 
-// static ble_gatts_profile_t rosalia_gatt_profiles[PROFILE_TOTAL_NUM] = {
-// {.gatts_cb = gatt_profile_a_event_handler, .gatts_if = ESP_GATT_IF_NONE}};
-
 static ble_gatts_t ble_gatt_conf = {
     .profiles_num = PROFILE_TOTAL_NUM,
     .event_handler_cb = gatts_event_handler,

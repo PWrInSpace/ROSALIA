@@ -87,3 +87,10 @@ ble_err_t ble_esp_hardware_init(ble_config_t *ble);
  * ble_gap_t configuration
  */
 ble_err_t ble_init(ble_config_t *ble);
+
+/*!
+ * \brief Converts ble_err_t to string
+ * \param[in] err - error to convert
+ * \return string representation of error
+ */
+const char *ble_err_to_string(ble_err_t err);
