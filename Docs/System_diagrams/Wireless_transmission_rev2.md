@@ -83,46 +83,46 @@ The frame will be constructed from structs presented below:
 ```C
 typedef struct {
   struct rosalia_mainboard{
-       uint16_t vbat_adc : 16;
-       bool sd_save : 1;
-       bool flash_save : 1;
-       bool hardware_arm : 1;
-       bool software_arm : 1;
-       uint8_t ble_state : 2;
-       uint32_t t_minus : 32; // test time: until (negative) or after (positive) test start
-       bool test_running : 1; // Is the test ongoing
-       uint8_t rosalia_state : 8;
+    uint16_t vbat_adc : 16;
+    bool sd_save : 1;
+    bool flash_save : 1;
+    bool hardware_arm : 1;
+    bool software_arm : 1;
+    uint8_t ble_state : 2;
+    uint32_t t_minus : 32; // test time: until (negative) or after (positive) test start
+    bool test_running : 1; // Is the test ongoing
+    uint8_t rosalia_state : 8;
   };
   struct available_slaves {
-      bool loadcell[2] : 2;
-      bool vent : 1;
-      bool main : 1;
-      bool filling_station : 1;
+    bool loadcell[2] : 2;
+    bool vent : 1;
+    bool main : 1;
+    bool filling_station : 1;
   };
   struct vent_data {
-      bool wakenUp : 1;
-      uint8_t valveState : 2;
-      uint32_t pressure;
-      int8_t termistor1;
-      int8_t termistor2;
-      uint32_t batteryVoltage;
+    bool wakenUp : 1;
+    uint8_t valveState : 2;
+    uint32_t pressure;
+    int8_t termistor1;
+    int8_t termistor2;
+    uint32_t batteryVoltage;
   };
   struct main_data {
-      bool wakenUp : 1;
-      uint8_t valveState : 2;
-      uint32_t thermocouple1;
-      uint32_t thermocouple2;
-      uint32_t batteryVoltage;
+    bool wakenUp : 1;
+    uint8_t valveState : 2;
+    uint32_t thermocouple1;
+    uint32_t thermocouple2;
+    uint32_t batteryVoltage;
   };
   struct loadcell_data[2] {
-      uint16_t thrust : 16;
-      uint16_t pressure : 16;
+    uint16_t thrust : 16;
+    uint16_t pressure : 16;
   };
   struct filling_data {
-      uint8_t solenoid_state[3] : 2;
-      uint16_t pressure[2] : 16;
-      uint16_t thermistor[3] : 48;
-      uint16_t thermocouple[3] : 48;
+    uint8_t solenoid_state[3] : 2;
+    uint16_t pressure[2] : 16;
+    uint16_t thermistor[3] : 48;
+    uint16_t thermocouple[3] : 48;
   };
 }
 lora_data_t;
@@ -130,4 +130,16 @@ lora_data_t;
 
 ## BLE data transmission
 
-TBD when BLE API is finished
+The BLE data transmission definitions will revolve mainly around GATT profiles (services) specifications. The Role of Rosalia in terms of GATT is __Server__ and be the device that stores and shares the data for other devices: clients (mainly smartphones and desktops with BLE capabilities). 
+
+There will be data transmitted mostly for data acquisition and monitoring as well as writable attributes for some ability i.e. to change states, start the test procedure, etc.
+
+In the characteristics category, we will define:
+- properties (read, write, notify etc.)
+- descriptors (user description, enabling notifications, presentation format etc.)
+
+Each characteristicwill have defined:
+- Handle (4 byte), 
+- UUID (up to 128 bit),
+- Permissions, with the same notation as in ESP-IDF i.e. READ, WRITE, WRITE_NR, NOTIFY, BROADCAST, etc. (all defines on [documentation on gatt defines on ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/bluetooth/esp_gatt_defs.html))
+- value, where the focus will be on the value type and size
