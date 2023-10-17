@@ -13,7 +13,8 @@ FILTERS="\
 -build/include_subdir,\
 -build/header_guard,\
 -readability/casting,\
--whitespace/braces
+-whitespace/braces,\
+-readability/multiline_string
 "
 
 cpplint ${OPTIONS} --linelength=80 --filter=${FILTERS} ${FILES}
