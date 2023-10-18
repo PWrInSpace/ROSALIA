@@ -54,6 +54,18 @@ typedef enum {
   HRS_IDX_NB,
 } ble_gatt_database_profile_a_idx;
 
+typedef enum {
+  IDX_SVC,
+  IDX_CHAR_A,
+  IDX_CHAR_VAL_A,
+  IDX_CHAR_CFG_A,
+  IDX_CHAR_B,
+  IDX_CHAR_VAL_B,
+  IDX_CHAR_C,
+  IDX_CHAR_VAL_C,
+  HRS_IDX_NB,
+} ble_gatt_database_profile_b_idx;
+
 typedef struct {
   uint8_t *prepare_buf;
   int prepare_len;
@@ -90,6 +102,63 @@ uint16_t profile_a_handle_table[HRS_IDX_NB];
 prepare_type_env_t prepare_write_env;
 
 const esp_gatts_attr_db_t gatt_profile_a_db[HRS_IDX_NB] = {
+    // Service Declaration
+    [IDX_SVC] = {{ESP_GATT_AUTO_RSP},
+                 {ESP_UUID_LEN_16, (uint8_t *)&primary_service_uuid,
+                  ESP_GATT_PERM_READ, sizeof(uint16_t),
+                  sizeof(GATTS_SERVICE_UUID_TEST),
+                  (uint8_t *)&GATTS_SERVICE_UUID_TEST}},
+
+    /* Characteristic Declaration */
+    [IDX_CHAR_A] = {{ESP_GATT_AUTO_RSP},
+                    {ESP_UUID_LEN_16, (uint8_t *)&character_declaration_uuid,
+                     ESP_GATT_PERM_READ, CHAR_DECLARATION_SIZE,
+                     CHAR_DECLARATION_SIZE,
+                     (uint8_t *)&char_prop_read_write_notify}},
+
+    /* Characteristic Value */
+    [IDX_CHAR_VAL_A] = {{ESP_GATT_AUTO_RSP},
+                        {ESP_UUID_LEN_16, (uint8_t *)&GATTS_CHAR_UUID_TEST_A,
+                         ESP_GATT_PERM_READ | ESP_GATT_PERM_WRITE,
+                         GATTS_DEMO_CHAR_VAL_LEN_MAX, sizeof(char_value),
+                         (uint8_t *)char_value}},
+
+    /* Client Characteristic Configuration Descriptor */
+    [IDX_CHAR_CFG_A] = {{ESP_GATT_AUTO_RSP},
+                        {ESP_UUID_LEN_16,
+                         (uint8_t *)&character_client_config_uuid,
+                         ESP_GATT_PERM_READ | ESP_GATT_PERM_WRITE,
+                         sizeof(uint16_t), sizeof(heart_measurement_ccc),
+                         (uint8_t *)heart_measurement_ccc}},
+
+    /* Characteristic Declaration */
+    [IDX_CHAR_B] = {{ESP_GATT_AUTO_RSP},
+                    {ESP_UUID_LEN_16, (uint8_t *)&character_declaration_uuid,
+                     ESP_GATT_PERM_READ, CHAR_DECLARATION_SIZE,
+                     CHAR_DECLARATION_SIZE, (uint8_t *)&char_prop_read}},
+
+    /* Characteristic Value */
+    [IDX_CHAR_VAL_B] = {{ESP_GATT_AUTO_RSP},
+                        {ESP_UUID_LEN_16, (uint8_t *)&GATTS_CHAR_UUID_TEST_B,
+                         ESP_GATT_PERM_READ | ESP_GATT_PERM_WRITE,
+                         GATTS_DEMO_CHAR_VAL_LEN_MAX, sizeof(char_value),
+                         (uint8_t *)char_value}},
+
+    /* Characteristic Declaration */
+    [IDX_CHAR_C] = {{ESP_GATT_AUTO_RSP},
+                    {ESP_UUID_LEN_16, (uint8_t *)&character_declaration_uuid,
+                     ESP_GATT_PERM_READ, CHAR_DECLARATION_SIZE,
+                     CHAR_DECLARATION_SIZE, (uint8_t *)&char_prop_write}},
+
+    /* Characteristic Value */
+    [IDX_CHAR_VAL_C] = {{ESP_GATT_AUTO_RSP},
+                        {ESP_UUID_LEN_16, (uint8_t *)&GATTS_CHAR_UUID_TEST_C,
+                         ESP_GATT_PERM_READ | ESP_GATT_PERM_WRITE,
+                         GATTS_DEMO_CHAR_VAL_LEN_MAX, sizeof(char_value),
+                         (uint8_t *)char_value}},
+};
+
+const esp_gatts_attr_db_t gatt_profile_b_db[HRS_IDX_NB] = {
     // Service Declaration
     [IDX_SVC] = {{ESP_GATT_AUTO_RSP},
                  {ESP_UUID_LEN_16, (uint8_t *)&primary_service_uuid,
