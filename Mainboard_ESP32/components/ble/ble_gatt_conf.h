@@ -20,6 +20,11 @@
 #define GATTS_PROFILES_NUM_MAX 16
 
 /*!
+ * \brief Maximum number of GATT attributes in db
+ */
+#define GATTS_ATTRIBUTES_DB_MAX_NUM 256
+
+/*!
  * \brief Handle GATT events
  * \param[in] event GATT event
  * \param[in] param GATT event parameters
@@ -44,6 +49,7 @@ typedef struct {
   esp_gatt_char_prop_t property;
   uint16_t descr_handle;
   esp_bt_uuid_t descr_uuid;
+  esp_gatts_attr_db_t gatt_db[GATTS_ATTRIBUTES_DB_MAX_NUM];
 } ble_gatts_profile_t;
 
 /*!

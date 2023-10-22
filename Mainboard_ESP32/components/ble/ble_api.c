@@ -16,18 +16,13 @@ ble_err_t ble_esp_hardware_init(ble_config_t *ble) {
   ESP_ERROR_CHECK(ret);
 
   ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT));
-  esp_bt_controller_config_t bt_cfg =
-      BT_CONTROLLER_INIT_CONFIG_DEFAULT();  // TODO(Glibus): check if this can
-                                            // be passed in struct declaration
 
-  ret = esp_bt_controller_init(&bt_cfg);
+  ret = esp_bt_controller_init(&ble->bt_cfg);
   if (ret != ESP_OK) {
     ESP_LOGE(BLE_TAG, "%s initialize controller failed: %s\n", __func__,
              esp_err_to_name(ret));
     return BLE_HARDWARE_INIT_ERR;
   }
-
-  ble->bt_cfg = bt_cfg;
 
   ret = esp_bt_controller_enable(ESP_BT_MODE_BLE);
   if (ret != ESP_OK) {
@@ -68,4 +63,21 @@ ble_err_t ble_init(ble_config_t *ble) {
   }
 
   return BLE_OK;
+}
+
+const char *ble_err_to_string(ble_err_t err) {
+  switch (err) {
+    case BLE_OK:
+      return "BLE OK";
+      break;
+    case BLE_HARDWARE_INIT_ERR:
+      return "BLE Api Hardware init error";
+      break;
+    case BLE_ERR:
+      return "BLE Api error";
+      break;
+    default:
+      return "UNKNOWN BLE Api error";
+      break;
+  }
 }
