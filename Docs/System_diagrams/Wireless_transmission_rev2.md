@@ -88,7 +88,7 @@ typedef struct {
     bool flash_save : 1;
     bool hardware_arm : 1;
     bool software_arm : 1;
-    uint8_t ble_state : 2;
+    bool ble_state : 1;
     uint32_t t_minus : 32; // test time: until (negative) or after (positive) test start
     bool test_running : 1; // Is the test ongoing
     uint8_t rosalia_state : 8;
@@ -138,8 +138,13 @@ In the characteristics category, we will define:
 - properties (read, write, notify etc.)
 - descriptors (user description, enabling notifications, presentation format etc.)
 
-Each characteristicwill have defined:
+Each characteristic will have defined:
 - Handle (4 byte), 
 - UUID (up to 128 bit),
 - Permissions, with the same notation as in ESP-IDF i.e. READ, WRITE, WRITE_NR, NOTIFY, BROADCAST, etc. (all defines on [documentation on gatt defines on ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/bluetooth/esp_gatt_defs.html))
 - value, where the focus will be on the value type and size
+
+Below are some of the requirements:
+- Each characteristic will have max. 1 descriptor defined
+- There will be multiple attributes defined, similar to how data is handled in LoRa - grouped by the same categories. 
+- the service and characteristic declarations must be read only
