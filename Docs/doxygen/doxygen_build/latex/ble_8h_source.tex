@@ -1,5 +1,5 @@
 \doxysection{ble.\+h}
-\hypertarget{ble_8h_source}{}\label{ble_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/app/ble.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/app/ble.h}}
+\hypertarget{ble_8h_source}{}\label{ble_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/ble.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/ble.h}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
@@ -15,11 +15,15 @@
 \DoxyCodeLine{00011\ \textcolor{keywordtype}{void}\ gap\_event\_handler(esp\_gap\_ble\_cb\_event\_t\ event,}
 \DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_ble\_gap\_cb\_param\_t*\ param);}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00014\ \textcolor{keywordtype}{void}\ gatt\_event\_handler(esp\_gatts\_cb\_event\_t\ event,\ esp\_gatt\_if\_t\ gatts\_if,}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_ble\_gatts\_cb\_param\_t*\ param);}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keywordtype}{bool}\ ble\_config\_init(\textcolor{keywordtype}{void});}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \textcolor{keywordtype}{void}\ ble\_init\_task(\textcolor{keywordtype}{void}*\ arg);}
+\DoxyCodeLine{00014\ \textcolor{keywordtype}{void}\ gatt\_profile\_a\_event\_handler(esp\_gatts\_cb\_event\_t\ event,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_gatt\_if\_t\ gatts\_if,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_ble\_gatts\_cb\_param\_t*\ param);}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keywordtype}{void}\ gatts\_event\_handler(esp\_gatts\_cb\_event\_t\ event,\ esp\_gatt\_if\_t\ gatts\_if,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_ble\_gatts\_cb\_param\_t*\ param);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{bool}\ ble\_config\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}\ ble\_init\_task(\textcolor{keywordtype}{void}*\ arg);}
 
 \end{DoxyCode}

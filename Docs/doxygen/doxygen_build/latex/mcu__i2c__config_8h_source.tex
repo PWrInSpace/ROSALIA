@@ -1,0 +1,25 @@
+\doxysection{mcu\+\_\+i2c\+\_\+config.\+h}
+\hypertarget{mcu__i2c__config_8h_source}{}\label{mcu__i2c__config_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_i2c\_config.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_i2c\_config.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}driver/i2c.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}freertos/task.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00010\ \ \ i2c\_port\_t\ port;}
+\DoxyCodeLine{00011\ \ \ i2c\_cmd\_handle\_t\ *cmd;}
+\DoxyCodeLine{00012\ \ \ gpio\_num\_t\ sda;}
+\DoxyCodeLine{00013\ \ \ gpio\_num\_t\ scl;}
+\DoxyCodeLine{00014\ \ \ uint32\_t\ clk\_speed;}
+\DoxyCodeLine{00015\ \ \ uint32\_t\ timeout;}
+\DoxyCodeLine{00016\ \ \ \textcolor{keywordtype}{bool}\ i2c\_init\_flag;}
+\DoxyCodeLine{00017\ \}\ \mbox{\hyperlink{structmcu__i2c__config__t}{mcu\_i2c\_config\_t}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00025\ esp\_err\_t\ i2c\_init(\mbox{\hyperlink{structmcu__i2c__config__t}{mcu\_i2c\_config\_t}}\ *i2c);}
+
+\end{DoxyCode}

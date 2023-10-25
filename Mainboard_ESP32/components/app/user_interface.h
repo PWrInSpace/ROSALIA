@@ -7,6 +7,7 @@
 #include "rgb_led_driver.h"
 #include "sdkconfig.h"
 #include "ssd1306_esp32_config.h"
+#include "devices_config.h"
 
 /*!
  * \file user_interface.h
@@ -47,6 +48,5 @@ typedef enum {
   MAX_CHANNEL_INDEX
 } adc_chan_index_cfg_t;
 
-void user_interface_task(void* arg);
+void user_interface_task(void* pvParameters);
 
-void init_user_interface_task(void* arg);

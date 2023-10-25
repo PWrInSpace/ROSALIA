@@ -1,0 +1,31 @@
+\doxysection{rgb\+\_\+led\+\_\+driver.\+h}
+\hypertarget{rgb__led__driver_8h_source}{}\label{rgb__led__driver_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/misc/rgb\_led\_driver.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/misc/rgb\_led\_driver.h}}
+\mbox{\hyperlink{rgb__led__driver_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{led__driver_8h}{led\_driver.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00015\ \ \ RED\_INDEX\ =\ 0,}
+\DoxyCodeLine{00016\ \ \ GREEN\_INDEX\ =\ 1,}
+\DoxyCodeLine{00017\ \ \ BLUE\_INDEX\ =\ 2,}
+\DoxyCodeLine{00018\ \ \ MAX\_COLOR\_INDEX\ =\ 3}
+\DoxyCodeLine{00019\ \}\ \mbox{\hyperlink{rgb__led__driver_8h_a8f7cbccec683c8992398614634742af1}{rgb\_led\_driver\_table\_t}};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{structled__driver__t}{led\_driver\_t}}\ led\_drv[MAX\_COLOR\_INDEX];}
+\DoxyCodeLine{00030\ \ \ uint16\_t\ max\_duty;}
+\DoxyCodeLine{00031\ \}\ \mbox{\hyperlink{structrgb__led__driver__t}{rgb\_led\_driver\_t}};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00040\ esp\_err\_t\ \mbox{\hyperlink{rgb__led__driver_8h_a56f35c3e3f099c5151fcdbae4c204bd3}{rgb\_led\_driver\_init}}(\mbox{\hyperlink{structrgb__led__driver__t}{rgb\_led\_driver\_t}}\ *rgb\_led\_drv,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ledc\_timer\_bit\_t\ ledc\_duty\_res,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ ledc\_freq);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00050\ esp\_err\_t\ \mbox{\hyperlink{rgb__led__driver_8h_a04e542fab4840dc0f4235a49ccd2a815}{rgb\_led\_update\_duty\_cycle}}(\mbox{\hyperlink{structrgb__led__driver__t}{rgb\_led\_driver\_t}}\ *rgb\_led\_drv,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ duty[MAX\_COLOR\_INDEX]);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00059\ esp\_err\_t\ \mbox{\hyperlink{rgb__led__driver_8h_a46ccaf83a01645688bda24976a1a35cb}{rgb\_led\_toggle}}(\mbox{\hyperlink{structrgb__led__driver__t}{rgb\_led\_driver\_t}}\ *rgb\_led\_drv,\ \mbox{\hyperlink{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d}{led\_state\_t}}\ toggle);}
+
+\end{DoxyCode}

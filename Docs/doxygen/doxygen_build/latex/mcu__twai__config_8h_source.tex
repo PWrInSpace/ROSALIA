@@ -1,0 +1,31 @@
+\doxysection{mcu\+\_\+twai\+\_\+config.\+h}
+\hypertarget{mcu__twai__config_8h_source}{}\label{mcu__twai__config_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_twai\_config.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_twai\_config.h}}
+\mbox{\hyperlink{mcu__twai__config_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}driver/gpio.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}driver/twai.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}freertos/queue.h"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00027\ \ \ gpio\_num\_t\ tx\_gpio\_num;}
+\DoxyCodeLine{00028\ \ \ gpio\_num\_t\ rx\_gpio\_num;}
+\DoxyCodeLine{00029\ \ \ twai\_mode\_t\ mode;}
+\DoxyCodeLine{00030\ \}\ \mbox{\hyperlink{structtwai__config__t}{twai\_config\_t}};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00038\ esp\_err\_t\ \mbox{\hyperlink{mcu__twai__config_8h_a78c057e4e7bde3e8e83c0a948886d4aa}{twai\_init}}(\mbox{\hyperlink{structtwai__config__t}{twai\_config\_t}}\ *config,\ twai\_general\_config\_t\ *g\_config,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ twai\_timing\_config\_t\ *t\_config,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ twai\_filter\_config\_t\ *f\_config);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00048\ twai\_message\_t\ \mbox{\hyperlink{mcu__twai__config_8h_aed91e55e70838e200c8d2a945bc9b282}{compose\_self\_test\_message}}(uint32\_t\ \textcolor{keywordtype}{id},\ uint8\_t\ data\_length\_code,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *data);}
+
+\end{DoxyCode}

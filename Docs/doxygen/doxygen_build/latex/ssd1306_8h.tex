@@ -1,0 +1,785 @@
+\doxysection{/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA/\+Mainboard\+\_\+\+ESP32/components/ssd1306/ssd1306.h File Reference}
+\hypertarget{ssd1306_8h}{}\label{ssd1306_8h}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/ssd1306/ssd1306.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/ssd1306/ssd1306.h}}
+
+
+SSD1306 OLED display driver through I2C.  
+
+
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}font8x8\+\_\+basic.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_p_a_g_e__t}{PAGE\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em SSD1306 display page structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em SSD1306 display structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{ssd1306_8h_a78f5e7fed625409baa85983b54bb8f64}\label{ssd1306_8h_a78f5e7fed625409baa85983b54bb8f64} 
+\#define {\bfseries OLED\+\_\+\+CONTROL\+\_\+\+BYTE\+\_\+\+CMD\+\_\+\+SINGLE}~0x80
+\item 
+\Hypertarget{ssd1306_8h_a502157cbd6b2e06962e03c2226ab0c30}\label{ssd1306_8h_a502157cbd6b2e06962e03c2226ab0c30} 
+\#define {\bfseries OLED\+\_\+\+CONTROL\+\_\+\+BYTE\+\_\+\+CMD\+\_\+\+STREAM}~0x00
+\item 
+\Hypertarget{ssd1306_8h_ae96a1ddfd627ca91fb117f05927a22ca}\label{ssd1306_8h_ae96a1ddfd627ca91fb117f05927a22ca} 
+\#define {\bfseries OLED\+\_\+\+CONTROL\+\_\+\+BYTE\+\_\+\+DATA\+\_\+\+SINGLE}~0x\+C0
+\item 
+\Hypertarget{ssd1306_8h_aa7023c65018cc95426796822db455ae1}\label{ssd1306_8h_aa7023c65018cc95426796822db455ae1} 
+\#define {\bfseries OLED\+\_\+\+CONTROL\+\_\+\+BYTE\+\_\+\+DATA\+\_\+\+STREAM}~0x40
+\item 
+\Hypertarget{ssd1306_8h_aa4b911663c3d9ce2dca64552d18b3564}\label{ssd1306_8h_aa4b911663c3d9ce2dca64552d18b3564} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+CONTRAST}~0x81
+\item 
+\Hypertarget{ssd1306_8h_ac2cf6904d032d76c74ea238cc98dfdd0}\label{ssd1306_8h_ac2cf6904d032d76c74ea238cc98dfdd0} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+DISPLAY\+\_\+\+RAM}~0x\+A4
+\item 
+\Hypertarget{ssd1306_8h_a0b95a301540778847f10ab3a4636841e}\label{ssd1306_8h_a0b95a301540778847f10ab3a4636841e} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+DISPLAY\+\_\+\+ALLON}~0x\+A5
+\item 
+\Hypertarget{ssd1306_8h_a64dbcd25b06517de9e10f8e99f8c6aa5}\label{ssd1306_8h_a64dbcd25b06517de9e10f8e99f8c6aa5} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+DISPLAY\+\_\+\+NORMAL}~0x\+A6
+\item 
+\Hypertarget{ssd1306_8h_ad54d108af613a3689118a312163e5770}\label{ssd1306_8h_ad54d108af613a3689118a312163e5770} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+DISPLAY\+\_\+\+INVERTED}~0x\+A7
+\item 
+\Hypertarget{ssd1306_8h_a4b7ef5d20d4c4634a73a6c84101a7e94}\label{ssd1306_8h_a4b7ef5d20d4c4634a73a6c84101a7e94} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+DISPLAY\+\_\+\+OFF}~0x\+AE
+\item 
+\Hypertarget{ssd1306_8h_a2af8bf0d1d491b4dbd0974fb0da7053f}\label{ssd1306_8h_a2af8bf0d1d491b4dbd0974fb0da7053f} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+DISPLAY\+\_\+\+ON}~0x\+AF
+\item 
+\Hypertarget{ssd1306_8h_afb4b92603e91bff28a2af9f16ca6a9fd}\label{ssd1306_8h_afb4b92603e91bff28a2af9f16ca6a9fd} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+MEMORY\+\_\+\+ADDR\+\_\+\+MODE}~0x20
+\item 
+\Hypertarget{ssd1306_8h_abeb443043af378fd705de5d769e820e4}\label{ssd1306_8h_abeb443043af378fd705de5d769e820e4} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+HORI\+\_\+\+ADDR\+\_\+\+MODE}~0x00
+\item 
+\Hypertarget{ssd1306_8h_aaf38ae061f2bb50abfde9cc5f26a5ba6}\label{ssd1306_8h_aaf38ae061f2bb50abfde9cc5f26a5ba6} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+VERT\+\_\+\+ADDR\+\_\+\+MODE}~0x01
+\item 
+\Hypertarget{ssd1306_8h_ac00b7433fa7c00b830bf69210e7a69b5}\label{ssd1306_8h_ac00b7433fa7c00b830bf69210e7a69b5} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+PAGE\+\_\+\+ADDR\+\_\+\+MODE}~0x02
+\item 
+\Hypertarget{ssd1306_8h_a5818b6d236835e94c342bde0f77763ab}\label{ssd1306_8h_a5818b6d236835e94c342bde0f77763ab} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+COLUMN\+\_\+\+RANGE}~  0x21
+\item 
+\Hypertarget{ssd1306_8h_a7449f69a3ba1a2d39251d51c6711d646}\label{ssd1306_8h_a7449f69a3ba1a2d39251d51c6711d646} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+PAGE\+\_\+\+RANGE}~  0x22
+\item 
+\Hypertarget{ssd1306_8h_a5f5dcee272649a9849e4091f073e225e}\label{ssd1306_8h_a5f5dcee272649a9849e4091f073e225e} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+DISPLAY\+\_\+\+START\+\_\+\+LINE}~0x40
+\item 
+\Hypertarget{ssd1306_8h_a6d29dd23e67302c1c201147e4e20ef1f}\label{ssd1306_8h_a6d29dd23e67302c1c201147e4e20ef1f} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+SEGMENT\+\_\+\+REMAP\+\_\+0}~0x\+A0
+\item 
+\Hypertarget{ssd1306_8h_a6f6ace56423efb24c2dabeb48b401c81}\label{ssd1306_8h_a6f6ace56423efb24c2dabeb48b401c81} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+SEGMENT\+\_\+\+REMAP\+\_\+1}~0x\+A1
+\item 
+\Hypertarget{ssd1306_8h_a63c11b6be85fce318c3d4eb8f8eb5661}\label{ssd1306_8h_a63c11b6be85fce318c3d4eb8f8eb5661} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+MUX\+\_\+\+RATIO}~0x\+A8
+\item 
+\Hypertarget{ssd1306_8h_aac2bdf785bb9bf63aa9912822c0b9b4c}\label{ssd1306_8h_aac2bdf785bb9bf63aa9912822c0b9b4c} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+COM\+\_\+\+SCAN\+\_\+\+MODE}~0x\+C8
+\item 
+\Hypertarget{ssd1306_8h_a1c14cdcd6777babd915e02dc93616955}\label{ssd1306_8h_a1c14cdcd6777babd915e02dc93616955} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+DISPLAY\+\_\+\+OFFSET}~0x\+D3
+\item 
+\Hypertarget{ssd1306_8h_a7df97959544ed9ca39347f615d706699}\label{ssd1306_8h_a7df97959544ed9ca39347f615d706699} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+COM\+\_\+\+PIN\+\_\+\+MAP}~0x\+DA
+\item 
+\Hypertarget{ssd1306_8h_a68f12585bff1fd5cd72d59367dbd4721}\label{ssd1306_8h_a68f12585bff1fd5cd72d59367dbd4721} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+NOP}~0x\+E3
+\item 
+\Hypertarget{ssd1306_8h_abd40b55aa8f7e952d987c71e9ccdd29a}\label{ssd1306_8h_abd40b55aa8f7e952d987c71e9ccdd29a} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+DISPLAY\+\_\+\+CLK\+\_\+\+DIV}~0x\+D5
+\item 
+\Hypertarget{ssd1306_8h_a89838d662d13dc1ca303bb1d0afd5ddc}\label{ssd1306_8h_a89838d662d13dc1ca303bb1d0afd5ddc} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+PRECHARGE}~0x\+D9
+\item 
+\Hypertarget{ssd1306_8h_ae57d5a3389b66f170790c8a663e5081f}\label{ssd1306_8h_ae57d5a3389b66f170790c8a663e5081f} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+VCOMH\+\_\+\+DESELCT}~0x\+DB
+\item 
+\Hypertarget{ssd1306_8h_a2538d3123df13cd51f2de5823b66fb00}\label{ssd1306_8h_a2538d3123df13cd51f2de5823b66fb00} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+SET\+\_\+\+CHARGE\+\_\+\+PUMP}~0x8D
+\item 
+\Hypertarget{ssd1306_8h_aaf6a302b1119bc3478c8ea50b6cf9a77}\label{ssd1306_8h_aaf6a302b1119bc3478c8ea50b6cf9a77} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+HORIZONTAL\+\_\+\+RIGHT}~0x26
+\item 
+\Hypertarget{ssd1306_8h_a9647fb76f567a51c2a61e8ae5107c564}\label{ssd1306_8h_a9647fb76f567a51c2a61e8ae5107c564} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+HORIZONTAL\+\_\+\+LEFT}~0x27
+\item 
+\Hypertarget{ssd1306_8h_afc963fec0b7000e512ccc175ea991299}\label{ssd1306_8h_afc963fec0b7000e512ccc175ea991299} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+CONTINUOUS\+\_\+\+SCROLL}~0x29
+\item 
+\Hypertarget{ssd1306_8h_ad627fd01781b143189a9f91779568f39}\label{ssd1306_8h_ad627fd01781b143189a9f91779568f39} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+DEACTIVE\+\_\+\+SCROLL}~0x2E
+\item 
+\Hypertarget{ssd1306_8h_a2255d5e73f361e9fb1f917482a7fc26a}\label{ssd1306_8h_a2255d5e73f361e9fb1f917482a7fc26a} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+ACTIVE\+\_\+\+SCROLL}~0x2F
+\item 
+\Hypertarget{ssd1306_8h_add62cb74b59d19d5e6376e7c033a1311}\label{ssd1306_8h_add62cb74b59d19d5e6376e7c033a1311} 
+\#define {\bfseries OLED\+\_\+\+CMD\+\_\+\+VERTICAL}~0x\+A3
+\item 
+\Hypertarget{ssd1306_8h_aa3db5f84cb0e3399a14bff34a2ede57c}\label{ssd1306_8h_aa3db5f84cb0e3399a14bff34a2ede57c} 
+\#define {\bfseries I2\+CAddress}~0x3C
+\item 
+\Hypertarget{ssd1306_8h_a8bb581ee5aca3c28260d7151ba29610a}\label{ssd1306_8h_a8bb581ee5aca3c28260d7151ba29610a} 
+\#define {\bfseries OLED\+\_\+\+BUFFER\+\_\+\+SIZE}~128
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{ssd1306_8h_ab31a3b966e245ba5adbb08434deea7c7}\label{ssd1306_8h_ab31a3b966e245ba5adbb08434deea7c7} 
+typedef void \texorpdfstring{$\ast$}{*} {\bfseries ssd1306\+\_\+i2c\+\_\+cmd\+\_\+handle\+\_\+t}
+\item 
+\Hypertarget{ssd1306_8h_ae0166025449735c8295cb03af8a3fe4c}\label{ssd1306_8h_ae0166025449735c8295cb03af8a3fe4c} 
+typedef bool(\texorpdfstring{$\ast$}{*} {\bfseries ssd1306\+\_\+i2c\+\_\+master\+\_\+write\+\_\+byte}) (ssd1306\+\_\+i2c\+\_\+cmd\+\_\+handle\+\_\+t cmd, uint8\+\_\+t \+\_\+data, bool \+\_\+ack\+\_\+en)
+\item 
+\Hypertarget{ssd1306_8h_ade2287fe3dfcf58f6df9479dd4e1f698}\label{ssd1306_8h_ade2287fe3dfcf58f6df9479dd4e1f698} 
+typedef bool(\texorpdfstring{$\ast$}{*} {\bfseries ssd1306\+\_\+i2c\+\_\+master\+\_\+write}) (ssd1306\+\_\+i2c\+\_\+cmd\+\_\+handle\+\_\+t cmd, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}\+\_\+data, size\+\_\+t \+\_\+data\+\_\+len, bool \+\_\+ack\+\_\+en)
+\item 
+\Hypertarget{ssd1306_8h_a990f3f5a605419d1c5e4b3e1a21fe68c}\label{ssd1306_8h_a990f3f5a605419d1c5e4b3e1a21fe68c} 
+typedef bool(\texorpdfstring{$\ast$}{*} {\bfseries ssd1306\+\_\+i2c\+\_\+master\+\_\+start}) (ssd1306\+\_\+i2c\+\_\+cmd\+\_\+handle\+\_\+t cmd)
+\item 
+\Hypertarget{ssd1306_8h_ae1848c284b4cb5e9b70dbe7a6a97cc05}\label{ssd1306_8h_ae1848c284b4cb5e9b70dbe7a6a97cc05} 
+typedef bool(\texorpdfstring{$\ast$}{*} {\bfseries ssd1306\+\_\+i2c\+\_\+master\+\_\+stop}) ()
+\item 
+\Hypertarget{ssd1306_8h_aaddb91ba9bfdea90048305390ab621d5}\label{ssd1306_8h_aaddb91ba9bfdea90048305390ab621d5} 
+typedef bool(\texorpdfstring{$\ast$}{*} {\bfseries ssd1306\+\_\+i2c\+\_\+master\+\_\+cmd\+\_\+begin}) (ssd1306\+\_\+i2c\+\_\+cmd\+\_\+handle\+\_\+t cmd, uint16\+\_\+t ticks\+\_\+to\+\_\+wait)
+\item 
+\Hypertarget{ssd1306_8h_ab67f2539ddad531d47bd4867ccdf73ce}\label{ssd1306_8h_ab67f2539ddad531d47bd4867ccdf73ce} 
+typedef ssd1306\+\_\+i2c\+\_\+cmd\+\_\+handle\+\_\+t(\texorpdfstring{$\ast$}{*} {\bfseries ssd1306\+\_\+i2c\+\_\+cmd\+\_\+link\+\_\+create}) ()
+\item 
+\Hypertarget{ssd1306_8h_af75d560e7f7aa9b721ca7fee0bbf92d9}\label{ssd1306_8h_af75d560e7f7aa9b721ca7fee0bbf92d9} 
+typedef void(\texorpdfstring{$\ast$}{*} {\bfseries ssd1306\+\_\+i2c\+\_\+cmd\+\_\+link\+\_\+delete}) (ssd1306\+\_\+i2c\+\_\+cmd\+\_\+handle\+\_\+t cmd)
+\item 
+\Hypertarget{ssd1306_8h_af6ffab3f50fc40b4cfb4f3c65a9acbb6}\label{ssd1306_8h_af6ffab3f50fc40b4cfb4f3c65a9acbb6} 
+typedef void(\texorpdfstring{$\ast$}{*} {\bfseries ssd1306\+\_\+delay}) (size\+\_\+t \+\_\+ms)
+\item 
+\Hypertarget{ssd1306_8h_a0a5fb0991578c7d5c7f28b0c466be837}\label{ssd1306_8h_a0a5fb0991578c7d5c7f28b0c466be837} 
+typedef void(\texorpdfstring{$\ast$}{*} {\bfseries ssd1306\+\_\+log}) (const \mbox{\hyperlink{ssd1306_8h_ab8ab50dc557e87e76893e15861b21ae4}{ssd1306\+\_\+log\+\_\+level\+\_\+t}} level, const char \texorpdfstring{$\ast$}{*}tag, char \texorpdfstring{$\ast$}{*}info)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{ssd1306_8h_a04ddad8c62d2c23862731f41507ee070}\label{ssd1306_8h_a04ddad8c62d2c23862731f41507ee070} 
+enum \mbox{\hyperlink{ssd1306_8h_a04ddad8c62d2c23862731f41507ee070}{ssd1306\+\_\+scroll\+\_\+type\+\_\+t}} \{ \newline
+{\bfseries SCROLL\+\_\+\+RIGHT} = 1
+, {\bfseries SCROLL\+\_\+\+LEFT} = 2
+, {\bfseries SCROLL\+\_\+\+DOWN} = 3
+, {\bfseries SCROLL\+\_\+\+UP} = 4
+, \newline
+{\bfseries SCROLL\+\_\+\+STOP} = 5
+ \}
+\begin{DoxyCompactList}\small\item\em enum for scroll type \end{DoxyCompactList}\item 
+\Hypertarget{ssd1306_8h_ab8ab50dc557e87e76893e15861b21ae4}\label{ssd1306_8h_ab8ab50dc557e87e76893e15861b21ae4} 
+enum \mbox{\hyperlink{ssd1306_8h_ab8ab50dc557e87e76893e15861b21ae4}{ssd1306\+\_\+log\+\_\+level\+\_\+t}} \{ {\bfseries SSD1306\+\_\+\+NONE}
+, {\bfseries SSD1306\+\_\+\+ERROR}
+, {\bfseries SSD1306\+\_\+\+INFO}
+, {\bfseries SSD1306\+\_\+\+DEBUG}
+ \}
+\begin{DoxyCompactList}\small\item\em enum for log level \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{ssd1306_8h_a2a6f280b3897ca1c744611164fed5916}{ssd1306\+\_\+init}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, uint8\+\_\+t width, uint8\+\_\+t height)
+\begin{DoxyCompactList}\small\item\em Initialize SSD1306 display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a8cb10fe5d6f54391dd8f4e1d083eaa6c}{ssd1306\+\_\+show\+\_\+buffer}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd)
+\begin{DoxyCompactList}\small\item\em Display whole image from buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_ae206daf0e791062538289b5dc258aa8b}{ssd1306\+\_\+set\+\_\+buffer}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Set buffer for display from array to pages. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a00bad8935c70655538915353ea7748bb}{ssd1306\+\_\+get\+\_\+buffer}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Get buffer from display and save to buffer array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a47520a4c268bce0618e62ccc5d968093}{ssd1306\+\_\+display\+\_\+image}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, int page, int seg, uint8\+\_\+t \texorpdfstring{$\ast$}{*}images, uint8\+\_\+t width)
+\begin{DoxyCompactList}\small\item\em Display image from buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_afa8d118b0c7679311f73f8fa48fe4c76}{ssd1306\+\_\+display\+\_\+text}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, int page, char \texorpdfstring{$\ast$}{*}text, int text\+\_\+len, bool invert)
+\begin{DoxyCompactList}\small\item\em Display text on display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a8838e5062c5ec7169acc74feb8a111cc}{ssd1306\+\_\+display\+\_\+text\+\_\+x3}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, int page, char \texorpdfstring{$\ast$}{*}text, int text\+\_\+len, bool invert)
+\begin{DoxyCompactList}\small\item\em Display text on display with x3 size. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a3bfed9b89757a5fece7a30d2a3224dad}{ssd1306\+\_\+clear\+\_\+screen}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, bool invert)
+\begin{DoxyCompactList}\small\item\em Clear the whole screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_afcf536ea78e3aaebccdec93f193034da}{ssd1306\+\_\+clear\+\_\+line}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, int page, bool invert)
+\begin{DoxyCompactList}\small\item\em Clear the whole screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_aa65177494133501b2b1c2ee41130b2ac}{ssd1306\+\_\+set\+\_\+contrast}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, int contrast)
+\begin{DoxyCompactList}\small\item\em Set contrast of display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_ae0fbb1d78c35ff49673840b239b0572a}{ssd1306\+\_\+software\+\_\+scroll}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, int start, int end)
+\begin{DoxyCompactList}\small\item\em Perform software scroll of pixels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a733671aa623e5ab8d4a310d35e921ece}{ssd1306\+\_\+scroll\+\_\+text}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, char \texorpdfstring{$\ast$}{*}text, int text\+\_\+len, bool invert)
+\begin{DoxyCompactList}\small\item\em Perform hardware scroll of text. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a0c0557f712199f7e026c5cf944157ce2}{ssd1306\+\_\+scroll\+\_\+clear}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd)
+\begin{DoxyCompactList}\small\item\em Clear image with scroll. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a49cc7dbe84293534d2a51f01f4e000e2}{ssd1306\+\_\+hardware\+\_\+scroll}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, \mbox{\hyperlink{ssd1306_8h_a04ddad8c62d2c23862731f41507ee070}{ssd1306\+\_\+scroll\+\_\+type\+\_\+t}} scroll)
+\begin{DoxyCompactList}\small\item\em Perform hardware scroll of pixels. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_afbeb4271c7df3e15720c1814827321dc}{ssd1306\+\_\+wrap\+\_\+arround}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, \mbox{\hyperlink{ssd1306_8h_a04ddad8c62d2c23862731f41507ee070}{ssd1306\+\_\+scroll\+\_\+type\+\_\+t}} scroll, int start, int end, int8\+\_\+t delay)
+\begin{DoxyCompactList}\small\item\em Wrap around image through scroll. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a252de4aa00bb17d46980d199156212aa}{ssd1306\+\_\+show\+\_\+bitmap}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, int xpos, int ypos, uint8\+\_\+t \texorpdfstring{$\ast$}{*}bitmap, uint8\+\_\+t width, uint8\+\_\+t height, bool invert)
+\begin{DoxyCompactList}\small\item\em Show bitmap on display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a9e58103219f5f02f14a209180e72b2c2}{\+\_\+ssd1306\+\_\+pixel}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, int xpos, int ypos, bool invert)
+\begin{DoxyCompactList}\small\item\em Save pixel to internal buffer, without displaying. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_acc16c25d3ec0f236e563f1695a361957}{\+\_\+ssd1306\+\_\+line}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, int x1, int y1, int x2, int y2, bool invert)
+\begin{DoxyCompactList}\small\item\em Save a line to internal buffer, without displaying. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_aacf787f9356e0496d5f1ab0622136f22}{ssd1306\+\_\+invert}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, size\+\_\+t blen)
+\begin{DoxyCompactList}\small\item\em Invert a buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a82fc3f186b1ba680589b346162c3ea50}{ssd1306\+\_\+flip}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, size\+\_\+t blen)
+\begin{DoxyCompactList}\small\item\em Flip a buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{ssd1306_8h_ad9363e84e7ad1c05c545a8808fbde5b7}{ssd1306\+\_\+copy\+\_\+bit}} (uint8\+\_\+t src, int src\+Bits, uint8\+\_\+t dst, int dst\+Bits)
+\begin{DoxyCompactList}\small\item\em Copy a bit from one byte to another. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{ssd1306_8h_adcff44173cd188f6de9f701a6edc1cb1}{ssd1306\+\_\+rotate\+\_\+byte}} (uint8\+\_\+t ch1)
+\begin{DoxyCompactList}\small\item\em Rotate a byte. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a7a012b641302d37860667f2213c3101c}{ssd1306\+\_\+fadeout}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd)
+\begin{DoxyCompactList}\small\item\em Perform a fade out effect. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a9c8cf82f2e7b22a2f8a92b5e8aaf9816}{ssd1306\+\_\+i2c\+\_\+init}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, uint8\+\_\+t width, uint8\+\_\+t height)
+\begin{DoxyCompactList}\small\item\em Init of the screen through i2c. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a4c4df56b51fe77b1855366b7b1d1eb88}{ssd1306\+\_\+i2c\+\_\+display\+\_\+image}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, int page, int seg, uint8\+\_\+t \texorpdfstring{$\ast$}{*}images, uint8\+\_\+t width)
+\begin{DoxyCompactList}\small\item\em Display an image through i2c. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a1c98bd967ef8a5b1eb73e36b9b2715a7}{ssd1306\+\_\+i2c\+\_\+set\+\_\+contrast}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, int contrast)
+\begin{DoxyCompactList}\small\item\em Set the display contrast through i2c. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ssd1306_8h_a3b93277015ca1b5482c64b74de86bdd1}{ssd1306\+\_\+i2c\+\_\+hardware\+\_\+scroll}} (\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}ssd, \mbox{\hyperlink{ssd1306_8h_a04ddad8c62d2c23862731f41507ee070}{ssd1306\+\_\+scroll\+\_\+type\+\_\+t}} scroll)
+\begin{DoxyCompactList}\small\item\em Perform hardware scroll of pixels through i2c. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+SSD1306 OLED display driver through I2C. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{ssd1306_8h_acc16c25d3ec0f236e563f1695a361957}\label{ssd1306_8h_acc16c25d3ec0f236e563f1695a361957} 
+\index{ssd1306.h@{ssd1306.h}!\_ssd1306\_line@{\_ssd1306\_line}}
+\index{\_ssd1306\_line@{\_ssd1306\_line}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{\_ssd1306\_line()}{\_ssd1306\_line()}}
+{\footnotesize\ttfamily void \+\_\+ssd1306\+\_\+line (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{int}]{x1,  }\item[{int}]{y1,  }\item[{int}]{x2,  }\item[{int}]{y2,  }\item[{bool}]{invert }\end{DoxyParamCaption})}
+
+
+
+Save a line to internal buffer, without displaying. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em x1} & X1 position \\
+\hline
+\mbox{\texttt{ in}}  & {\em y1} & Y1 position \\
+\hline
+\mbox{\texttt{ in}}  & {\em x2} & X2 position \\
+\hline
+\mbox{\texttt{ in}}  & {\em y2} & Y2 position \\
+\hline
+\mbox{\texttt{ in}}  & {\em invert} & Invert line \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a9e58103219f5f02f14a209180e72b2c2}\label{ssd1306_8h_a9e58103219f5f02f14a209180e72b2c2} 
+\index{ssd1306.h@{ssd1306.h}!\_ssd1306\_pixel@{\_ssd1306\_pixel}}
+\index{\_ssd1306\_pixel@{\_ssd1306\_pixel}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{\_ssd1306\_pixel()}{\_ssd1306\_pixel()}}
+{\footnotesize\ttfamily void \+\_\+ssd1306\+\_\+pixel (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{int}]{xpos,  }\item[{int}]{ypos,  }\item[{bool}]{invert }\end{DoxyParamCaption})}
+
+
+
+Save pixel to internal buffer, without displaying. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em xpos} & X position \\
+\hline
+\mbox{\texttt{ in}}  & {\em ypos} & Y position \\
+\hline
+\mbox{\texttt{ in}}  & {\em invert} & Invert pixel \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_afcf536ea78e3aaebccdec93f193034da}\label{ssd1306_8h_afcf536ea78e3aaebccdec93f193034da} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_clear\_line@{ssd1306\_clear\_line}}
+\index{ssd1306\_clear\_line@{ssd1306\_clear\_line}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_clear\_line()}{ssd1306\_clear\_line()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+clear\+\_\+line (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{int}]{page,  }\item[{bool}]{invert }\end{DoxyParamCaption})}
+
+
+
+Clear the whole screen. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em page} & Page to clear \\
+\hline
+\mbox{\texttt{ in}}  & {\em invert} & Invert screen \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a3bfed9b89757a5fece7a30d2a3224dad}\label{ssd1306_8h_a3bfed9b89757a5fece7a30d2a3224dad} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_clear\_screen@{ssd1306\_clear\_screen}}
+\index{ssd1306\_clear\_screen@{ssd1306\_clear\_screen}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_clear\_screen()}{ssd1306\_clear\_screen()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+clear\+\_\+screen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{bool}]{invert }\end{DoxyParamCaption})}
+
+
+
+Clear the whole screen. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em invert} & Invert screen \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_ad9363e84e7ad1c05c545a8808fbde5b7}\label{ssd1306_8h_ad9363e84e7ad1c05c545a8808fbde5b7} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_copy\_bit@{ssd1306\_copy\_bit}}
+\index{ssd1306\_copy\_bit@{ssd1306\_copy\_bit}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_copy\_bit()}{ssd1306\_copy\_bit()}}
+{\footnotesize\ttfamily uint8\+\_\+t ssd1306\+\_\+copy\+\_\+bit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{src,  }\item[{int}]{src\+Bits,  }\item[{uint8\+\_\+t}]{dst,  }\item[{int}]{dst\+Bits }\end{DoxyParamCaption})}
+
+
+
+Copy a bit from one byte to another. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em src} & Source byte \\
+\hline
+\mbox{\texttt{ in}}  & {\em src\+Bits} & Source bit position \\
+\hline
+\mbox{\texttt{ in}}  & {\em dst} & Destination byte \\
+\hline
+\mbox{\texttt{ in}}  & {\em dst\+Bits} & Destination bit position \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a47520a4c268bce0618e62ccc5d968093}\label{ssd1306_8h_a47520a4c268bce0618e62ccc5d968093} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_display\_image@{ssd1306\_display\_image}}
+\index{ssd1306\_display\_image@{ssd1306\_display\_image}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_display\_image()}{ssd1306\_display\_image()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+display\+\_\+image (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{int}]{page,  }\item[{int}]{seg,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{images,  }\item[{uint8\+\_\+t}]{width }\end{DoxyParamCaption})}
+
+
+
+Display image from buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em page} & Page to display \\
+\hline
+\mbox{\texttt{ in}}  & {\em seg} & Segment to display \\
+\hline
+\mbox{\texttt{ in}}  & {\em images} & Image to display \\
+\hline
+\mbox{\texttt{ in}}  & {\em width} & Image width \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_afa8d118b0c7679311f73f8fa48fe4c76}\label{ssd1306_8h_afa8d118b0c7679311f73f8fa48fe4c76} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_display\_text@{ssd1306\_display\_text}}
+\index{ssd1306\_display\_text@{ssd1306\_display\_text}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_display\_text()}{ssd1306\_display\_text()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+display\+\_\+text (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{int}]{page,  }\item[{char \texorpdfstring{$\ast$}{*}}]{text,  }\item[{int}]{text\+\_\+len,  }\item[{bool}]{invert }\end{DoxyParamCaption})}
+
+
+
+Display text on display. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em page} & Page to display \\
+\hline
+\mbox{\texttt{ in}}  & {\em text} & Text to display \\
+\hline
+\mbox{\texttt{ in}}  & {\em text\+\_\+len} & Text length \\
+\hline
+\mbox{\texttt{ in}}  & {\em invert} & Invert text \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a8838e5062c5ec7169acc74feb8a111cc}\label{ssd1306_8h_a8838e5062c5ec7169acc74feb8a111cc} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_display\_text\_x3@{ssd1306\_display\_text\_x3}}
+\index{ssd1306\_display\_text\_x3@{ssd1306\_display\_text\_x3}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_display\_text\_x3()}{ssd1306\_display\_text\_x3()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+display\+\_\+text\+\_\+x3 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{int}]{page,  }\item[{char \texorpdfstring{$\ast$}{*}}]{text,  }\item[{int}]{text\+\_\+len,  }\item[{bool}]{invert }\end{DoxyParamCaption})}
+
+
+
+Display text on display with x3 size. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em page} & Page to display \\
+\hline
+\mbox{\texttt{ in}}  & {\em text} & Text to display \\
+\hline
+\mbox{\texttt{ in}}  & {\em text\+\_\+len} & Text length \\
+\hline
+\mbox{\texttt{ in}}  & {\em invert} & Invert text \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a7a012b641302d37860667f2213c3101c}\label{ssd1306_8h_a7a012b641302d37860667f2213c3101c} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_fadeout@{ssd1306\_fadeout}}
+\index{ssd1306\_fadeout@{ssd1306\_fadeout}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_fadeout()}{ssd1306\_fadeout()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+fadeout (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd }\end{DoxyParamCaption})}
+
+
+
+Perform a fade out effect. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a82fc3f186b1ba680589b346162c3ea50}\label{ssd1306_8h_a82fc3f186b1ba680589b346162c3ea50} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_flip@{ssd1306\_flip}}
+\index{ssd1306\_flip@{ssd1306\_flip}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_flip()}{ssd1306\_flip()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+flip (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{size\+\_\+t}]{blen }\end{DoxyParamCaption})}
+
+
+
+Flip a buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em buf} & Buffer to flip, after this operation buffer will be flipped \\
+\hline
+\mbox{\texttt{ in}}  & {\em blen} & Buffer length \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a00bad8935c70655538915353ea7748bb}\label{ssd1306_8h_a00bad8935c70655538915353ea7748bb} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_get\_buffer@{ssd1306\_get\_buffer}}
+\index{ssd1306\_get\_buffer@{ssd1306\_get\_buffer}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_get\_buffer()}{ssd1306\_get\_buffer()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+get\+\_\+buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Get buffer from display and save to buffer array. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ out}}  & {\em buffer} & Buffer to get \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a49cc7dbe84293534d2a51f01f4e000e2}\label{ssd1306_8h_a49cc7dbe84293534d2a51f01f4e000e2} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_hardware\_scroll@{ssd1306\_hardware\_scroll}}
+\index{ssd1306\_hardware\_scroll@{ssd1306\_hardware\_scroll}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_hardware\_scroll()}{ssd1306\_hardware\_scroll()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+hardware\+\_\+scroll (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{\mbox{\hyperlink{ssd1306_8h_a04ddad8c62d2c23862731f41507ee070}{ssd1306\+\_\+scroll\+\_\+type\+\_\+t}}}]{scroll }\end{DoxyParamCaption})}
+
+
+
+Perform hardware scroll of pixels. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em scroll} & Scroll type \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a4c4df56b51fe77b1855366b7b1d1eb88}\label{ssd1306_8h_a4c4df56b51fe77b1855366b7b1d1eb88} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_i2c\_display\_image@{ssd1306\_i2c\_display\_image}}
+\index{ssd1306\_i2c\_display\_image@{ssd1306\_i2c\_display\_image}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_i2c\_display\_image()}{ssd1306\_i2c\_display\_image()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+i2c\+\_\+display\+\_\+image (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{int}]{page,  }\item[{int}]{seg,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{images,  }\item[{uint8\+\_\+t}]{width }\end{DoxyParamCaption})}
+
+
+
+Display an image through i2c. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em page} & Page to display \\
+\hline
+\mbox{\texttt{ in}}  & {\em seg} & Segment to display \\
+\hline
+\mbox{\texttt{ in}}  & {\em images} & Image to display \\
+\hline
+\mbox{\texttt{ in}}  & {\em width} & Image width \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This function is defined in ssd1306\+\_\+i2c.\+c 
+\end{DoxyNote}
+\Hypertarget{ssd1306_8h_a3b93277015ca1b5482c64b74de86bdd1}\label{ssd1306_8h_a3b93277015ca1b5482c64b74de86bdd1} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_i2c\_hardware\_scroll@{ssd1306\_i2c\_hardware\_scroll}}
+\index{ssd1306\_i2c\_hardware\_scroll@{ssd1306\_i2c\_hardware\_scroll}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_i2c\_hardware\_scroll()}{ssd1306\_i2c\_hardware\_scroll()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+i2c\+\_\+hardware\+\_\+scroll (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{\mbox{\hyperlink{ssd1306_8h_a04ddad8c62d2c23862731f41507ee070}{ssd1306\+\_\+scroll\+\_\+type\+\_\+t}}}]{scroll }\end{DoxyParamCaption})}
+
+
+
+Perform hardware scroll of pixels through i2c. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em scroll} & Scroll type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This function is defined in ssd1306\+\_\+i2c.\+c 
+\end{DoxyNote}
+\Hypertarget{ssd1306_8h_a9c8cf82f2e7b22a2f8a92b5e8aaf9816}\label{ssd1306_8h_a9c8cf82f2e7b22a2f8a92b5e8aaf9816} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_i2c\_init@{ssd1306\_i2c\_init}}
+\index{ssd1306\_i2c\_init@{ssd1306\_i2c\_init}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_i2c\_init()}{ssd1306\_i2c\_init()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+i2c\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{uint8\+\_\+t}]{width,  }\item[{uint8\+\_\+t}]{height }\end{DoxyParamCaption})}
+
+
+
+Init of the screen through i2c. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em width} & Display width \\
+\hline
+\mbox{\texttt{ in}}  & {\em height} & Display height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This function is defined in ssd1306\+\_\+i2c.\+c 
+\end{DoxyNote}
+\Hypertarget{ssd1306_8h_a1c98bd967ef8a5b1eb73e36b9b2715a7}\label{ssd1306_8h_a1c98bd967ef8a5b1eb73e36b9b2715a7} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_i2c\_set\_contrast@{ssd1306\_i2c\_set\_contrast}}
+\index{ssd1306\_i2c\_set\_contrast@{ssd1306\_i2c\_set\_contrast}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_i2c\_set\_contrast()}{ssd1306\_i2c\_set\_contrast()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+i2c\+\_\+set\+\_\+contrast (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{int}]{contrast }\end{DoxyParamCaption})}
+
+
+
+Set the display contrast through i2c. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em contrast} & Contrast to set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This function is defined in ssd1306\+\_\+i2c.\+c 
+\end{DoxyNote}
+\Hypertarget{ssd1306_8h_a2a6f280b3897ca1c744611164fed5916}\label{ssd1306_8h_a2a6f280b3897ca1c744611164fed5916} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_init@{ssd1306\_init}}
+\index{ssd1306\_init@{ssd1306\_init}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_init()}{ssd1306\_init()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{uint8\+\_\+t}]{width,  }\item[{uint8\+\_\+t}]{height }\end{DoxyParamCaption})}
+
+
+
+Initialize SSD1306 display. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em width} & Display width \\
+\hline
+\mbox{\texttt{ in}}  & {\em height} & Display height \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_aacf787f9356e0496d5f1ab0622136f22}\label{ssd1306_8h_aacf787f9356e0496d5f1ab0622136f22} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_invert@{ssd1306\_invert}}
+\index{ssd1306\_invert@{ssd1306\_invert}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_invert()}{ssd1306\_invert()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+invert (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{size\+\_\+t}]{blen }\end{DoxyParamCaption})}
+
+
+
+Invert a buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em buf} & Buffer to invert, after this operation buffer will be inverted \\
+\hline
+\mbox{\texttt{ in}}  & {\em blen} & Buffer length \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_adcff44173cd188f6de9f701a6edc1cb1}\label{ssd1306_8h_adcff44173cd188f6de9f701a6edc1cb1} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_rotate\_byte@{ssd1306\_rotate\_byte}}
+\index{ssd1306\_rotate\_byte@{ssd1306\_rotate\_byte}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_rotate\_byte()}{ssd1306\_rotate\_byte()}}
+{\footnotesize\ttfamily uint8\+\_\+t ssd1306\+\_\+rotate\+\_\+byte (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{ch1 }\end{DoxyParamCaption})}
+
+
+
+Rotate a byte. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ch1} & Byte to rotate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Rotated byte 
+\end{DoxyReturn}
+\Hypertarget{ssd1306_8h_a0c0557f712199f7e026c5cf944157ce2}\label{ssd1306_8h_a0c0557f712199f7e026c5cf944157ce2} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_scroll\_clear@{ssd1306\_scroll\_clear}}
+\index{ssd1306\_scroll\_clear@{ssd1306\_scroll\_clear}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_scroll\_clear()}{ssd1306\_scroll\_clear()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+scroll\+\_\+clear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd }\end{DoxyParamCaption})}
+
+
+
+Clear image with scroll. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a733671aa623e5ab8d4a310d35e921ece}\label{ssd1306_8h_a733671aa623e5ab8d4a310d35e921ece} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_scroll\_text@{ssd1306\_scroll\_text}}
+\index{ssd1306\_scroll\_text@{ssd1306\_scroll\_text}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_scroll\_text()}{ssd1306\_scroll\_text()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+scroll\+\_\+text (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{char \texorpdfstring{$\ast$}{*}}]{text,  }\item[{int}]{text\+\_\+len,  }\item[{bool}]{invert }\end{DoxyParamCaption})}
+
+
+
+Perform hardware scroll of text. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em text} & Text to scroll \\
+\hline
+\mbox{\texttt{ in}}  & {\em text\+\_\+len} & Text length \\
+\hline
+\mbox{\texttt{ in}}  & {\em invert} & Invert text \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_ae206daf0e791062538289b5dc258aa8b}\label{ssd1306_8h_ae206daf0e791062538289b5dc258aa8b} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_set\_buffer@{ssd1306\_set\_buffer}}
+\index{ssd1306\_set\_buffer@{ssd1306\_set\_buffer}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_set\_buffer()}{ssd1306\_set\_buffer()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+set\+\_\+buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Set buffer for display from array to pages. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em buffer} & Buffer to set \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_aa65177494133501b2b1c2ee41130b2ac}\label{ssd1306_8h_aa65177494133501b2b1c2ee41130b2ac} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_set\_contrast@{ssd1306\_set\_contrast}}
+\index{ssd1306\_set\_contrast@{ssd1306\_set\_contrast}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_set\_contrast()}{ssd1306\_set\_contrast()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+set\+\_\+contrast (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{int}]{contrast }\end{DoxyParamCaption})}
+
+
+
+Set contrast of display. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em contrast} & Contrast value \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a252de4aa00bb17d46980d199156212aa}\label{ssd1306_8h_a252de4aa00bb17d46980d199156212aa} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_show\_bitmap@{ssd1306\_show\_bitmap}}
+\index{ssd1306\_show\_bitmap@{ssd1306\_show\_bitmap}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_show\_bitmap()}{ssd1306\_show\_bitmap()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+show\+\_\+bitmap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{int}]{xpos,  }\item[{int}]{ypos,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{bitmap,  }\item[{uint8\+\_\+t}]{width,  }\item[{uint8\+\_\+t}]{height,  }\item[{bool}]{invert }\end{DoxyParamCaption})}
+
+
+
+Show bitmap on display. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em xpos} & X position \\
+\hline
+\mbox{\texttt{ in}}  & {\em ypos} & Y position \\
+\hline
+\mbox{\texttt{ in}}  & {\em bitmap} & Bitmap to display \\
+\hline
+\mbox{\texttt{ in}}  & {\em width} & Bitmap width \\
+\hline
+\mbox{\texttt{ in}}  & {\em height} & Bitmap height \\
+\hline
+\mbox{\texttt{ in}}  & {\em invert} & Invert bitmap \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_a8cb10fe5d6f54391dd8f4e1d083eaa6c}\label{ssd1306_8h_a8cb10fe5d6f54391dd8f4e1d083eaa6c} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_show\_buffer@{ssd1306\_show\_buffer}}
+\index{ssd1306\_show\_buffer@{ssd1306\_show\_buffer}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_show\_buffer()}{ssd1306\_show\_buffer()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+show\+\_\+buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd }\end{DoxyParamCaption})}
+
+
+
+Display whole image from buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_ae0fbb1d78c35ff49673840b239b0572a}\label{ssd1306_8h_ae0fbb1d78c35ff49673840b239b0572a} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_software\_scroll@{ssd1306\_software\_scroll}}
+\index{ssd1306\_software\_scroll@{ssd1306\_software\_scroll}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_software\_scroll()}{ssd1306\_software\_scroll()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+software\+\_\+scroll (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{int}]{start,  }\item[{int}]{end }\end{DoxyParamCaption})}
+
+
+
+Perform software scroll of pixels. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em start} & Start page \\
+\hline
+\mbox{\texttt{ in}}  & {\em end} & End page \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ssd1306_8h_afbeb4271c7df3e15720c1814827321dc}\label{ssd1306_8h_afbeb4271c7df3e15720c1814827321dc} 
+\index{ssd1306.h@{ssd1306.h}!ssd1306\_wrap\_arround@{ssd1306\_wrap\_arround}}
+\index{ssd1306\_wrap\_arround@{ssd1306\_wrap\_arround}!ssd1306.h@{ssd1306.h}}
+\doxysubsubsection{\texorpdfstring{ssd1306\_wrap\_arround()}{ssd1306\_wrap\_arround()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+wrap\+\_\+arround (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structssd1306__t}{ssd1306\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{ssd,  }\item[{\mbox{\hyperlink{ssd1306_8h_a04ddad8c62d2c23862731f41507ee070}{ssd1306\+\_\+scroll\+\_\+type\+\_\+t}}}]{scroll,  }\item[{int}]{start,  }\item[{int}]{end,  }\item[{int8\+\_\+t}]{delay }\end{DoxyParamCaption})}
+
+
+
+Wrap around image through scroll. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em ssd} & SSD1306 display structure \\
+\hline
+\mbox{\texttt{ in}}  & {\em scroll} & Scroll type \\
+\hline
+\mbox{\texttt{ in}}  & {\em start} & Start page \\
+\hline
+\mbox{\texttt{ in}}  & {\em end} & End page \\
+\hline
+\mbox{\texttt{ in}}  & {\em delay} & Delay between scroll \\
+\hline
+\end{DoxyParams}

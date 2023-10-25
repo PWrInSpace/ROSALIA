@@ -1,0 +1,109 @@
+\doxysection{/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA/\+Mainboard\+\_\+\+ESP32/components/misc/led\+\_\+driver.h File Reference}
+\hypertarget{led__driver_8h}{}\label{led__driver_8h}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/misc/led\_driver.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/misc/led\_driver.h}}
+
+
+LED driver for ESP32.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}driver/ledc.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+err.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}stdbool.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structled__driver__t}{led\+\_\+driver\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Intended for LEDs that are positive voltage driven! \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{led__driver_8h_a7e61c000bb7f074dedf0cbd1209458fc}\label{led__driver_8h_a7e61c000bb7f074dedf0cbd1209458fc} 
+\#define {\bfseries INVERTED\+\_\+\+LED\+\_\+\+LOGIC}~1
+\begin{DoxyCompactList}\small\item\em Flag for calculating duty cycle if LED is common anode. \end{DoxyCompactList}\item 
+\Hypertarget{led__driver_8h_a393ab04c91e30a7c8a02715da57ba095}\label{led__driver_8h_a393ab04c91e30a7c8a02715da57ba095} 
+\#define {\bfseries CALCULATE\+\_\+\+DUTY\+\_\+\+CYCLE}(duty,  max\+\_\+duty)~(max\+\_\+duty -\/ duty)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d}\label{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d} 
+enum \mbox{\hyperlink{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d}{led\+\_\+state\+\_\+t}} \{ {\bfseries LED\+\_\+\+OFF} = 0
+, {\bfseries LED\+\_\+\+ON} = 1
+ \}
+\begin{DoxyCompactList}\small\item\em LED state enum. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{led__driver_8h_a78d2b18654a9004c57f3a11a2649635f}{led\+\_\+driver\+\_\+init}} (\mbox{\hyperlink{structled__driver__t}{led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}led\+\_\+drv, ledc\+\_\+timer\+\_\+bit\+\_\+t ledc\+\_\+duty\+\_\+res, uint32\+\_\+t ledc\+\_\+freq)
+\begin{DoxyCompactList}\small\item\em Initialize LED driver. \end{DoxyCompactList}\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{led__driver_8h_a93bd969048c913dc962fe7b189c47aa6}{led\+\_\+update\+\_\+duty\+\_\+cycle}} (\mbox{\hyperlink{structled__driver__t}{led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}led\+\_\+drv, uint16\+\_\+t duty)
+\begin{DoxyCompactList}\small\item\em Update duty cycle of LED. \end{DoxyCompactList}\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{led__driver_8h_a51a20cbafea2f35ba0c115e0e5aa1676}{led\+\_\+toggle}} (\mbox{\hyperlink{structled__driver__t}{led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}led\+\_\+drv, \mbox{\hyperlink{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d}{led\+\_\+state\+\_\+t}} toggle)
+\begin{DoxyCompactList}\small\item\em Toggle LED on/off, and save toggle state to led\+\_\+drv struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+LED driver for ESP32. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{led__driver_8h_a78d2b18654a9004c57f3a11a2649635f}\label{led__driver_8h_a78d2b18654a9004c57f3a11a2649635f} 
+\index{led\_driver.h@{led\_driver.h}!led\_driver\_init@{led\_driver\_init}}
+\index{led\_driver\_init@{led\_driver\_init}!led\_driver.h@{led\_driver.h}}
+\doxysubsubsection{\texorpdfstring{led\_driver\_init()}{led\_driver\_init()}}
+{\footnotesize\ttfamily esp\+\_\+err\+\_\+t led\+\_\+driver\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structled__driver__t}{led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{led\+\_\+drv,  }\item[{ledc\+\_\+timer\+\_\+bit\+\_\+t}]{ledc\+\_\+duty\+\_\+res,  }\item[{uint32\+\_\+t}]{ledc\+\_\+freq }\end{DoxyParamCaption})}
+
+
+
+Initialize LED driver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em led\+\_\+drv} & Pointer to \doxylink{structled__driver__t}{led\+\_\+driver\+\_\+t} struct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ESP\+\_\+\+OK on success, ESP\+\_\+\+FAIL otherwise 
+\end{DoxyReturn}
+\Hypertarget{led__driver_8h_a51a20cbafea2f35ba0c115e0e5aa1676}\label{led__driver_8h_a51a20cbafea2f35ba0c115e0e5aa1676} 
+\index{led\_driver.h@{led\_driver.h}!led\_toggle@{led\_toggle}}
+\index{led\_toggle@{led\_toggle}!led\_driver.h@{led\_driver.h}}
+\doxysubsubsection{\texorpdfstring{led\_toggle()}{led\_toggle()}}
+{\footnotesize\ttfamily esp\+\_\+err\+\_\+t led\+\_\+toggle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structled__driver__t}{led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{led\+\_\+drv,  }\item[{\mbox{\hyperlink{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d}{led\+\_\+state\+\_\+t}}}]{toggle }\end{DoxyParamCaption})}
+
+
+
+Toggle LED on/off, and save toggle state to led\+\_\+drv struct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em led\+\_\+drv} & Pointer to \doxylink{structled__driver__t}{led\+\_\+driver\+\_\+t} struct \\
+\hline
+{\em toggle} & Toggle LED on/off \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ESP\+\_\+\+OK on success, ESP\+\_\+\+FAIL otherwise 
+\end{DoxyReturn}
+\Hypertarget{led__driver_8h_a93bd969048c913dc962fe7b189c47aa6}\label{led__driver_8h_a93bd969048c913dc962fe7b189c47aa6} 
+\index{led\_driver.h@{led\_driver.h}!led\_update\_duty\_cycle@{led\_update\_duty\_cycle}}
+\index{led\_update\_duty\_cycle@{led\_update\_duty\_cycle}!led\_driver.h@{led\_driver.h}}
+\doxysubsubsection{\texorpdfstring{led\_update\_duty\_cycle()}{led\_update\_duty\_cycle()}}
+{\footnotesize\ttfamily esp\+\_\+err\+\_\+t led\+\_\+update\+\_\+duty\+\_\+cycle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structled__driver__t}{led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{led\+\_\+drv,  }\item[{uint16\+\_\+t}]{duty }\end{DoxyParamCaption})}
+
+
+
+Update duty cycle of LED. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em led\+\_\+drv} & Pointer to \doxylink{structled__driver__t}{led\+\_\+driver\+\_\+t} struct \\
+\hline
+{\em duty} & Duty cycle in range 0-\/max\+\_\+duty \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ESP\+\_\+\+OK on success, ESP\+\_\+\+FAIL otherwise 
+\end{DoxyReturn}

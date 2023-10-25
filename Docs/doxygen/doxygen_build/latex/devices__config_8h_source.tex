@@ -1,0 +1,25 @@
+\doxysection{devices\+\_\+config.\+h}
+\hypertarget{devices__config_8h_source}{}\label{devices__config_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/devices\_config.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/devices\_config.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}mcu\_i2c\_config.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}lora.h\ "{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lora__esp32__config_8h}{lora\_esp32\_config.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}mcu\_spi\_config.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}ssd1306\_esp32\_config.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}mcu\_uart\_config.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mcu__twai__config_8h}{mcu\_twai\_config.h}}"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00014\ \ \ \mbox{\hyperlink{structmcu__spi__config__t}{mcu\_spi\_config\_t}}\ spi;}
+\DoxyCodeLine{00015\ \ \ \mbox{\hyperlink{structmcu__i2c__config__t}{mcu\_i2c\_config\_t}}\ i2c;}
+\DoxyCodeLine{00016\ \ \ mcu\_twai\_config\_t\ twai;}
+\DoxyCodeLine{00017\ \ \ \mbox{\hyperlink{structlora__struct__t}{lora\_struct\_t}}\ lora;}
+\DoxyCodeLine{00018\ \ \ \mbox{\hyperlink{structssd1306__t}{ssd1306\_t}}\ oled\_display;}
+\DoxyCodeLine{00019\ \}\ \mbox{\hyperlink{struct_r_o_s_a_l_i_a__devices__t}{ROSALIA\_devices\_t}};}
+
+\end{DoxyCode}

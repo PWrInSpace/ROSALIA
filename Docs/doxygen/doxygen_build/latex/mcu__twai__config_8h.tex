@@ -1,0 +1,74 @@
+\doxysection{/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA/\+Mainboard\+\_\+\+ESP32/components/mcu\+\_\+config/mcu\+\_\+twai\+\_\+config.h File Reference}
+\hypertarget{mcu__twai__config_8h}{}\label{mcu__twai__config_8h}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_twai\_config.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_twai\_config.h}}
+
+
+TWAI configuration and tools.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}driver/gpio.\+h"{}}\newline
+{\ttfamily \#include "{}driver/twai.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+err.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/queue.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtwai__config__t}{twai\+\_\+config\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em TWAI configuration structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{mcu__twai__config_8h_a78c057e4e7bde3e8e83c0a948886d4aa}{twai\+\_\+init}} (\mbox{\hyperlink{structtwai__config__t}{twai\+\_\+config\+\_\+t}} \texorpdfstring{$\ast$}{*}config, twai\+\_\+general\+\_\+config\+\_\+t \texorpdfstring{$\ast$}{*}g\+\_\+config, twai\+\_\+timing\+\_\+config\+\_\+t \texorpdfstring{$\ast$}{*}t\+\_\+config, twai\+\_\+filter\+\_\+config\+\_\+t \texorpdfstring{$\ast$}{*}f\+\_\+config)
+\begin{DoxyCompactList}\small\item\em TWAI initialization, initializes and starts TWAI driver. \end{DoxyCompactList}\item 
+twai\+\_\+message\+\_\+t \mbox{\hyperlink{mcu__twai__config_8h_aed91e55e70838e200c8d2a945bc9b282}{compose\+\_\+self\+\_\+test\+\_\+message}} (uint32\+\_\+t id, uint8\+\_\+t data\+\_\+length\+\_\+code, uint8\+\_\+t \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em TWAI message composition for self test purposes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+TWAI configuration and tools. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mcu__twai__config_8h_aed91e55e70838e200c8d2a945bc9b282}\label{mcu__twai__config_8h_aed91e55e70838e200c8d2a945bc9b282} 
+\index{mcu\_twai\_config.h@{mcu\_twai\_config.h}!compose\_self\_test\_message@{compose\_self\_test\_message}}
+\index{compose\_self\_test\_message@{compose\_self\_test\_message}!mcu\_twai\_config.h@{mcu\_twai\_config.h}}
+\doxysubsubsection{\texorpdfstring{compose\_self\_test\_message()}{compose\_self\_test\_message()}}
+{\footnotesize\ttfamily twai\+\_\+message\+\_\+t compose\+\_\+self\+\_\+test\+\_\+message (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{uint8\+\_\+t}]{data\+\_\+length\+\_\+code,  }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+TWAI message composition for self test purposes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Message ID \\
+\hline
+{\em data\+\_\+length\+\_\+code} & Message data length code \\
+\hline
+{\em data} & Pointer to message data \\
+\hline
+\end{DoxyParams}
+\Hypertarget{mcu__twai__config_8h_a78c057e4e7bde3e8e83c0a948886d4aa}\label{mcu__twai__config_8h_a78c057e4e7bde3e8e83c0a948886d4aa} 
+\index{mcu\_twai\_config.h@{mcu\_twai\_config.h}!twai\_init@{twai\_init}}
+\index{twai\_init@{twai\_init}!mcu\_twai\_config.h@{mcu\_twai\_config.h}}
+\doxysubsubsection{\texorpdfstring{twai\_init()}{twai\_init()}}
+{\footnotesize\ttfamily esp\+\_\+err\+\_\+t twai\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtwai__config__t}{twai\+\_\+config\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{config,  }\item[{twai\+\_\+general\+\_\+config\+\_\+t \texorpdfstring{$\ast$}{*}}]{g\+\_\+config,  }\item[{twai\+\_\+timing\+\_\+config\+\_\+t \texorpdfstring{$\ast$}{*}}]{t\+\_\+config,  }\item[{twai\+\_\+filter\+\_\+config\+\_\+t \texorpdfstring{$\ast$}{*}}]{f\+\_\+config }\end{DoxyParamCaption})}
+
+
+
+TWAI initialization, initializes and starts TWAI driver. 
+
+\begin{DoxyNote}{Note}
+
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em config} & TWAI configuration structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ESP\+\_\+\+OK on success, ESP\+\_\+\+FAIL otherwise 
+\end{DoxyReturn}
