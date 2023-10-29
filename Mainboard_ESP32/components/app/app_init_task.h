@@ -4,7 +4,7 @@
 
 #include "devices_config.h"
 #include "user_interface.h"
-#include "slave_communication.h"
+#include "slave_com.h"
 
 /*!
  * \brief Task for initializing all the devices
