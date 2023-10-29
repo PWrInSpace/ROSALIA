@@ -10,4 +10,4 @@
  * \param pvParameters Parameters for task - this needs to be pointer to the
  * devices_config structure
  */
-void slave_communication_task(void *pvParameters);
+void slave_com_task(void *pvParameters);
