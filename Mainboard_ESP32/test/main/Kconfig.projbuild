@@ -186,6 +186,23 @@ menu "ROSALIA v2.0 board Config ESP32S3"
 
     menu "ADC configuration"
 
+        config A_CAN_CHANNEL
+            int "A_CAN ESP32S3 channel"
+            default 0
+            help
+                ADC channel number for A_CAN
+        
+        config A_VBAT_CHANNEL
+            int "A_VBAT ESP32S3 channel"
+            default 1
+            help
+                ADC Channel number for A_VBAT
+        
+        config A_ADJV_CHANNEL
+            int "A_ADJV ESP32S3 channel"
+            default 3
+            help
+                ADC channel number for A_ADJV
     endmenu
 
     menu "SPI configuration"
@@ -217,5 +234,13 @@ menu "ROSALIA v2.0 board Config ESP32S3"
 
     endmenu
 
+    menu "ROSALIA flags configuration"
+        config SN65HVD230_LISTEN_ONLY
+            int "SN65HVD230 listen only mode (low power mode) hardware config"
+            default 1
+            help
+                In case SN65HVD230 is configured in low power mode, it will only work as listen only
+
+    endmenu
 
 endmenu

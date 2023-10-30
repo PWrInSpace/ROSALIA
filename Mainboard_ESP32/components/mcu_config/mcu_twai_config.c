@@ -21,8 +21,9 @@ esp_err_t twai_init(mcu_twai_config_t *config, twai_general_config_t *g_config,
   return ESP_OK;
 }
 
-twai_message_t compose_self_test_message(uint32_t id, uint8_t data_length_code,
-                                         uint8_t *data) {
+twai_message_t twai_compose_self_test_message(uint32_t id,
+                                              uint8_t data_length_code,
+                                              uint8_t *data) {
   twai_message_t msg = {
       .identifier = id, .data_length_code = data_length_code, .self = 1};
   for (int i = 0; i < data_length_code; i++) {

@@ -44,5 +44,6 @@ esp_err_t twai_init(mcu_twai_config_t *config, twai_general_config_t *g_config,
  * \param data_length_code Message data length code
  * \param data Pointer to message data
  */
-twai_message_t compose_self_test_message(uint32_t id, uint8_t data_length_code,
-                                         uint8_t *data);
+twai_message_t twai_compose_self_test_message(uint32_t id,
+                                              uint8_t data_length_code,
+                                              uint8_t *data);

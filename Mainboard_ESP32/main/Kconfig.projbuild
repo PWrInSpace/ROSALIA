@@ -234,5 +234,13 @@ menu "ROSALIA v2.0 board Config ESP32S3"
 
     endmenu
 
+    menu "ROSALIA flags configuration"
+        config SN65HVD230_LISTEN_ONLY
+            int "SN65HVD230 listen only mode (low power mode) hardware config"
+            default 1
+            help
+                In case SN65HVD230 is configured in low power mode, it will only work as listen only
+
+    endmenu
 
 endmenu
