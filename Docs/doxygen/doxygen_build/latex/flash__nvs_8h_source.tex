@@ -1,0 +1,30 @@
+\doxysection{flash\+\_\+nvs.\+h}
+\hypertarget{flash__nvs_8h_source}{}\label{flash__nvs_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/memory/flash\_nvs.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/memory/flash\_nvs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2022\ Pwr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}nvs\_flash.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00010\ \ \ NVS\_OK,}
+\DoxyCodeLine{00011\ \ \ NVS\_INIT\_ERROR,}
+\DoxyCodeLine{00012\ \ \ NVS\_OPEN\_ERROR,}
+\DoxyCodeLine{00013\ \ \ NVS\_READ\_ERROR,}
+\DoxyCodeLine{00014\ \}\ NVSResult;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00021\ NVSResult\ NVS\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00031\ NVSResult\ NVS\_write\_uint8(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ key,\ uint8\_t\ val);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00041\ NVSResult\ NVS\_read\_uint8(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ key,\ uint8\_t*\ val);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00050\ NVSResult\ NVS\_write\_uint16(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ key,\ uint16\_t\ val);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00059\ NVSResult\ NVS\_read\_uint16(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ key,\ uint16\_t*\ val);}
+
+\end{DoxyCode}

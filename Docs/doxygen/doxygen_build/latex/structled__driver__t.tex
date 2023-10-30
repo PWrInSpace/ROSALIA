@@ -1,0 +1,60 @@
+\doxysection{led\+\_\+driver\+\_\+t Struct Reference}
+\hypertarget{structled__driver__t}{}\label{structled__driver__t}\index{led\_driver\_t@{led\_driver\_t}}
+
+
+Intended for LEDs that are positive voltage driven!  
+
+
+
+
+{\ttfamily \#include $<$led\+\_\+driver.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structled__driver__t_ab8a03552fae73b465e00a3e97f522a95}\label{structled__driver__t_ab8a03552fae73b465e00a3e97f522a95} 
+ledc\+\_\+mode\+\_\+t {\bfseries ledc\+\_\+mode}
+\item 
+\Hypertarget{structled__driver__t_a9f24fef194507bfec6f830f66368be2e}\label{structled__driver__t_a9f24fef194507bfec6f830f66368be2e} 
+uint8\+\_\+t {\bfseries led\+\_\+gpio\+\_\+num}
+\item 
+\Hypertarget{structled__driver__t_a40f8f3fe7efa60123032e36e31e8c1ed}\label{structled__driver__t_a40f8f3fe7efa60123032e36e31e8c1ed} 
+uint8\+\_\+t {\bfseries ledc\+\_\+channel\+\_\+num}
+\item 
+\Hypertarget{structled__driver__t_a2c0e0e2e50f75e757f16b4263b4aa88b}\label{structled__driver__t_a2c0e0e2e50f75e757f16b4263b4aa88b} 
+uint8\+\_\+t {\bfseries ledc\+\_\+timer\+\_\+num}
+\item 
+\Hypertarget{structled__driver__t_a1216b7825056a4873bd3f1f808082adb}\label{structled__driver__t_a1216b7825056a4873bd3f1f808082adb} 
+uint16\+\_\+t {\bfseries duty}
+\item 
+\Hypertarget{structled__driver__t_aa6920db08efa1149460d3cd612624ab7}\label{structled__driver__t_aa6920db08efa1149460d3cd612624ab7} 
+uint16\+\_\+t {\bfseries max\+\_\+duty}
+\item 
+\Hypertarget{structled__driver__t_a1a081d3dd3daff94f44566bec93375ac}\label{structled__driver__t_a1a081d3dd3daff94f44566bec93375ac} 
+\mbox{\hyperlink{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d}{led\+\_\+state\+\_\+t}} {\bfseries toggle}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Intended for LEDs that are positive voltage driven! 
+
+
+\begin{DoxyParams}{Parameters}
+{\em led\+\_\+gpio\+\_\+num} & GPIO number of LED \\
+\hline
+{\em ledc\+\_\+channel\+\_\+num} & LEDC channel number \\
+\hline
+{\em ledc\+\_\+timer\+\_\+num} & LEDC timer number \\
+\hline
+{\em duty} & Duty cycle in range \\
+\hline
+{\em max\+\_\+duty} & Maximum duty cycle \\
+\hline
+{\em toggle} & Toggle LED on/off \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA/\+Mainboard\+\_\+\+ESP32/components/misc/\mbox{\hyperlink{led__driver_8h}{led\+\_\+driver.\+h}}\end{DoxyCompactItemize}

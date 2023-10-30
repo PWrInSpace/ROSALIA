@@ -1,0 +1,74 @@
+\doxysection{/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA/\+Mainboard\+\_\+\+ESP32/components/app/user\+\_\+interface.h File Reference}
+\hypertarget{user__interface_8h}{}\label{user__interface_8h}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/user\_interface.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/user\_interface.h}}
+
+
+User interface app header file Contains task for rgb LED, status LED, buzzer and button handling.  
+
+
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+{\ttfamily \#include "{}mcu\+\_\+adc\+\_\+config.\+h"{}}\newline
+{\ttfamily \#include "{}rgb\+\_\+led\+\_\+driver.\+h"{}}\newline
+{\ttfamily \#include "{}sdkconfig.\+h"{}}\newline
+{\ttfamily \#include "{}ssd1306\+\_\+esp32\+\_\+config.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{user__interface_8h_a3030c9627d9b8e31a4633b3ba1353d3c}\label{user__interface_8h_a3030c9627d9b8e31a4633b3ba1353d3c} 
+\#define {\bfseries LEDC\+\_\+\+FREQ\+\_\+\+HZ}~5000
+\item 
+\Hypertarget{user__interface_8h_a2ef79fb32dcc151508bf858adee1d8fb}\label{user__interface_8h_a2ef79fb32dcc151508bf858adee1d8fb} 
+\#define {\bfseries LEDC\+\_\+\+DUTY\+\_\+\+RES}~LEDC\+\_\+\+TIMER\+\_\+13\+\_\+\+BIT
+\item 
+\Hypertarget{user__interface_8h_a4aed744a950567f4fad05e7d5da4706b}\label{user__interface_8h_a4aed744a950567f4fad05e7d5da4706b} 
+\#define {\bfseries LEDC\+\_\+\+HS\+\_\+\+TIMER}~LEDC\+\_\+\+TIMER\+\_\+0
+\item 
+\Hypertarget{user__interface_8h_a4f53f28f7142cf546196606d5f401b2e}\label{user__interface_8h_a4f53f28f7142cf546196606d5f401b2e} 
+\#define {\bfseries LEDC\+\_\+\+HS\+\_\+\+MODE}~LEDC\+\_\+\+LOW\+\_\+\+SPEED\+\_\+\+MODE
+\item 
+\Hypertarget{user__interface_8h_a2351f30f0895b552e5fe9944d69e645d}\label{user__interface_8h_a2351f30f0895b552e5fe9944d69e645d} 
+\#define {\bfseries MAX\+\_\+\+DUTY}~8192
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{user__interface_8h_a8d84cf5e123591ba0c8a88c5d552d403}\label{user__interface_8h_a8d84cf5e123591ba0c8a88c5d552d403} 
+enum \mbox{\hyperlink{user__interface_8h_a8d84cf5e123591ba0c8a88c5d552d403}{rgb\+\_\+led\+\_\+color\+\_\+t}} \{ \newline
+{\bfseries NONE} = 0b000
+, {\bfseries RED} = 0b001
+, {\bfseries GREEN} = 0b010
+, {\bfseries BLUE} = 0b100
+, \newline
+{\bfseries YELLOW} = RED \texorpdfstring{$\vert$}{|} GREEN
+, {\bfseries CYAN} = GREEN \texorpdfstring{$\vert$}{|} BLUE
+, {\bfseries MAGENTA} = RED \texorpdfstring{$\vert$}{|} BLUE
+, {\bfseries WHITE} = RED \texorpdfstring{$\vert$}{|} GREEN \texorpdfstring{$\vert$}{|} BLUE
+ \}
+\begin{DoxyCompactList}\small\item\em RGB LED color enum. \end{DoxyCompactList}\item 
+\Hypertarget{user__interface_8h_a0861947ee62ee22a5d3a12a02ac2c710}\label{user__interface_8h_a0861947ee62ee22a5d3a12a02ac2c710} 
+enum {\bfseries adc\+\_\+chan\+\_\+cfg\+\_\+t} \{ {\bfseries CAN\+\_\+\+CHANNEL} = ADC\+\_\+\+CHANNEL\+\_\+0
+, {\bfseries VBAT\+\_\+\+CHANNEL} = ADC\+\_\+\+CHANNEL\+\_\+1
+, {\bfseries ADJV\+\_\+\+CHANNEL} = ADC\+\_\+\+CHANNEL\+\_\+3
+ \}
+\item 
+\Hypertarget{user__interface_8h_a5eec882689b2f03237536c4e04bcaa3f}\label{user__interface_8h_a5eec882689b2f03237536c4e04bcaa3f} 
+enum {\bfseries adc\+\_\+chan\+\_\+index\+\_\+cfg\+\_\+t} \{ {\bfseries CAN\+\_\+\+CHANNEL\+\_\+\+INDEX} = 0
+, {\bfseries VBAT\+\_\+\+CHANNEL\+\_\+\+INDEX}
+, {\bfseries ADJV\+\_\+\+CHANNEL\+\_\+\+INDEX}
+, {\bfseries MAX\+\_\+\+CHANNEL\+\_\+\+INDEX}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{user__interface_8h_a05e09cb7ada3b4b8fc624269fc21d3a7}\label{user__interface_8h_a05e09cb7ada3b4b8fc624269fc21d3a7} 
+void {\bfseries user\+\_\+interface\+\_\+task} (void \texorpdfstring{$\ast$}{*}arg)
+\item 
+\Hypertarget{user__interface_8h_a8b2b20aa70f493769b9ea0722a58555c}\label{user__interface_8h_a8b2b20aa70f493769b9ea0722a58555c} 
+void {\bfseries init\+\_\+user\+\_\+interface\+\_\+task} (void \texorpdfstring{$\ast$}{*}arg)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+User interface app header file Contains task for rgb LED, status LED, buzzer and button handling. 
+

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: /Users/krzysztofgliwinski/PoliWRocket/ROSALIA_MainBoard/Mainboard_ESP32/components/app_test_mode/lora_test_config.h Source File</title>
+<title>My Project: /Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard_ESP32/components/app_test_mode/lora_test_config.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,27 +92,30 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;esp_vfs_fat.h&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;freertos/FreeRTOS.h&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="lora__esp32__config_8h.html">lora_esp32_config.h</a>&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;sdkconfig.h&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#define TAG &quot;MAIN&quot;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><a class="code hl_struct" href="structlora__struct__t.html">lora_struct_t</a> lora = {._spi_transmit = _lora_SPI_transmit,</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                      ._delay = _lora_delay,</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                      ._gpio_set_level = _lora_GPIO_set_level,</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                      .log = _lora_log,</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                      .rst_gpio_num = CONFIG_RS_LORA,</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                      .cs_gpio_num = CONFIG_CS_LORA,</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                      .d0_gpio_num = CONFIG_D0_LORA,</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                      .implicit_header = 0,</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                      .frequency = 0};</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> lora_test_init();</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">void</span> task_lora_tx(<span class="keywordtype">void</span> *param);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keywordtype">void</span> task_lora_rx(<span class="keywordtype">void</span> *param);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="lora_8h.html">lora.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;sdkconfig.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define TAG &quot;MAIN&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">// TODO(Glibus): Change the GPIO nums to another struct apply in</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">// lora_esp32_config files</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><a class="code hl_struct" href="structlora__struct__t.html">lora_struct_t</a> lora = {._spi_transmit = _lora_SPI_transmit,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                      ._delay = _lora_delay,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                      ._gpio_set_level = _lora_GPIO_set_level,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                      .log = _lora_log,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                      .rst_gpio_num = CONFIG_LORA_RS,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                      .cs_gpio_num = CONFIG_LORA_CS,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                      .d0_gpio_num = CONFIG_LORA_D0,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                      .implicit_header = 0,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                      .frequency = 0};</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keywordtype">void</span> lora_test_init();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">void</span> task_lora_tx(<span class="keywordtype">void</span> *param);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keywordtype">void</span> task_lora_rx(<span class="keywordtype">void</span> *param);</div>
+<div class="ttc" id="alora_8h_html"><div class="ttname"><a href="lora_8h.html">lora.h</a></div><div class="ttdoc">RFM95w LoRa library - multi-MCU.</div></div>
 <div class="ttc" id="alora__esp32__config_8h_html"><div class="ttname"><a href="lora__esp32__config_8h.html">lora_esp32_config.h</a></div><div class="ttdoc">ESP32 lora configuration.</div></div>
-<div class="ttc" id="astructlora__struct__t_html"><div class="ttname"><a href="structlora__struct__t.html">lora_struct_t</a></div><div class="ttdef"><b>Definition</b> lora.h:141</div></div>
+<div class="ttc" id="astructlora__struct__t_html"><div class="ttname"><a href="structlora__struct__t.html">lora_struct_t</a></div><div class="ttdef"><b>Definition</b> lora.h:134</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

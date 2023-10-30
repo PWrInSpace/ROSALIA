@@ -1,0 +1,360 @@
+\begin{theindex}
+
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/ble.h}, 
+		\hyperpage{15}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/devices\_config.h}, 
+		\hyperpage{15}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/slave\_communication.h}, 
+		\hyperpage{15}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/user\_interface.h}, 
+		\hyperpage{16, 17}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app\_test\_mode/lora\_test\_config.h}, 
+		\hyperpage{17}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/ble/ble\_api.h}, 
+		\hyperpage{18}, \hyperpage{20}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/ble/ble\_gap\_conf.h}, 
+		\hyperpage{21, 22}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/ble/ble\_gatt\_conf.h}, 
+		\hyperpage{22}, \hyperpage{24}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/lora/lora.c}, 
+		\hyperpage{25}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/lora/lora.h}, 
+		\hyperpage{33}, \hyperpage{42}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/lora\_esp32\_config.c}, 
+		\hyperpage{45}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/lora\_esp32\_config.h}, 
+		\hyperpage{45, 46}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_adc\_config.h}, 
+		\hyperpage{46}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_i2c\_config.h}, 
+		\hyperpage{47}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_spi\_config.h}, 
+		\hyperpage{47}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_twai\_config.h}, 
+		\hyperpage{47}, \hyperpage{49}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/ssd1306\_esp32\_config.h}, 
+		\hyperpage{49}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/memory/flash.h}, 
+		\hyperpage{49}, \hyperpage{51}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/memory/flash\_nvs.h}, 
+		\hyperpage{52}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/misc/led\_driver.h}, 
+		\hyperpage{52}, \hyperpage{54}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/misc/rgb\_led\_driver.h}, 
+		\hyperpage{55, 56}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/ssd1306/font8x8\_basic.h}, 
+		\hyperpage{57}
+  \item {/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/ssd1306/ssd1306.h}, 
+		\hyperpage{59}, \hyperpage{72}
+  \item {\_ssd1306\_line}
+    \subitem {ssd1306.h}, \hyperpage{62}
+  \item {\_ssd1306\_pixel}
+    \subitem {ssd1306.h}, \hyperpage{62}
+
+  \indexspace
+
+  \item {BLE\_ADV\_DATA\_CONFIG\_DEFAULT}
+    \subitem {ble\_api.h}, \hyperpage{19}
+  \item {BLE\_ADV\_PARAMS\_CONFIG\_DEFAULT}
+    \subitem {ble\_api.h}, \hyperpage{19}
+  \item {ble\_api.h}
+    \subitem {BLE\_ADV\_DATA\_CONFIG\_DEFAULT}, \hyperpage{19}
+    \subitem {BLE\_ADV\_PARAMS\_CONFIG\_DEFAULT}, \hyperpage{19}
+    \subitem {ble\_err\_to\_string}, \hyperpage{19}
+    \subitem {BLE\_SCAN\_RSP\_DATA\_CONFIG\_DEFAULT}, \hyperpage{19}
+    \subitem {BLE\_UUID\_CONFIG\_DEFAULT}, \hyperpage{19}
+  \item {ble\_config\_t}, \hyperpage{5}
+  \item {ble\_err\_to\_string}
+    \subitem {ble\_api.h}, \hyperpage{19}
+  \item {ble\_gap\_conf.h}
+    \subitem {ble\_gap\_event\_handler}, \hyperpage{21}
+    \subitem {ble\_gap\_init}, \hyperpage{22}
+  \item {ble\_gap\_event\_handler}
+    \subitem {ble\_gap\_conf.h}, \hyperpage{21}
+  \item {ble\_gap\_init}
+    \subitem {ble\_gap\_conf.h}, \hyperpage{22}
+  \item {ble\_gap\_t}, \hyperpage{5}
+  \item {ble\_gatt\_conf.h}
+    \subitem {ble\_gatt\_init}, \hyperpage{24}
+    \subitem {ble\_gatt\_register\_event}, \hyperpage{24}
+    \subitem {ble\_gatts\_event\_handler}, \hyperpage{23}
+  \item {ble\_gatt\_init}
+    \subitem {ble\_gatt\_conf.h}, \hyperpage{24}
+  \item {ble\_gatt\_register\_event}
+    \subitem {ble\_gatt\_conf.h}, \hyperpage{24}
+  \item {ble\_gatts\_event\_handler}
+    \subitem {ble\_gatt\_conf.h}, \hyperpage{23}
+  \item {ble\_gatts\_profile\_t}, \hyperpage{6}
+  \item {ble\_gatts\_t}, \hyperpage{6}
+  \item {BLE\_SCAN\_RSP\_DATA\_CONFIG\_DEFAULT}
+    \subitem {ble\_api.h}, \hyperpage{19}
+  \item {BLE\_UUID\_CONFIG\_DEFAULT}
+    \subitem {ble\_api.h}, \hyperpage{19}
+
+  \indexspace
+
+  \item {compose\_self\_test\_message}
+    \subitem {mcu\_twai\_config.h}, \hyperpage{48}
+
+  \indexspace
+
+  \item {led\_driver.h}
+    \subitem {led\_driver\_init}, \hyperpage{53}
+    \subitem {led\_toggle}, \hyperpage{53}
+    \subitem {led\_update\_duty\_cycle}, \hyperpage{54}
+  \item {led\_driver\_init}
+    \subitem {led\_driver.h}, \hyperpage{53}
+  \item {led\_driver\_t}, \hyperpage{7}
+  \item {led\_toggle}
+    \subitem {led\_driver.h}, \hyperpage{53}
+  \item {led\_update\_duty\_cycle}
+    \subitem {led\_driver.h}, \hyperpage{54}
+  \item {lora.c}
+    \subitem {lora\_check\_tx\_done}, \hyperpage{27}
+    \subitem {lora\_fill\_fifo\_buf\_to\_send}, \hyperpage{27}
+    \subitem {lora\_get\_frequency}, \hyperpage{27}
+    \subitem {lora\_idle}, \hyperpage{27}
+    \subitem {lora\_implicit\_header\_mode}, \hyperpage{27}
+    \subitem {lora\_packet\_rssi}, \hyperpage{28}
+    \subitem {lora\_packet\_snr}, \hyperpage{28}
+    \subitem {lora\_read\_reg}, \hyperpage{28}
+    \subitem {lora\_receive\_packet}, \hyperpage{28}
+    \subitem {lora\_received}, \hyperpage{29}
+    \subitem {lora\_reset}, \hyperpage{29}
+    \subitem {lora\_send\_packet}, \hyperpage{29}
+    \subitem {lora\_set\_bandwidth}, \hyperpage{30}
+    \subitem {lora\_set\_coding\_rate}, \hyperpage{30}
+    \subitem {lora\_set\_frequency}, \hyperpage{30}
+    \subitem {lora\_set\_preamble\_length}, \hyperpage{30}
+    \subitem {lora\_set\_receive\_mode}, \hyperpage{31}
+    \subitem {lora\_set\_spreading\_factor}, \hyperpage{31}
+    \subitem {lora\_set\_sync\_word}, \hyperpage{31}
+    \subitem {lora\_set\_tx\_power}, \hyperpage{32}
+    \subitem {lora\_sleep}, \hyperpage{32}
+    \subitem {lora\_start\_transmission}, \hyperpage{32}
+    \subitem {lora\_write\_irq\_flags}, \hyperpage{32}
+    \subitem {lora\_write\_reg}, \hyperpage{32}
+  \item {lora.h}
+    \subitem {lora\_check\_tx\_done}, \hyperpage{36}
+    \subitem {lora\_fill\_fifo\_buf\_to\_send}, \hyperpage{36}
+    \subitem {lora\_get\_frequency}, \hyperpage{36}
+    \subitem {lora\_idle}, \hyperpage{37}
+    \subitem {lora\_implicit\_header\_mode}, \hyperpage{37}
+    \subitem {lora\_packet\_rssi}, \hyperpage{37}
+    \subitem {lora\_packet\_snr}, \hyperpage{37}
+    \subitem {lora\_read\_reg}, \hyperpage{38}
+    \subitem {lora\_receive\_packet}, \hyperpage{38}
+    \subitem {lora\_received}, \hyperpage{38}
+    \subitem {lora\_reset}, \hyperpage{38}
+    \subitem {lora\_send\_packet}, \hyperpage{39}
+    \subitem {lora\_set\_bandwidth}, \hyperpage{39}
+    \subitem {lora\_set\_coding\_rate}, \hyperpage{39}
+    \subitem {lora\_set\_frequency}, \hyperpage{40}
+    \subitem {lora\_set\_preamble\_length}, \hyperpage{40}
+    \subitem {lora\_set\_receive\_mode}, \hyperpage{40}
+    \subitem {lora\_set\_spreading\_factor}, \hyperpage{40}
+    \subitem {lora\_set\_sync\_word}, \hyperpage{41}
+    \subitem {lora\_set\_tx\_power}, \hyperpage{41}
+    \subitem {lora\_sleep}, \hyperpage{41}
+    \subitem {lora\_start\_transmission}, \hyperpage{41}
+    \subitem {lora\_write\_irq\_flags}, \hyperpage{42}
+    \subitem {lora\_write\_reg}, \hyperpage{42}
+  \item {lora\_check\_tx\_done}
+    \subitem {lora.c}, \hyperpage{27}
+    \subitem {lora.h}, \hyperpage{36}
+  \item {lora\_fill\_fifo\_buf\_to\_send}
+    \subitem {lora.c}, \hyperpage{27}
+    \subitem {lora.h}, \hyperpage{36}
+  \item {lora\_get\_frequency}
+    \subitem {lora.c}, \hyperpage{27}
+    \subitem {lora.h}, \hyperpage{36}
+  \item {lora\_idle}
+    \subitem {lora.c}, \hyperpage{27}
+    \subitem {lora.h}, \hyperpage{37}
+  \item {lora\_implicit\_header\_mode}
+    \subitem {lora.c}, \hyperpage{27}
+    \subitem {lora.h}, \hyperpage{37}
+  \item {lora\_packet\_rssi}
+    \subitem {lora.c}, \hyperpage{28}
+    \subitem {lora.h}, \hyperpage{37}
+  \item {lora\_packet\_snr}
+    \subitem {lora.c}, \hyperpage{28}
+    \subitem {lora.h}, \hyperpage{37}
+  \item {lora\_read\_reg}
+    \subitem {lora.c}, \hyperpage{28}
+    \subitem {lora.h}, \hyperpage{38}
+  \item {lora\_receive\_packet}
+    \subitem {lora.c}, \hyperpage{28}
+    \subitem {lora.h}, \hyperpage{38}
+  \item {lora\_received}
+    \subitem {lora.c}, \hyperpage{29}
+    \subitem {lora.h}, \hyperpage{38}
+  \item {lora\_reset}
+    \subitem {lora.c}, \hyperpage{29}
+    \subitem {lora.h}, \hyperpage{38}
+  \item {lora\_send\_packet}
+    \subitem {lora.c}, \hyperpage{29}
+    \subitem {lora.h}, \hyperpage{39}
+  \item {lora\_set\_bandwidth}
+    \subitem {lora.c}, \hyperpage{30}
+    \subitem {lora.h}, \hyperpage{39}
+  \item {lora\_set\_coding\_rate}
+    \subitem {lora.c}, \hyperpage{30}
+    \subitem {lora.h}, \hyperpage{39}
+  \item {lora\_set\_frequency}
+    \subitem {lora.c}, \hyperpage{30}
+    \subitem {lora.h}, \hyperpage{40}
+  \item {lora\_set\_preamble\_length}
+    \subitem {lora.c}, \hyperpage{30}
+    \subitem {lora.h}, \hyperpage{40}
+  \item {lora\_set\_receive\_mode}
+    \subitem {lora.c}, \hyperpage{31}
+    \subitem {lora.h}, \hyperpage{40}
+  \item {lora\_set\_spreading\_factor}
+    \subitem {lora.c}, \hyperpage{31}
+    \subitem {lora.h}, \hyperpage{40}
+  \item {lora\_set\_sync\_word}
+    \subitem {lora.c}, \hyperpage{31}
+    \subitem {lora.h}, \hyperpage{41}
+  \item {lora\_set\_tx\_power}
+    \subitem {lora.c}, \hyperpage{32}
+    \subitem {lora.h}, \hyperpage{41}
+  \item {lora\_sleep}
+    \subitem {lora.c}, \hyperpage{32}
+    \subitem {lora.h}, \hyperpage{41}
+  \item {lora\_start\_transmission}
+    \subitem {lora.c}, \hyperpage{32}
+    \subitem {lora.h}, \hyperpage{41}
+  \item {lora\_struct\_t}, \hyperpage{8}
+  \item {lora\_write\_irq\_flags}
+    \subitem {lora.c}, \hyperpage{32}
+    \subitem {lora.h}, \hyperpage{42}
+  \item {lora\_write\_reg}
+    \subitem {lora.c}, \hyperpage{32}
+    \subitem {lora.h}, \hyperpage{42}
+
+  \indexspace
+
+  \item {mcu\_i2c\_config\_t}, \hyperpage{8}
+  \item {mcu\_spi\_config\_t}, \hyperpage{8}
+  \item {mcu\_twai\_config.h}
+    \subitem {compose\_self\_test\_message}, \hyperpage{48}
+    \subitem {twai\_init}, \hyperpage{48}
+
+  \indexspace
+
+  \item {out\_column\_t}, \hyperpage{9}
+
+  \indexspace
+
+  \item {PAGE\_t}, \hyperpage{9}
+  \item {prepare\_type\_env\_t}, \hyperpage{9}
+
+  \indexspace
+
+  \item {rgb\_led\_driver.h}
+    \subitem {rgb\_led\_driver\_init}, \hyperpage{55}
+    \subitem {rgb\_led\_toggle}, \hyperpage{56}
+    \subitem {rgb\_led\_update\_duty\_cycle}, \hyperpage{56}
+  \item {rgb\_led\_driver\_init}
+    \subitem {rgb\_led\_driver.h}, \hyperpage{55}
+  \item {rgb\_led\_driver\_t}, \hyperpage{9}
+  \item {rgb\_led\_toggle}
+    \subitem {rgb\_led\_driver.h}, \hyperpage{56}
+  \item {rgb\_led\_update\_duty\_cycle}
+    \subitem {rgb\_led\_driver.h}, \hyperpage{56}
+  \item {ROSALIA\_devices\_t}, \hyperpage{10}
+
+  \indexspace
+
+  \item {ssd1306.h}
+    \subitem {\_ssd1306\_line}, \hyperpage{62}
+    \subitem {\_ssd1306\_pixel}, \hyperpage{62}
+    \subitem {ssd1306\_clear\_line}, \hyperpage{63}
+    \subitem {ssd1306\_clear\_screen}, \hyperpage{63}
+    \subitem {ssd1306\_copy\_bit}, \hyperpage{63}
+    \subitem {ssd1306\_display\_image}, \hyperpage{65}
+    \subitem {ssd1306\_display\_text}, \hyperpage{65}
+    \subitem {ssd1306\_display\_text\_x3}, \hyperpage{65}
+    \subitem {ssd1306\_fadeout}, \hyperpage{66}
+    \subitem {ssd1306\_flip}, \hyperpage{66}
+    \subitem {ssd1306\_get\_buffer}, \hyperpage{66}
+    \subitem {ssd1306\_hardware\_scroll}, \hyperpage{67}
+    \subitem {ssd1306\_i2c\_display\_image}, \hyperpage{67}
+    \subitem {ssd1306\_i2c\_hardware\_scroll}, \hyperpage{67}
+    \subitem {ssd1306\_i2c\_init}, \hyperpage{68}
+    \subitem {ssd1306\_i2c\_set\_contrast}, \hyperpage{68}
+    \subitem {ssd1306\_init}, \hyperpage{68}
+    \subitem {ssd1306\_invert}, \hyperpage{69}
+    \subitem {ssd1306\_rotate\_byte}, \hyperpage{69}
+    \subitem {ssd1306\_scroll\_clear}, \hyperpage{69}
+    \subitem {ssd1306\_scroll\_text}, \hyperpage{70}
+    \subitem {ssd1306\_set\_buffer}, \hyperpage{70}
+    \subitem {ssd1306\_set\_contrast}, \hyperpage{70}
+    \subitem {ssd1306\_show\_bitmap}, \hyperpage{70}
+    \subitem {ssd1306\_show\_buffer}, \hyperpage{71}
+    \subitem {ssd1306\_software\_scroll}, \hyperpage{71}
+    \subitem {ssd1306\_wrap\_arround}, \hyperpage{71}
+  \item {ssd1306\_clear\_line}
+    \subitem {ssd1306.h}, \hyperpage{63}
+  \item {ssd1306\_clear\_screen}
+    \subitem {ssd1306.h}, \hyperpage{63}
+  \item {ssd1306\_copy\_bit}
+    \subitem {ssd1306.h}, \hyperpage{63}
+  \item {ssd1306\_display\_image}
+    \subitem {ssd1306.h}, \hyperpage{65}
+  \item {ssd1306\_display\_text}
+    \subitem {ssd1306.h}, \hyperpage{65}
+  \item {ssd1306\_display\_text\_x3}
+    \subitem {ssd1306.h}, \hyperpage{65}
+  \item {ssd1306\_fadeout}
+    \subitem {ssd1306.h}, \hyperpage{66}
+  \item {ssd1306\_flip}
+    \subitem {ssd1306.h}, \hyperpage{66}
+  \item {ssd1306\_get\_buffer}
+    \subitem {ssd1306.h}, \hyperpage{66}
+  \item {ssd1306\_hardware\_scroll}
+    \subitem {ssd1306.h}, \hyperpage{67}
+  \item {ssd1306\_i2c\_display\_image}
+    \subitem {ssd1306.h}, \hyperpage{67}
+  \item {ssd1306\_i2c\_hardware\_scroll}
+    \subitem {ssd1306.h}, \hyperpage{67}
+  \item {ssd1306\_i2c\_init}
+    \subitem {ssd1306.h}, \hyperpage{68}
+  \item {ssd1306\_i2c\_set\_contrast}
+    \subitem {ssd1306.h}, \hyperpage{68}
+  \item {ssd1306\_init}
+    \subitem {ssd1306.h}, \hyperpage{68}
+  \item {ssd1306\_invert}
+    \subitem {ssd1306.h}, \hyperpage{69}
+  \item {ssd1306\_rotate\_byte}
+    \subitem {ssd1306.h}, \hyperpage{69}
+  \item {ssd1306\_scroll\_clear}
+    \subitem {ssd1306.h}, \hyperpage{69}
+  \item {ssd1306\_scroll\_text}
+    \subitem {ssd1306.h}, \hyperpage{70}
+  \item {ssd1306\_set\_buffer}
+    \subitem {ssd1306.h}, \hyperpage{70}
+  \item {ssd1306\_set\_contrast}
+    \subitem {ssd1306.h}, \hyperpage{70}
+  \item {ssd1306\_show\_bitmap}
+    \subitem {ssd1306.h}, \hyperpage{70}
+  \item {ssd1306\_show\_buffer}
+    \subitem {ssd1306.h}, \hyperpage{71}
+  \item {ssd1306\_software\_scroll}
+    \subitem {ssd1306.h}, \hyperpage{71}
+  \item {ssd1306\_t}, \hyperpage{10}
+  \item {ssd1306\_wrap\_arround}
+    \subitem {ssd1306.h}, \hyperpage{71}
+
+  \indexspace
+
+  \item {twai\_config\_t}, \hyperpage{11}
+  \item {twai\_init}
+    \subitem {mcu\_twai\_config.h}, \hyperpage{48}
+
+  \indexspace
+
+  \item {voltage\_measure\_config\_t}, \hyperpage{12}
+
+\end{theindex}

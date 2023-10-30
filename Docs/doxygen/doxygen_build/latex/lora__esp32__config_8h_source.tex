@@ -1,8 +1,8 @@
 \doxysection{lora\+\_\+esp32\+\_\+config.\+h}
-\hypertarget{lora__esp32__config_8h_source}{}\label{lora__esp32__config_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/lora/lora\_esp32\_config.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/lora/lora\_esp32\_config.h}}
+\hypertarget{lora__esp32__config_8h_source}{}\label{lora__esp32__config_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/lora\_esp32\_config.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/lora\_esp32\_config.h}}
 \mbox{\hyperlink{lora__esp32__config_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Gliwuś}}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
 \DoxyCodeLine{00002\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00003\ }
 \DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
@@ -13,16 +13,18 @@
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_rom\_gpio.h"{}}}
 \DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}freertos/task.h"{}}}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lora_8h}{lora.h}}"{}}}
-\DoxyCodeLine{00013\ }
-\DoxyCodeLine{00019\ \textcolor{keywordtype}{bool}\ \_lora\_spi\_and\_pins\_init();}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \textcolor{keywordtype}{bool}\ \_lora\_SPI\_transmit(uint8\_t\ \_in[2],\ uint8\_t\ \_out[2]);}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}rom/gpio.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}soc/gpio\_struct.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{bool}\ \_lora\_spi\_and\_pins\_init();}
 \DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}\ \_lora\_delay(\textcolor{keywordtype}{size\_t}\ \_ms);}
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{bool}\ \_lora\_SPI\_transmit(uint8\_t\ \_in[2],\ uint8\_t\ \_out[2]);}
 \DoxyCodeLine{00024\ }
-\DoxyCodeLine{00025\ \textcolor{keywordtype}{bool}\ \_lora\_GPIO\_set\_level(uint8\_t\ \_gpio\_num,\ uint32\_t\ \_level);}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{void}\ \_lora\_delay(\textcolor{keywordtype}{size\_t}\ \_ms);}
 \DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}\ \_lora\_log(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ info);}
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{bool}\ \_lora\_GPIO\_set\_level(uint8\_t\ \_gpio\_num,\ uint32\_t\ \_level);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ \_lora\_log(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ info);}
 
 \end{DoxyCode}

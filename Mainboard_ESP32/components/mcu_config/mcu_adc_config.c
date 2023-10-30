@@ -4,6 +4,7 @@
 
 #define ADC_CONFIG_TAG "ADC_CONFIG"
 
+
 esp_err_t voltage_measure_init(voltage_measure_config_t* v_mes) {
   if (v_mes->adc_chan_num > MAX_ADC_CHANNELS) {
     ESP_LOGE(ADC_CONFIG_TAG, "Too many ADC channels to configure!");

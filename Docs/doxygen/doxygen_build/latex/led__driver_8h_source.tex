@@ -1,0 +1,45 @@
+\doxysection{led\+\_\+driver.\+h}
+\hypertarget{led__driver_8h_source}{}\label{led__driver_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/misc/led\_driver.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/misc/led\_driver.h}}
+\mbox{\hyperlink{led__driver_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}driver/ledc.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}stdbool.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ INVERTED\_LED\_LOGIC\ 1}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifdef\ INVERTED\_LED\_LOGIC}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ CALCULATE\_DUTY\_CYCLE(duty,\ max\_duty)\ (max\_duty\ -\/\ duty)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ CALCULATE\_DUTY\_CYCLE(duty,\ max\_duty)\ (duty)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00029\ \ \ LED\_OFF\ =\ 0,}
+\DoxyCodeLine{00030\ \ \ LED\_ON\ =\ 1,}
+\DoxyCodeLine{00031\ \}\ \mbox{\hyperlink{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d}{led\_state\_t}};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00043\ \ \ ledc\_mode\_t\ ledc\_mode;}
+\DoxyCodeLine{00044\ \ \ uint8\_t\ led\_gpio\_num;}
+\DoxyCodeLine{00045\ \ \ uint8\_t\ ledc\_channel\_num;}
+\DoxyCodeLine{00046\ \ \ uint8\_t\ ledc\_timer\_num;}
+\DoxyCodeLine{00047\ \ \ uint16\_t\ duty;}
+\DoxyCodeLine{00048\ \ \ uint16\_t\ max\_duty;}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d}{led\_state\_t}}\ toggle;}
+\DoxyCodeLine{00050\ \}\ \mbox{\hyperlink{structled__driver__t}{led\_driver\_t}};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00057\ esp\_err\_t\ \mbox{\hyperlink{led__driver_8h_a78d2b18654a9004c57f3a11a2649635f}{led\_driver\_init}}(\mbox{\hyperlink{structled__driver__t}{led\_driver\_t}}\ *led\_drv,\ ledc\_timer\_bit\_t\ ledc\_duty\_res,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ ledc\_freq);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00066\ esp\_err\_t\ \mbox{\hyperlink{led__driver_8h_a93bd969048c913dc962fe7b189c47aa6}{led\_update\_duty\_cycle}}(\mbox{\hyperlink{structled__driver__t}{led\_driver\_t}}\ *led\_drv,\ uint16\_t\ duty);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00075\ esp\_err\_t\ \mbox{\hyperlink{led__driver_8h_a51a20cbafea2f35ba0c115e0e5aa1676}{led\_toggle}}(\mbox{\hyperlink{structled__driver__t}{led\_driver\_t}}\ *led\_drv,\ \mbox{\hyperlink{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d}{led\_state\_t}}\ toggle);}
+
+\end{DoxyCode}

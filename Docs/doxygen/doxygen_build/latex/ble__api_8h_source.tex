@@ -1,5 +1,5 @@
 \doxysection{ble\+\_\+api.\+h}
-\hypertarget{ble__api_8h_source}{}\label{ble__api_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_api.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA\_MainBoard/Mainboard\_ESP32/components/ble/ble\_api.h}}
+\hypertarget{ble__api_8h_source}{}\label{ble__api_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/ble/ble\_api.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/ble/ble\_api.h}}
 \mbox{\hyperlink{ble__api_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
@@ -12,19 +12,66 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}esp\_bt.h"{}}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_bt\_defs.h"{}}}
 \DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_bt\_main.h"{}}}
-\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
-\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}nvs\_flash.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}nvs\_flash.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
 \DoxyCodeLine{00013\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{\ BLE\_OK\ =\ 0,\ BLE\_HARDWARE\_INIT\_ERR,\ BLE\_ERR\ \}\ \mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\_err\_t}};}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
-\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{structble__gatts__t}{ble\_gatts\_t}}\ *gatt\_config;}
-\DoxyCodeLine{00031\ \ \ \mbox{\hyperlink{structble__gap__t}{ble\_gap\_t}}\ *gap\_config;}
-\DoxyCodeLine{00032\ \ \ esp\_bt\_controller\_config\_t\ bt\_controller\_config;}
-\DoxyCodeLine{00033\ \}\ \mbox{\hyperlink{structble__config__t}{ble\_config\_t}};}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00038\ \mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\_err\_t}}\ \mbox{\hyperlink{ble__api_8h_ad23ddc3e5504a7f2af3115f189664b56}{ble\_esp\_hardware\_init}}(\mbox{\hyperlink{structble__config__t}{ble\_config\_t}}\ *ble);}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00044\ \mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\_err\_t}}\ \mbox{\hyperlink{ble__api_8h_a82fd3a63b4680ea2de1136d7f69ca22d}{ble\_init}}(\mbox{\hyperlink{structble__config__t}{ble\_config\_t}}\ *ble);}
+\DoxyCodeLine{00020\ \textcolor{comment}{/*\ LSB}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ <-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/>}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ MSB\ */}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ first\ uuid,\ 16bit,\ [12],[13]\ is\ the\ value}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ second\ uuid,\ 32bit,\ [12],\ [13],\ [14],\ [15]\ is\ the\ value}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ BLE\_UUID\_CONFIG\_DEFAULT()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ 0xfb,\ 0x34,\ 0x9b,\ 0x5f,\ 0x80,\ 0x00,\ 0x00,\ 0x80,\ 0x00,\ 0x10,\ 0x00,\ 0x00,\ \(\backslash\)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ 0xEE,\ 0x00,\ 0x00,\ 0x00,\ 0xfb,\ 0x34,\ 0x9b,\ 0x5f,\ 0x80,\ 0x00,\ 0x00,\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ 0x80,\ 0x00,\ 0x10,\ 0x00,\ 0x00,\ 0xFF,\ 0x00,\ 0x00,\ 0x00,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ slave\ connection\ min\ interval,\ Time\ =\ min\_interval\ *\ 1.25\ msec}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ slave\ connection\ max\ interval,\ Time\ =\ max\_interval\ *\ 1.25\ msec}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ TEST\_MANUFACTURER\_DATA\_LEN,}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ \&test\_manufacturer[0],}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ BLE\_ADV\_DATA\_CONFIG\_DEFAULT()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\ \ \ \ .set\_scan\_rsp\ =\ false,\ .include\_name\ =\ true,\ .include\_txpower\ =\ false,\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ \ \ .min\_interval\ =\ 0x0006,\ .max\_interval\ =\ 0x0010,\ .appearance\ =\ 0x00,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\ \ \ \ .manufacturer\_len\ =\ 0,\ .p\_manufacturer\_data\ =\ NULL,\ .service\_data\_len\ =\ 0,\ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ .p\_service\_data\ =\ NULL,\ .service\_uuid\_len\ =\ sizeof(adv\_service\_uuid128),\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ .p\_service\_uuid\ =\ adv\_service\_uuid128,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \ \ .flag\ =\ (ESP\_BLE\_ADV\_FLAG\_GEN\_DISC\ |\ ESP\_BLE\_ADV\_FLAG\_BREDR\_NOT\_SPT),\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ TEST\_MANUFACTURER\_DATA\_LEN,}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ \&test\_manufacturer[0],}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ BLE\_SCAN\_RSP\_DATA\_CONFIG\_DEFAULT()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ .set\_scan\_rsp\ =\ true,\ .include\_name\ =\ true,\ .include\_txpower\ =\ true,\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\ \ \ \ .appearance\ =\ 0x00,\ .manufacturer\_len\ =\ 0,\ .p\_manufacturer\_data\ =\ NULL,\ \(\backslash\)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ .service\_data\_len\ =\ 0,\ .p\_service\_data\ =\ NULL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \ \ .service\_uuid\_len\ =\ sizeof(adv\_service\_uuid128),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ .p\_service\_uuid\ =\ adv\_service\_uuid128,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ .flag\ =\ (ESP\_BLE\_ADV\_FLAG\_GEN\_DISC\ |\ ESP\_BLE\_ADV\_FLAG\_BREDR\_NOT\_SPT),\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ BLE\_ADV\_PARAMS\_CONFIG\_DEFAULT()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ .adv\_int\_min\ =\ 0x20,\ .adv\_int\_max\ =\ 0x40,\ .adv\_type\ =\ ADV\_TYPE\_IND,\ \(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ .own\_addr\_type\ =\ BLE\_ADDR\_TYPE\_PUBLIC,\ .channel\_map\ =\ ADV\_CHNL\_ALL,\ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ .adv\_filter\_policy\ =\ ADV\_FILTER\_ALLOW\_SCAN\_ANY\_CON\_ANY,\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{\ BLE\_OK\ =\ 0,\ BLE\_HARDWARE\_INIT\_ERR,\ BLE\_ERR\ \}\ \mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\_err\_t}};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{structble__gatts__t}{ble\_gatts\_t}}\ *gatt\_config;}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{structble__gap__t}{ble\_gap\_t}}\ *gap\_config;}
+\DoxyCodeLine{00077\ \ \ esp\_bt\_controller\_config\_t\ bt\_cfg;}
+\DoxyCodeLine{00078\ \}\ \mbox{\hyperlink{structble__config__t}{ble\_config\_t}};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00083\ \mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\_err\_t}}\ \mbox{\hyperlink{ble__api_8h_ad23ddc3e5504a7f2af3115f189664b56}{ble\_esp\_hardware\_init}}(\mbox{\hyperlink{structble__config__t}{ble\_config\_t}}\ *ble);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00089\ \mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\_err\_t}}\ \mbox{\hyperlink{ble__api_8h_a82fd3a63b4680ea2de1136d7f69ca22d}{ble\_init}}(\mbox{\hyperlink{structble__config__t}{ble\_config\_t}}\ *ble);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{ble__api_8h_a339ca1e55d37be8f8a5046f1159f3e1c}{ble\_err\_to\_string}}(\mbox{\hyperlink{ble__api_8h_aaa9cdbd64916ccb5402e05efce579d05}{ble\_err\_t}}\ err);}
 
 \end{DoxyCode}
