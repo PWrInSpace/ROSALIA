@@ -15,11 +15,7 @@
  * Contains task for rgb LED, status LED, buzzer and button handling
  */
 
-#define LEDC_FREQ_HZ 5000
-#define LEDC_DUTY_RES LEDC_TIMER_13_BIT
-#define LEDC_HS_TIMER LEDC_TIMER_0
-#define LEDC_HS_MODE LEDC_LOW_SPEED_MODE
-#define MAX_DUTY 8192  // 2**13
+
 
 /*!
  * \brief RGB LED color enum

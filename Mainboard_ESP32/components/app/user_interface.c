@@ -9,10 +9,18 @@ void user_interface_task(void* pvParameters) {
 
   int center, top, bottom;
   ESP_LOGI(USER_INTERFACE_TAG, "RGB LED driver initialized");
-  led_state_t toggle = LED_OFF;
+  led_state_t toggle = LED_ON;
+  rgb_led_toggle(&devices_config->rgb_led, toggle);
   for (;;) {
-    toggle = !toggle;
-    rgb_led_toggle(&devices_config->rgb_led, toggle);
+    rgb_led_update_duty_cycle(&devices_config->rgb_led,
+                              (uint32_t[]){MAX_DUTY, 0, 0});
+    vTaskDelay(pdMS_TO_TICKS(1000));
+    rgb_led_update_duty_cycle(&devices_config->rgb_led,
+                              (uint32_t[]){0, MAX_DUTY, 0});
+    vTaskDelay(pdMS_TO_TICKS(1000));
+    rgb_led_update_duty_cycle(&devices_config->rgb_led,
+                              (uint32_t[]){0, 0, MAX_DUTY});
+
     ESP_LOGI(USER_INTERFACE_TAG, "%f",
              voltage_measure_read_voltage(&devices_config->voltage_measure, 0));
     ESP_LOGI(USER_INTERFACE_TAG, "%f",

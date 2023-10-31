@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "buzzer_driver.h"
 #include "driver/twai.h"
 #include "esp_log.h"
 #include "lora.h"
@@ -18,7 +19,7 @@
 #define LEDC_DUTY_RES LEDC_TIMER_13_BIT
 #define LEDC_HS_TIMER LEDC_TIMER_0
 #define LEDC_HS_MODE LEDC_LOW_SPEED_MODE
-#define MAX_DUTY 8192  // 2**13
+#define MAX_DUTY 8191  // 2**13 - 1
 
 #define MCU_SPI_DEFAULT_CONFIG         \
   = {                                  \
@@ -71,36 +72,33 @@
     .height = 64, .pages = 1, .i2c_address = 0x3c,                \
   }
 
-#define MCU_RGB_LED_DRIVER_DEFAULT_CONFIG()                      \
-  {                                                              \
-    .led_drv =                                                   \
-        {                                                        \
-            [RED_INDEX] =                                        \
-                {                                                \
-                    .ledc_mode = LEDC_HS_MODE,                   \
-                    .led_gpio_num = CONFIG_LED_K_R,              \
-                    .ledc_channel_num = LEDC_CHANNEL_0,          \
-                    .ledc_timer_num = LEDC_HS_TIMER,             \
-                    .duty = 0,                                   \
-                    .max_duty = MAX_DUTY,                        \
-                    .toggle = LED_OFF,                           \
-                },                                               \
-            [GREEN_INDEX] = {.ledc_mode = LEDC_HS_MODE,          \
-                             .led_gpio_num = CONFIG_LED_K_G,     \
-                             .ledc_channel_num = LEDC_CHANNEL_1, \
-                             .ledc_timer_num = LEDC_HS_TIMER,    \
-                             .duty = 0,                          \
-                             .max_duty = MAX_DUTY,               \
-                             .toggle = LED_OFF},                 \
-            [BLUE_INDEX] = {.ledc_mode = LEDC_HS_MODE,           \
-                            .led_gpio_num = CONFIG_LED_K_B,      \
-                            .ledc_channel_num = LEDC_CHANNEL_2,  \
-                            .ledc_timer_num = LEDC_HS_TIMER,     \
-                            .duty = 0,                           \
-                            .max_duty = MAX_DUTY,                \
-                            .toggle = LED_OFF},                  \
-        },                                                       \
-    .max_duty = MAX_DUTY                                         \
+#define MCU_RGB_LED_DRIVER_DEFAULT_CONFIG()                          \
+  {                                                                  \
+    .led_drv = {[RED_INDEX] = {.ledc_mode = LEDC_HS_MODE,            \
+                               .led_gpio_num = CONFIG_LED_K_R,       \
+                               .ledc_channel_num = LEDC_CHANNEL_0,   \
+                               .ledc_timer_num = LEDC_HS_TIMER,      \
+                               .duty = 0,                            \
+                               .max_duty = MAX_DUTY,                 \
+                               .toggle = LED_OFF,                    \
+                               .inverted = true},                    \
+                [GREEN_INDEX] = {.ledc_mode = LEDC_HS_MODE,          \
+                                 .led_gpio_num = CONFIG_LED_K_G,     \
+                                 .ledc_channel_num = LEDC_CHANNEL_1, \
+                                 .ledc_timer_num = LEDC_HS_TIMER,    \
+                                 .duty = 0,                          \
+                                 .max_duty = MAX_DUTY,               \
+                                 .toggle = LED_OFF,                  \
+                                 .inverted = true},                  \
+                [BLUE_INDEX] = {.ledc_mode = LEDC_HS_MODE,           \
+                                .led_gpio_num = CONFIG_LED_K_B,      \
+                                .ledc_channel_num = LEDC_CHANNEL_2,  \
+                                .ledc_timer_num = LEDC_HS_TIMER,     \
+                                .duty = 0,                           \
+                                .max_duty = MAX_DUTY,                \
+                                .toggle = LED_OFF,                   \
+                                .inverted = true}},                  \
+    .max_duty = MAX_DUTY                                             \
   }
 
 typedef struct {
