@@ -4,7 +4,7 @@
 
 #define BUZZER_TAG "BUZZER"
 
-esp_err_t buzzer_init(buzzer_config_t *config, ledc_timer_bit_t ledc_duty_res,
+esp_err_t buzzer_init(buzzer_driver_t *config, ledc_timer_bit_t ledc_duty_res,
                       uint32_t ledc_freq) {
   ledc_timer_config_t ledc_timer = {.speed_mode = config->ledc_mode,
                                     .timer_num = config->ledc_timer_num,
@@ -20,7 +20,7 @@ esp_err_t buzzer_init(buzzer_config_t *config, ledc_timer_bit_t ledc_duty_res,
                                         .channel = config->ledc_channel_num,
                                         .timer_sel = config->ledc_timer_num,
                                         .intr_type = LEDC_INTR_DISABLE,
-                                        .gpio_num = config->led_gpio_num,
+                                        .gpio_num = config->gpio_num,
                                         .duty = 0,  // Set duty to 0%
                                         .hpoint = 0};
   if (ledc_channel_config(&ledc_channel) != ESP_OK) {
@@ -30,7 +30,7 @@ esp_err_t buzzer_init(buzzer_config_t *config, ledc_timer_bit_t ledc_duty_res,
   return ESP_OK;
 }
 
-esp_err_t buzzer_update_duty_cycle(buzzer_config_t *config, uint16_t duty) {
+esp_err_t buzzer_update_duty_cycle(buzzer_driver_t *config, uint16_t duty) {
   if (duty > config->max_duty) {
     ESP_LOGE(BUZZER_TAG, "Duty too large, expected max. %d, actual: %d",
              config->max_duty, duty);

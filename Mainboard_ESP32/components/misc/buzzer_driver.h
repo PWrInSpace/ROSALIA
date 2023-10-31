@@ -10,18 +10,18 @@
 
 typedef struct {
   ledc_mode_t ledc_mode;
-  uint8_t led_gpio_num;
+  uint8_t gpio_num;
   uint8_t ledc_channel_num;
   uint8_t ledc_timer_num;
   uint16_t duty;
   uint16_t max_duty;
-} buzzer_config_t;
+} buzzer_driver_t;
 
 /*!
  * \brief Initialize buzzer driver
  * \param config buzzer configuration
  */
-esp_err_t buzzer_init(buzzer_config_t *config, ledc_timer_bit_t ledc_duty_res,
+esp_err_t buzzer_init(buzzer_driver_t *config, ledc_timer_bit_t ledc_duty_res,
                       uint32_t ledc_freq);
 
 /*!
@@ -29,4 +29,4 @@ esp_err_t buzzer_init(buzzer_config_t *config, ledc_timer_bit_t ledc_duty_res,
  * \param config buzzer configuration
  * \param duty duty cycle
  */
-esp_err_t buzzer_update_duty_cycle(buzzer_config_t *config, uint16_t duty);
+esp_err_t buzzer_update_duty_cycle(buzzer_driver_t *config, uint16_t duty);
