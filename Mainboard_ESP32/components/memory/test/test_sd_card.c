@@ -6,7 +6,7 @@
 
 static sdmmc_card_t card;
 
-const spi_host_device_t host = CONFIG_SPI_HOST;
+const spi_host_device_t host = SPI2_HOST;
 
 static sd_card_t sd_card = {
     .card = &card,
@@ -25,8 +25,15 @@ static sd_card_config_t sd_card_config = {
 };
 
 const char* path = SD_CREATE_FILE_PREFIX("test.txt");
-/*
+
 TEST_CASE("SD card init test", "[SD]") {
+  spi_bus_config_t bus = {.miso_io_num = CONFIG_SPI_MISO,
+                          .mosi_io_num = CONFIG_SPI_MOSI,
+                          .sclk_io_num = CONFIG_SPI_SCK,
+                          .quadwp_io_num = -1,
+                          .quadhd_io_num = -1,
+                          .max_transfer_sz = 4000};
+  TEST_ASSERT_EQUAL(ESP_OK, spi_bus_initialize(host, &bus, SDSPI_DEFAULT_DMA));
   TEST_ASSERT_EQUAL(true, SD_init(&sd_card, &sd_card_config));
 }
 
@@ -41,4 +48,4 @@ TEST_CASE("SD file exists test", "[SD]") {
   TEST_ASSERT_EQUAL(false, SD_file_exists(SD_CREATE_FILE_PREFIX("test_2.txt")));
 }
 
-TEST_CASE("SD ok test", "[SD]") { TEST_ASSERT_EQUAL(true, SD_is_ok(&sd_card)); } */
+TEST_CASE("SD ok test", "[SD]") { TEST_ASSERT_EQUAL(true, SD_is_ok(&sd_card)); }
