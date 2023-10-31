@@ -111,6 +111,12 @@ bool SD_unmount(sd_card_t *sd_card);
 bool SD_is_ok(sd_card_t *sd_card);
 
 /*!
+ * \brief Check if SD card is detected through CD pin
+ * \param sd_card sd struct
+ */
+bool SD_card_detect(sd_card_t *sd_card);
+
+/*!
  * \brief Create a unique path to file object
  *
  * \param file_path name of file
