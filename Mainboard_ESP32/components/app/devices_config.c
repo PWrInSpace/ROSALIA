@@ -27,8 +27,8 @@ esp_err_t devices_init(ROSALIA_devices_t* devices) {
   ssd1306_set_contrast(&devices->oled_display, 0xff);
   ssd1306_display_text_x3(&devices->oled_display, 0, "Hello", 5, false);
 
-  rgb_led_driver_init(&devices->rgb_led, LEDC_DUTY_RES, LEDC_FREQ_HZ);
-
+  rgb_led_driver_init(&devices->rgb_led, RGB_LED_DUTY_RES, RGB_LED_FREQ_HZ);
+  buzzer_init(&devices->buzzer, BUZZER_DUTY_RES, BUZZER_FREQ_HZ);
   voltage_measure_init(&devices->voltage_measure);
 
   vTaskDelay(3000 / portTICK_PERIOD_MS);

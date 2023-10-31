@@ -22,16 +22,16 @@ led_driver_t driver = {
 
 TEST_CASE("LED driver init test", "[LED]") {
   TEST_ASSERT_EQUAL(ESP_OK,
-                    led_driver_init(&driver, LEDC_DUTY_RES, LEDC_FREQ_HZ));
+                    led_driver_init(&driver));
 }
 
 TEST_CASE("LED driver set correct duty cycle", "[LED]") {
   TEST_ASSERT_EQUAL(ESP_OK, led_update_duty_cycle(&driver, 0));
-  TEST_ASSERT_EQUAL(CALCULATE_DUTY_CYCLE(0, MAX_DUTY), driver.duty);
+  TEST_ASSERT_EQUAL(0, driver.duty);
   TEST_ASSERT_EQUAL(ESP_OK, led_update_duty_cycle(&driver, MAX_DUTY / 2));
-  TEST_ASSERT_EQUAL(CALCULATE_DUTY_CYCLE(MAX_DUTY / 2, MAX_DUTY), driver.duty);
+  TEST_ASSERT_EQUAL(MAX_DUTY / 2, driver.duty);
   TEST_ASSERT_EQUAL(ESP_OK, led_update_duty_cycle(&driver, MAX_DUTY));
-  TEST_ASSERT_EQUAL(CALCULATE_DUTY_CYCLE(MAX_DUTY, MAX_DUTY), driver.duty);
+  TEST_ASSERT_EQUAL(MAX_DUTY, driver.duty);
 }
 
 TEST_CASE("LED driver set wrong duty cycle", "[LED]") {

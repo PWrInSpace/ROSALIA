@@ -14,6 +14,7 @@ static ROSALIA_devices_t devices_config = {
     .i2c = MCU_I2C_DEFAULT_CONFIG(),
     .oled_display = MCU_SSD1306_DEFAULT_CONFIG(),
     .rgb_led = MCU_RGB_LED_DRIVER_DEFAULT_CONFIG(),
+    .buzzer = MCU_BUZZER_DRIVER_DEFAULT_CONFIG(),
 };
 
 void app_init_task(void* pvParameters) {
