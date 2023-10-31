@@ -152,11 +152,11 @@ menu "ROSALIA v2.0 board Config ESP32S3"
             help
                 GPIO pin number for LORA_D0.
 
-        config SD_CS
-            int "SD_CS pin number"
+        config SD_CD
+            int "SD_CD pin number"
             default 40
             help
-                GPIO pin number for SD_CS.
+                GPIO pin number for SD_CD.
 
         config BUZZER
             int "BUZZER pin number"
