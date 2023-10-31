@@ -34,6 +34,17 @@ TEST_CASE("SD card init test", "[SD]") {
                           .quadhd_io_num = -1,
                           .max_transfer_sz = 4000};
   TEST_ASSERT_EQUAL(ESP_OK, spi_bus_initialize(host, &bus, SDSPI_DEFAULT_DMA));
+
+  // Card detect pin initialization
+  gpio_config_t io_conf = {
+      .pin_bit_mask = 1ULL << sd_card.card_detect_pin,
+      .mode = GPIO_MODE_INPUT,
+      .pull_up_en = GPIO_PULLUP_ENABLE,
+      .pull_down_en = GPIO_PULLDOWN_DISABLE,
+      .intr_type = GPIO_INTR_DISABLE,
+  };
+  TEST_ASSERT_EQUAL(ESP_OK, gpio_config(&io_conf));
+
   TEST_ASSERT_EQUAL(true, SD_init(&sd_card, &sd_card_config));
 }
 
@@ -49,3 +60,7 @@ TEST_CASE("SD file exists test", "[SD]") {
 }
 
 TEST_CASE("SD ok test", "[SD]") { TEST_ASSERT_EQUAL(true, SD_is_ok(&sd_card)); }
+
+TEST_CASE("SD Card detect test", "[SD]") {
+  TEST_ASSERT_EQUAL(true, SD_card_detect(&sd_card));
+}

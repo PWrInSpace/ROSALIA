@@ -7,6 +7,29 @@
 
 #define TAG "SDCARD"
 
+bool SD_init(sd_card_t *sd_card, sd_card_config_t *cfg) {
+  sd_card->spi_host = cfg->spi_host;
+  sd_card->cs_pin = cfg->cs_pin;
+  sd_card->card_detect_pin = cfg->cd_pin;
+  sd_card->mount_point = cfg->mount_point;
+
+  // Options for mounting the filesystem
+  if (SD_mount(sd_card) == false) {
+    return false;
+  }
+
+  return true;
+}
+
+bool SD_file_exists(const char *file_name) {
+  struct stat st;
+  if (stat(file_name, &st) == 0) {
+    return true;
+  }
+
+  return false;
+}
+
 bool SD_mount(sd_card_t *sd_card) {
   esp_err_t res;
   esp_vfs_fat_sdmmc_mount_config_t mount_config = {
@@ -37,31 +60,8 @@ bool SD_mount(sd_card_t *sd_card) {
     }
     return false;
   }
-  sd_card->card_detect_pin = 0;
   sd_card->mounted = true;
   return true;
-}
-
-bool SD_init(sd_card_t *sd_card, sd_card_config_t *cfg) {
-  sd_card->spi_host = cfg->spi_host;
-  sd_card->cs_pin = cfg->cs_pin;
-  sd_card->mount_point = cfg->mount_point;
-
-  // Options for mounting the filesystem
-  if (SD_mount(sd_card) == false) {
-    return false;
-  }
-
-  return true;
-}
-
-bool SD_file_exists(const char *file_name) {
-  struct stat st;
-  if (stat(file_name, &st) == 0) {
-    return true;
-  }
-
-  return false;
 }
 
 bool SD_unmount(sd_card_t *sd_card) {
@@ -132,6 +132,14 @@ bool SD_is_ok(sd_card_t *sd_card) {
   }
 
   return true;
+}
+
+bool SD_card_detect(sd_card_t *sd_card) {
+  if (gpio_get_level(sd_card->card_detect_pin) == 0) {
+    return true;
+  }
+
+  return false;
 }
 
 bool create_path_to_file(char *file_path, size_t size) {
