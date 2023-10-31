@@ -12,7 +12,12 @@ void user_interface_task(void* pvParameters) {
   led_state_t toggle = LED_ON;
   rgb_led_toggle(&devices_config->rgb_led, toggle);
   buzzer_update_duty_cycle(&devices_config->buzzer, BUZZER_MAX_DUTY / 2);
-  
+  vTaskDelay(pdMS_TO_TICKS(1000));
+  buzzer_update_duty_cycle(&devices_config->buzzer, 0);
+  vTaskDelay(pdMS_TO_TICKS(1000));
+  buzzer_update_duty_cycle(&devices_config->buzzer, BUZZER_MAX_DUTY / 2);
+  vTaskDelay(pdMS_TO_TICKS(1000));
+  buzzer_update_duty_cycle(&devices_config->buzzer, 0);
   for (;;) {
     rgb_led_update_duty_cycle(&devices_config->rgb_led,
                               (uint32_t[]){RGB_LED_MAX_DUTY, 0, 0});

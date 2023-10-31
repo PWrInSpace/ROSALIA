@@ -53,36 +53,36 @@ TEST_CASE("RGB LED driver init test", "[RGBLED]") {
 
 TEST_CASE("RGB LED driver set correct duty cycle", "[RGBLED]") {
   TEST_ASSERT_EQUAL(ESP_OK, rgb_led_update_duty_cycle(&rgb_led_driver,
-                                                      (uint16_t[]){0, 0, 0}));
+                                                      (uint32_t[]){0, 0, 0}));
   TEST_ASSERT_EQUAL(0, rgb_led_driver.led_drv[RED_INDEX].duty);
   TEST_ASSERT_EQUAL(0, rgb_led_driver.led_drv[GREEN_INDEX].duty);
   TEST_ASSERT_EQUAL(0, rgb_led_driver.led_drv[BLUE_INDEX].duty);
   TEST_ASSERT_EQUAL(
       ESP_OK, rgb_led_update_duty_cycle(
                   &rgb_led_driver,
-                  (uint16_t[]){MAX_DUTY / 2, MAX_DUTY / 2, MAX_DUTY / 2}));
+                  (uint32_t[]){MAX_DUTY / 2, MAX_DUTY / 2, MAX_DUTY / 2}));
   TEST_ASSERT_EQUAL(
       ESP_OK, rgb_led_update_duty_cycle(
-                  &rgb_led_driver, (uint16_t[]){MAX_DUTY, MAX_DUTY, MAX_DUTY}));
+                  &rgb_led_driver, (uint32_t[]){MAX_DUTY, MAX_DUTY, MAX_DUTY}));
   TEST_ASSERT_EQUAL(ESP_OK,
                     rgb_led_update_duty_cycle(&rgb_led_driver,
-                                              (uint16_t[]){MAX_DUTY, 69, 0}));
+                                              (uint32_t[]){MAX_DUTY, 69, 0}));
 }
 
 TEST_CASE("RGB LED driver set wrong duty cycle", "[RGBLED]") {
   TEST_ASSERT_EQUAL(
       ESP_FAIL, rgb_led_update_duty_cycle(&rgb_led_driver,
-                                          (uint16_t[]){MAX_DUTY + 1, 0, 0}));
+                                          (uint32_t[]){MAX_DUTY + 1, 0, 0}));
   TEST_ASSERT_EQUAL(
       ESP_FAIL, rgb_led_update_duty_cycle(&rgb_led_driver,
-                                          (uint16_t[]){0, MAX_DUTY + 1, 0}));
+                                          (uint32_t[]){0, MAX_DUTY + 1, 0}));
   TEST_ASSERT_EQUAL(
       ESP_FAIL, rgb_led_update_duty_cycle(&rgb_led_driver,
-                                          (uint16_t[]){0, 0, MAX_DUTY + 1}));
+                                          (uint32_t[]){0, 0, MAX_DUTY + 1}));
   TEST_ASSERT_EQUAL(
       ESP_FAIL, rgb_led_update_duty_cycle(
                     &rgb_led_driver,
-                    (uint16_t[]){MAX_DUTY + 1, MAX_DUTY + 1, MAX_DUTY + 1}));
+                    (uint32_t[]){MAX_DUTY + 1, MAX_DUTY + 1, MAX_DUTY + 1}));
 }
 
 TEST_CASE("RGB LED driver set correct toggle", "[RGBLED]") {

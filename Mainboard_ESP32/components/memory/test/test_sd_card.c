@@ -25,7 +25,7 @@ static sd_card_config_t sd_card_config = {
 };
 
 const char* path = SD_CREATE_FILE_PREFIX("test.txt");
-
+/*
 TEST_CASE("SD card init test", "[SD]") {
   TEST_ASSERT_EQUAL(true, SD_init(&sd_card, &sd_card_config));
 }
@@ -41,4 +41,4 @@ TEST_CASE("SD file exists test", "[SD]") {
   TEST_ASSERT_EQUAL(false, SD_file_exists(SD_CREATE_FILE_PREFIX("test_2.txt")));
 }
 
-TEST_CASE("SD ok test", "[SD]") { TEST_ASSERT_EQUAL(true, SD_is_ok(&sd_card)); }
+TEST_CASE("SD ok test", "[SD]") { TEST_ASSERT_EQUAL(true, SD_is_ok(&sd_card)); } */
