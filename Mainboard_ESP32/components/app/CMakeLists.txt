@@ -1,4 +1,4 @@
-idf_component_register(SRCS "ble.c" "user_interface.c"
+idf_component_register(SRCS "ble.c" "user_interface.c" "slave_com.c" "app_init_task.c" "devices_config.c"
                     INCLUDE_DIRS "."
                     REQUIRES cmock driver app_test_mode lora console fatfs app ble misc mcu_config ssd1306)
 

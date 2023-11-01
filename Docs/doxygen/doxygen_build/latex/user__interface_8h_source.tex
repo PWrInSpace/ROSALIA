@@ -1,0 +1,49 @@
+\doxysection{user\+\_\+interface.\+h}
+\hypertarget{user__interface_8h_source}{}\label{user__interface_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/user\_interface.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/app/user\_interface.h}}
+\mbox{\hyperlink{user__interface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}freertos/task.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}mcu\_adc\_config.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{rgb__led__driver_8h}{rgb\_led\_driver.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}ssd1306\_esp32\_config.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ LEDC\_FREQ\_HZ\ 5000}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ LEDC\_DUTY\_RES\ LEDC\_TIMER\_13\_BIT}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ LEDC\_HS\_TIMER\ LEDC\_TIMER\_0}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ LEDC\_HS\_MODE\ LEDC\_LOW\_SPEED\_MODE}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ MAX\_DUTY\ 8192\ \ }\textcolor{comment}{//\ 2**13}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00027\ \ \ NONE\ =\ 0b000,}
+\DoxyCodeLine{00028\ \ \ RED\ =\ 0b001,}
+\DoxyCodeLine{00029\ \ \ GREEN\ =\ 0b010,}
+\DoxyCodeLine{00030\ \ \ BLUE\ =\ 0b100,}
+\DoxyCodeLine{00031\ \ \ YELLOW\ =\ RED\ |\ GREEN,}
+\DoxyCodeLine{00032\ \ \ CYAN\ =\ GREEN\ |\ BLUE,}
+\DoxyCodeLine{00033\ \ \ MAGENTA\ =\ RED\ |\ BLUE,}
+\DoxyCodeLine{00034\ \ \ WHITE\ =\ RED\ |\ GREEN\ |\ BLUE}
+\DoxyCodeLine{00035\ \}\ \mbox{\hyperlink{user__interface_8h_a8d84cf5e123591ba0c8a88c5d552d403}{rgb\_led\_color\_t}};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00038\ \ \ CAN\_CHANNEL\ =\ ADC\_CHANNEL\_0,}
+\DoxyCodeLine{00039\ \ \ VBAT\_CHANNEL\ =\ ADC\_CHANNEL\_1,}
+\DoxyCodeLine{00040\ \ \ ADJV\_CHANNEL\ =\ ADC\_CHANNEL\_3,}
+\DoxyCodeLine{00041\ \}\ adc\_chan\_cfg\_t;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00044\ \ \ CAN\_CHANNEL\_INDEX\ =\ 0,}
+\DoxyCodeLine{00045\ \ \ VBAT\_CHANNEL\_INDEX,}
+\DoxyCodeLine{00046\ \ \ ADJV\_CHANNEL\_INDEX,}
+\DoxyCodeLine{00047\ \ \ MAX\_CHANNEL\_INDEX}
+\DoxyCodeLine{00048\ \}\ adc\_chan\_index\_cfg\_t;}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{void}\ user\_interface\_task(\textcolor{keywordtype}{void}*\ arg);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ init\_user\_interface\_task(\textcolor{keywordtype}{void}*\ arg);}
+
+\end{DoxyCode}

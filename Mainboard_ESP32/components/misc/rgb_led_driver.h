@@ -27,7 +27,7 @@ typedef enum {
  */
 typedef struct {
   led_driver_t led_drv[MAX_COLOR_INDEX];
-  uint16_t max_duty;
+  uint32_t max_duty;
 } rgb_led_driver_t;
 
 /*!
@@ -48,7 +48,7 @@ esp_err_t rgb_led_driver_init(rgb_led_driver_t *rgb_led_drv,
  * \return ESP_OK on success, ESP_FAIL otherwise
  */
 esp_err_t rgb_led_update_duty_cycle(rgb_led_driver_t *rgb_led_drv,
-                                    uint16_t duty[MAX_COLOR_INDEX]);
+                                    uint32_t duty[MAX_COLOR_INDEX]);
 
 /*!
  * \brief Toggle RGB LED

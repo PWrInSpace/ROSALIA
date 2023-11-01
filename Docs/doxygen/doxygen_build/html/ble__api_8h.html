@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: /Users/krzysztofgliwinski/PoliWRocket/ROSALIA_MainBoard/Mainboard_ESP32/components/ble/ble_api.h File Reference</title>
+<title>My Project: /Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard_ESP32/components/ble/ble_api.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,6 +75,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">ble_api.h File Reference</div></div>
@@ -89,8 +90,8 @@ $(function() {
 <code>#include &quot;esp_bt.h&quot;</code><br />
 <code>#include &quot;esp_bt_defs.h&quot;</code><br />
 <code>#include &quot;esp_bt_main.h&quot;</code><br />
-<code>#include &quot;sdkconfig.h&quot;</code><br />
 <code>#include &quot;nvs_flash.h&quot;</code><br />
+<code>#include &quot;sdkconfig.h&quot;</code><br />
 </div>
 <p><a href="ble__api_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -99,6 +100,17 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structble__config__t.html">ble_config_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main BLE configuration struct. Contains gatts and gap configuration.  <a href="structble__config__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a927ae7497fdc6f597054c154c070adc9" id="r_a927ae7497fdc6f597054c154c070adc9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ble__api_8h.html#a927ae7497fdc6f597054c154c070adc9">BLE_UUID_CONFIG_DEFAULT</a>()</td></tr>
+<tr class="separator:a927ae7497fdc6f597054c154c070adc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36f257296bcc41948baf34d21a8b0ce5" id="r_a36f257296bcc41948baf34d21a8b0ce5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ble__api_8h.html#a36f257296bcc41948baf34d21a8b0ce5">BLE_ADV_DATA_CONFIG_DEFAULT</a>()</td></tr>
+<tr class="separator:a36f257296bcc41948baf34d21a8b0ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34a0b1ddf7562f6df0b17474062a3b60" id="r_a34a0b1ddf7562f6df0b17474062a3b60"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ble__api_8h.html#a34a0b1ddf7562f6df0b17474062a3b60">BLE_SCAN_RSP_DATA_CONFIG_DEFAULT</a>()</td></tr>
+<tr class="separator:a34a0b1ddf7562f6df0b17474062a3b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24a119d0df4886bc82d59789eb230f86" id="r_a24a119d0df4886bc82d59789eb230f86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ble__api_8h.html#a24a119d0df4886bc82d59789eb230f86">BLE_ADV_PARAMS_CONFIG_DEFAULT</a>()</td></tr>
+<tr class="separator:a24a119d0df4886bc82d59789eb230f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -119,10 +131,136 @@ Functions</h2></td></tr>
 <a class="el" href="ble__api_8h.html#aaa9cdbd64916ccb5402e05efce579d05">ble_err_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ble_init</b> (<a class="el" href="structble__config__t.html">ble_config_t</a> *ble)</td></tr>
 <tr class="memdesc:a82fd3a63b4680ea2de1136d7f69ca22d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiates the whole bluetooth stack, as well as gap <a class="el" href="structble__gatts__t.html" title="Main gatts configuration structure.">ble_gatts_t</a> and <a class="el" href="structble__gap__t.html">ble_gap_t</a> configuration. <br /></td></tr>
 <tr class="separator:a82fd3a63b4680ea2de1136d7f69ca22d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a339ca1e55d37be8f8a5046f1159f3e1c" id="r_a339ca1e55d37be8f8a5046f1159f3e1c"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ble__api_8h.html#a339ca1e55d37be8f8a5046f1159f3e1c">ble_err_to_string</a> (<a class="el" href="ble__api_8h.html#aaa9cdbd64916ccb5402e05efce579d05">ble_err_t</a> err)</td></tr>
+<tr class="memdesc:a339ca1e55d37be8f8a5046f1159f3e1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts ble_err_t to string.  <br /></td></tr>
+<tr class="separator:a339ca1e55d37be8f8a5046f1159f3e1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>BLE API - contains all BLE functions and structures ass well as attributes of GATT - unified in one structure. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a36f257296bcc41948baf34d21a8b0ce5" name="a36f257296bcc41948baf34d21a8b0ce5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36f257296bcc41948baf34d21a8b0ce5">&#9670;&#160;</a></span>BLE_ADV_DATA_CONFIG_DEFAULT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BLE_ADV_DATA_CONFIG_DEFAULT</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">  {                                                                            \</div>
+<div class="line">    .set_scan_rsp = <span class="keyword">false</span>, .include_name = <span class="keyword">true</span>, .include_txpower = <span class="keyword">false</span>,     \</div>
+<div class="line">    .min_interval = 0x0006, .max_interval = 0x0010, .appearance = 0x00,        \</div>
+<div class="line">    .manufacturer_len = 0, .p_manufacturer_data = NULL, .service_data_len = 0, \</div>
+<div class="line">    .p_service_data = NULL, .service_uuid_len = <span class="keyword">sizeof</span>(adv_service_uuid128),   \</div>
+<div class="line">    .p_service_uuid = adv_service_uuid128,                                     \</div>
+<div class="line">    .flag = (ESP_BLE_ADV_FLAG_GEN_DISC | ESP_BLE_ADV_FLAG_BREDR_NOT_SPT),      \</div>
+<div class="line">  }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a24a119d0df4886bc82d59789eb230f86" name="a24a119d0df4886bc82d59789eb230f86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24a119d0df4886bc82d59789eb230f86">&#9670;&#160;</a></span>BLE_ADV_PARAMS_CONFIG_DEFAULT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BLE_ADV_PARAMS_CONFIG_DEFAULT</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">  {                                                                     \</div>
+<div class="line">    .adv_int_min = 0x20, .adv_int_max = 0x40, .adv_type = ADV_TYPE_IND, \</div>
+<div class="line">    .own_addr_type = BLE_ADDR_TYPE_PUBLIC, .channel_map = ADV_CHNL_ALL, \</div>
+<div class="line">    .adv_filter_policy = ADV_FILTER_ALLOW_SCAN_ANY_CON_ANY,             \</div>
+<div class="line">  }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a34a0b1ddf7562f6df0b17474062a3b60" name="a34a0b1ddf7562f6df0b17474062a3b60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34a0b1ddf7562f6df0b17474062a3b60">&#9670;&#160;</a></span>BLE_SCAN_RSP_DATA_CONFIG_DEFAULT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BLE_SCAN_RSP_DATA_CONFIG_DEFAULT</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">  {                                                                         \</div>
+<div class="line">    .set_scan_rsp = <span class="keyword">true</span>, .include_name = <span class="keyword">true</span>, .include_txpower = <span class="keyword">true</span>,    \</div>
+<div class="line">    .appearance = 0x00, .manufacturer_len = 0, .p_manufacturer_data = NULL, \</div>
+<div class="line">    .service_data_len = 0, .p_service_data = NULL,                          \</div>
+<div class="line">    .service_uuid_len = <span class="keyword">sizeof</span>(adv_service_uuid128),                        \</div>
+<div class="line">    .p_service_uuid = adv_service_uuid128,                                  \</div>
+<div class="line">    .flag = (ESP_BLE_ADV_FLAG_GEN_DISC | ESP_BLE_ADV_FLAG_BREDR_NOT_SPT),   \</div>
+<div class="line">  }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a927ae7497fdc6f597054c154c070adc9" name="a927ae7497fdc6f597054c154c070adc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a927ae7497fdc6f597054c154c070adc9">&#9670;&#160;</a></span>BLE_UUID_CONFIG_DEFAULT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BLE_UUID_CONFIG_DEFAULT</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">  {                                                                         \</div>
+<div class="line">    0xfb, 0x34, 0x9b, 0x5f, 0x80, 0x00, 0x00, 0x80, 0x00, 0x10, 0x00, 0x00, \</div>
+<div class="line">        0xEE, 0x00, 0x00, 0x00, 0xfb, 0x34, 0x9b, 0x5f, 0x80, 0x00, 0x00,   \</div>
+<div class="line">        0x80, 0x00, 0x10, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00,               \</div>
+<div class="line">  }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a339ca1e55d37be8f8a5046f1159f3e1c" name="a339ca1e55d37be8f8a5046f1159f3e1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a339ca1e55d37be8f8a5046f1159f3e1c">&#9670;&#160;</a></span>ble_err_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * ble_err_to_string </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ble__api_8h.html#aaa9cdbd64916ccb5402e05efce579d05">ble_err_t</a>&#160;</td>
+          <td class="paramname"><em>err</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts ble_err_t to string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">err</td><td>- error to convert </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string representation of error </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8

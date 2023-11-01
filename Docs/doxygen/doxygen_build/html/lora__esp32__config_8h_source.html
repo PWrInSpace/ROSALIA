@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: /Users/krzysztofgliwinski/PoliWRocket/ROSALIA_MainBoard/Mainboard_ESP32/components/lora/lora_esp32_config.h Source File</title>
+<title>My Project: /Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard_ESP32/components/mcu_config/lora_esp32_config.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,14 +74,14 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_20f4c516c58e70f88f99b07d398429fc.html">Mainboard_ESP32</a></li><li class="navelem"><a class="el" href="dir_e4e997532e5091ace0b3bf527fdb9290.html">components</a></li><li class="navelem"><a class="el" href="dir_5f0448315ab4c143c7cd65bce41c9a67.html">lora</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_20f4c516c58e70f88f99b07d398429fc.html">Mainboard_ESP32</a></li><li class="navelem"><a class="el" href="dir_e4e997532e5091ace0b3bf527fdb9290.html">components</a></li><li class="navelem"><a class="el" href="dir_7647f4e9a839e231fa2c73318d6c056d.html">mcu_config</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">lora_esp32_config.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="lora__esp32__config_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2023 PWr in Space, Gliwuś</span></div>
+<a href="lora__esp32__config_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2023 PWr in Space, Krzysztof Gliwiński</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
@@ -92,18 +92,19 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;esp_log.h&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;esp_rom_gpio.h&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;freertos/task.h&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="lora_8h.html">lora.h</a>&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keywordtype">bool</span> _lora_spi_and_pins_init();</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">bool</span> _lora_SPI_transmit(uint8_t _in[2], uint8_t _out[2]);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;sdkconfig.h&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;rom/gpio.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;soc/gpio_struct.h&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">bool</span> _lora_spi_and_pins_init();</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">void</span> _lora_delay(<span class="keywordtype">size_t</span> _ms);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">bool</span> _lora_SPI_transmit(uint8_t _in[2], uint8_t _out[2]);</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">bool</span> _lora_GPIO_set_level(uint8_t _gpio_num, uint32_t _level);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">void</span> _lora_delay(<span class="keywordtype">size_t</span> _ms);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keywordtype">void</span> _lora_log(<span class="keyword">const</span> <span class="keywordtype">char</span>* info);</div>
-<div class="ttc" id="alora_8h_html"><div class="ttname"><a href="lora_8h.html">lora.h</a></div><div class="ttdoc">RFM95w LoRa library - multi-MCU.</div></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keywordtype">bool</span> _lora_GPIO_set_level(uint8_t _gpio_num, uint32_t _level);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> _lora_log(<span class="keyword">const</span> <span class="keywordtype">char</span>* info);</div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
