@@ -9,9 +9,11 @@
 static adc_oneshot_unit_handle_t adc1_handle;
 
 static ROSALIA_devices_t devices_config = {
+    .spi = MCU_SPI_DEFAULT_CONFIG(),
+    .i2c = MCU_I2C_DEFAULT_CONFIG(),
     .twai = MCU_TWAI_DEFAULT_CONFIG(),
     .voltage_measure = MCU_VOLTAGE_MEASURE_DEFAULT_CONFIG(),
-    .i2c = MCU_I2C_DEFAULT_CONFIG(),
+    .lora = MCU_LORA_DEFAULT_CONFIG(),
     .oled_display = MCU_SSD1306_DEFAULT_CONFIG(),
     .rgb_led = MCU_RGB_LED_DRIVER_DEFAULT_CONFIG(),
     .buzzer = MCU_BUZZER_DRIVER_DEFAULT_CONFIG(),
@@ -33,5 +35,9 @@ void app_init_task(void* pvParameters) {
   }
 
   xTaskCreatePinnedToCore(user_interface_task, "user_interface_task", 4096,
-                          (void*) &devices_config, 1, NULL, 1);
+                          (void*)&devices_config, 1, NULL, 1);
+  // xTaskCreatePinnedToCore(slave_com_task, "slave_com_task", 4096,
+  //                         (void*)&devices_config, 1, NULL, 1);
+  xTaskCreatePinnedToCore(lora_task, "lora_task", 4096, (void*)&devices_config,
+                          1, NULL, 1);
 }

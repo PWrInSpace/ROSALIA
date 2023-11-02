@@ -6,7 +6,6 @@
  * \brief RFM95w LoRa library - multi-MCU
  */
 
-
 #define TAG "LORA"
 
 lora_err_t lora_init(lora_struct_t *lora) {
@@ -24,14 +23,18 @@ lora_err_t lora_init(lora_struct_t *lora) {
   uint8_t i = 0;
   while (i++ < TIMEOUT_RESET) {
     version = lora_read_reg(lora, REG_VERSION);
-    if (version == 0x12) break;
+    if (version == 0x12) {
+      break;
+    }
     lora->_delay(2);
   }
   assert(i <= TIMEOUT_RESET + 1);  // at the end of the loop above, the max
                                    // value i can reach is TIMEOUT_RESET + 1
 
   ret |= lora_default_config(lora);
-
+  if (ret == LORA_OK) {
+    lora->log("LORA INITIALIZED");
+  }
   return ret;
 }
 
@@ -171,10 +174,11 @@ lora_err_t lora_set_bandwidth(lora_struct_t *lora, lora_bandwith_t sbw) {
 
 lora_err_t lora_set_coding_rate(lora_struct_t *lora, int16_t denominator) {
   lora_err_t ret = LORA_OK;
-  if (denominator < 5)
+  if (denominator < 5) {
     denominator = 5;
-  else if (denominator > 8)
+  } else if (denominator > 8) {
     denominator = 8;
+  }
 
   int16_t cr = denominator - 4;
   ret |= lora_write_reg(
@@ -258,8 +262,12 @@ int16_t lora_receive_packet(lora_struct_t *lora, uint8_t *buf, int16_t size) {
    */
   int16_t irq = lora_read_reg(lora, REG_IRQ_FLAGS);
   lora_write_reg(lora, REG_IRQ_FLAGS, irq);
-  if ((irq & IRQ_RX_DONE_MASK) == 0) return 0;
-  if (irq & IRQ_PAYLOAD_CRC_ERROR_MASK) return 0;
+  if ((irq & IRQ_RX_DONE_MASK) == 0) {
+    return 0;
+  }
+  if (irq & IRQ_PAYLOAD_CRC_ERROR_MASK) {
+    return 0;
+  }
 
   /*
    * Find packet size.
@@ -317,7 +325,9 @@ void lora_dump_registers(lora_struct_t *lora) {
   printf("00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F\n");
   for (i = 0; i < 0x40; i++) {
     printf("%02X ", lora_read_reg(lora, i));
-    if ((i & 0x0f) == 0x0f) printf("\n");
+    if ((i & 0x0f) == 0x0f) {
+      printf("\n");
+    }
   }
   printf("\n");
 }
