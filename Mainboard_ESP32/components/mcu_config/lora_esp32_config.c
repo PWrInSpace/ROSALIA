@@ -59,6 +59,17 @@ esp_err_t _lora_spi_and_pins_init(gpio_num_t _rst_gpio_num,
   };
   ret |= gpio_config(&io_conf2);
 
+  //TODO(Glibus): check if interrupt is initiated correctly, implement interrupt
+  gpio_config_t io_conf3 = {
+      .intr_type = GPIO_INTR_LOW_LEVEL,
+      .mode = GPIO_MODE_INPUT,
+      .pin_bit_mask = (1ULL << lora_pins.d0_gpio_num),
+      .pull_down_en = 0,
+      .pull_up_en = 1,
+  };
+
+  ret |= gpio_config(&io_conf3);
+
   gpio_set_level(lora_pins.rst_gpio_num, 0);
 
   ESP_LOGI(TAG, "GPIOs configured.");
