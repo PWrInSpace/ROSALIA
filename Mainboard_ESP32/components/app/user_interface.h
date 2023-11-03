@@ -1,21 +1,19 @@
 // Copyright 2023 PWr in Space, Krzysztof Gliwiński
 #pragma once
 
+#include "devices_config.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "mcu_adc_config.h"
 #include "rgb_led_driver.h"
 #include "sdkconfig.h"
 #include "ssd1306_esp32_config.h"
-#include "devices_config.h"
 
 /*!
  * \file user_interface.h
  * \brief User interface app header file
  * Contains task for rgb LED, status LED, buzzer and button handling
  */
-
-
 
 /*!
  * \brief RGB LED color enum
@@ -45,4 +43,3 @@ typedef enum {
 } adc_chan_index_cfg_t;
 
 void user_interface_task(void* pvParameters);
-

@@ -5,6 +5,7 @@
 #include "devices_config.h"
 #include "user_interface.h"
 #include "slave_com.h"
+#include "lora_task.h"
 
 /*!
  * \brief Task for initializing all the devices

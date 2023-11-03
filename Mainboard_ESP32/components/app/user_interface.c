@@ -28,9 +28,9 @@ void user_interface_task(void* pvParameters) {
     rgb_led_update_duty_cycle(&devices_config->rgb_led,
                               (uint32_t[]){0, 0, RGB_LED_MAX_DUTY});
 
-    ESP_LOGI(USER_INTERFACE_TAG, "%f",
+    ESP_LOGI(USER_INTERFACE_TAG, "VCAN: %f V",
              voltage_measure_read_voltage(&devices_config->voltage_measure, 0));
-    ESP_LOGI(USER_INTERFACE_TAG, "%f",
+    ESP_LOGI(USER_INTERFACE_TAG, "VBAT: %f V",
              voltage_measure_read_voltage(&devices_config->voltage_measure, 1));
     ESP_LOGI(USER_INTERFACE_TAG, "%f",
              voltage_measure_read_voltage(&devices_config->voltage_measure, 2));

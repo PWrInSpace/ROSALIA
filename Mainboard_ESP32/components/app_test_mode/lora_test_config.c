@@ -3,7 +3,7 @@
 #include "lora_test_config.h"
 
 void lora_test_init() {
-  _lora_spi_and_pins_init();
+  // _lora_spi_and_pins_init();
   lora_init(&lora);
 
   vTaskDelay(pdMS_TO_TICKS(100));
