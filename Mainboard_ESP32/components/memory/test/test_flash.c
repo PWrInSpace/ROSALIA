@@ -6,10 +6,11 @@
 #include "flash.h"
 #include "unity.h"
 
-#define READ_FILE_NAME (const char*)"/spiffs/test_read_data.txt"
+#define READ_FILE_NAME (const char*)"/spiffs/test_data.txt"
 #define WRITE_FILE_NAME (const char*)"/spiffs/test_write_data.txt"
 #define EXPECTED_DATA \
-  (const char*)"Test text, nothing to find here...\nWidzisz mie?\0"
+  (const char*)"Test text, nothing to find here...Widzisz mie?\
+  \x09<\xD4\xF9\xCA?\xF0\xB1\xCB?\x88>\xCB?\xF0\xB1\xCB?\xC1\x95\x04\x82"
 #define WRITE_DATA (const char*)"Lorem ipsum\0"
 
 #define TAG "Flash test"
@@ -25,5 +26,5 @@ TEST_CASE("Flash read file test", "[flash]") {
   TEST_ASSERT_EQUAL(FLASH_OK, res);
   // ESP_LOGI(TAG, "%s", readData);
 
-  TEST_ASSERT_EQUAL_STRING(WRITE_DATA, readData);
+  TEST_ASSERT_EQUAL_STRING(EXPECTED_DATA, readData);
 }

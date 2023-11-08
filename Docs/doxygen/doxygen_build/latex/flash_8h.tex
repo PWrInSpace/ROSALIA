@@ -1,0 +1,86 @@
+\doxysection{/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA/\+Mainboard\+\_\+\+ESP32/components/memory/flash.h File Reference}
+\hypertarget{flash_8h}{}\label{flash_8h}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/memory/flash.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/memory/flash.h}}
+
+
+contains API to store huge data files in ESP internal flash. Description based on \href{https://esp32tutorials.com/esp32-spiffs-esp-idf/}{\texttt{ https\+://esp32tutorials.\+com/esp32-\/spiffs-\/esp-\/idf/}}  
+
+
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}esp\+\_\+flash.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+flash\+\_\+spi\+\_\+init.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+spiffs.\+h"{}}\newline
+{\ttfamily \#include "{}spi\+\_\+flash\+\_\+mmap.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{flash_8h_ab0139008fdda107456f13f837872b410}\label{flash_8h_ab0139008fdda107456f13f837872b410} 
+\#define {\bfseries PATH}~"{}/spiffs"{}
+\item 
+\Hypertarget{flash_8h_a47ced86b732ee35f8bedf0ca858012e8}\label{flash_8h_a47ced86b732ee35f8bedf0ca858012e8} 
+\#define {\bfseries FLASH\+\_\+\+FILE\+\_\+\+NAME}~"{}flash"{}
+\item 
+\Hypertarget{flash_8h_a2c5eecb22513a88c24ae5831a3265e54}\label{flash_8h_a2c5eecb22513a88c24ae5831a3265e54} 
+\#define {\bfseries MAX\+\_\+\+FILES}~1
+\item 
+\Hypertarget{flash_8h_a9fe46ff30681167e77c1723e6cbaffc3}\label{flash_8h_a9fe46ff30681167e77c1723e6cbaffc3} 
+\#define {\bfseries FLASH\+\_\+\+PATH}~PATH "{}/"{} FLASH\+\_\+\+FILE\+\_\+\+NAME
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{flash_8h_a5aa3728ec2c3f711f8e9e2ef59f06136}\label{flash_8h_a5aa3728ec2c3f711f8e9e2ef59f06136} 
+enum {\bfseries Flash\+Result} \{ \newline
+{\bfseries FLASH\+\_\+\+OK}
+, {\bfseries FLASH\+\_\+\+INIT\+\_\+\+ERROR}
+, {\bfseries FLASH\+\_\+\+ALREADY\+\_\+\+INITIALIZED}
+, {\bfseries FLASH\+\_\+\+IS\+\_\+\+NOT\+\_\+\+INITIALIZED}
+, \newline
+{\bfseries FLASH\+\_\+\+CHECK\+\_\+\+FAILED}
+, {\bfseries FLASH\+\_\+\+WRITE\+\_\+\+ERROR}
+, {\bfseries FLASH\+\_\+\+OPEN\+\_\+\+ERROR}
+, {\bfseries FLASH\+\_\+\+FORMAT\+\_\+\+ERROR}
+, \newline
+{\bfseries FLASH\+\_\+\+READ\+\_\+\+NO\+\_\+\+DATA}
+, {\bfseries FLASH\+\_\+\+READ\+\_\+\+ALL\+\_\+\+SIZE}
+, {\bfseries FLASH\+\_\+\+ALLOC\+\_\+\+ERROR}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{flash_8h_a85a2162dc991d75fb361f481b210a1db}\label{flash_8h_a85a2162dc991d75fb361f481b210a1db} 
+Flash\+Result {\bfseries FLASH\+\_\+init} (uint8\+\_\+t max\+\_\+files)
+\item 
+\Hypertarget{flash_8h_ab2fc1521fb28e53e5570030bc0526689}\label{flash_8h_ab2fc1521fb28e53e5570030bc0526689} 
+Flash\+Result {\bfseries FLASH\+\_\+write} (const char \texorpdfstring{$\ast$}{*}file\+\_\+name, const char \texorpdfstring{$\ast$}{*}data, size\+\_\+t size)
+\item 
+\Hypertarget{flash_8h_a0b0f0baeefcf37f1fe3e632dc2da92de}\label{flash_8h_a0b0f0baeefcf37f1fe3e632dc2da92de} 
+Flash\+Result {\bfseries FLASH\+\_\+read\+\_\+all\+\_\+data} (const char \texorpdfstring{$\ast$}{*}file\+\_\+name, char \texorpdfstring{$\ast$}{*}data\+\_\+container, size\+\_\+t size)
+\item 
+\Hypertarget{flash_8h_a11fd89ad750d6eb28ce1cdfb0e6405c8}\label{flash_8h_a11fd89ad750d6eb28ce1cdfb0e6405c8} 
+size\+\_\+t {\bfseries FLASH\+\_\+get\+\_\+used\+\_\+size} (void)
+\item 
+\Hypertarget{flash_8h_aa333da9495bb0799f24e6c5e4e1e87f9}\label{flash_8h_aa333da9495bb0799f24e6c5e4e1e87f9} 
+size\+\_\+t {\bfseries FLASH\+\_\+get\+\_\+total\+\_\+size} (void)
+\item 
+\Hypertarget{flash_8h_ac7559cb2bc8912249e07b6127a08aad7}\label{flash_8h_ac7559cb2bc8912249e07b6127a08aad7} 
+Flash\+Result {\bfseries FLASH\+\_\+format} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+contains API to store huge data files in ESP internal flash. Description based on \href{https://esp32tutorials.com/esp32-spiffs-esp-idf/}{\texttt{ https\+://esp32tutorials.\+com/esp32-\/spiffs-\/esp-\/idf/}} 
+
+\hypertarget{flash_8h_How}{}\doxysubsection{\texorpdfstring{to create a spiffs partition in flash\+:}{to create a spiffs partition in flash:}}\label{flash_8h_How}
+\hypertarget{flash_8h_Create}{}\doxysubsubsection{\texorpdfstring{a file and name it \textquotesingle{}partitions.\+csv\textquotesingle{} e.\+g.\+:}{a file and name it 'partitions.csv' e.g.:}}\label{flash_8h_Create}
+\hypertarget{flash_8h_autotoc_md0}{}\doxysubsection{\texorpdfstring{Name,   Type, Sub\+Type, Offset,  Size, Flags}{Name,   Type, SubType, Offset,  Size, Flags}}\label{flash_8h_autotoc_md0}
+\hypertarget{flash_8h_autotoc_md1}{}\doxysubsection{\texorpdfstring{Note\+: if you change the phy\+\_\+init or app partition offset,}{Note: if you change the phy\_init or app partition offset,}}\label{flash_8h_autotoc_md1}
+make sure to change the offset in Kconfig.\+projbuild nvs, data, nvs, , 0x6000, phy\+\_\+init, data, phy, , 0x1000, factory, app, factory, , 1M, storage, data, spiffs, , 1M \hypertarget{flash_8h_Then}{}\doxysubsubsection{\texorpdfstring{create a folder named spiffs data and include files e.\+g.}{create a folder named spiffs data and include files e.g.}}\label{flash_8h_Then}
+data.\+txt. \hypertarget{flash_8h_Then}{}\doxysubsubsection{\texorpdfstring{create a folder named spiffs data and include files e.\+g.}{create a folder named spiffs data and include files e.g.}}\label{flash_8h_Then}
+spiffs\+\_\+create\+\_\+partition\+\_\+image(storage ../spiffs\+\_\+data FLASH\+\_\+\+IN\+\_\+\+PROJECT)\hypertarget{flash_8h_Launch}{}\doxysubsubsection{\texorpdfstring{idf.\+py menuconfig, and go to $>$ Serial flasher condif}{idf.py menuconfig, and go to > Serial flasher condif}}\label{flash_8h_Launch}
+\hypertarget{flash_8h_Go}{}\doxysubsubsection{\texorpdfstring{to partition table and make sure that these are set\+:}{to partition table and make sure that these are set:}}\label{flash_8h_Go}
+Flash SPI mode (DIO) ---\texorpdfstring{$>$}{>} Flash Sampling Mode (STR Mode) ---\texorpdfstring{$>$}{>} Flash SPI speed (40 MHz) ---\texorpdfstring{$>$}{>} Flash size (YOUR MCUS FLASH SIZE HERE) ---\texorpdfstring{$>$}{>} \hypertarget{flash_8h_Now}{}\doxysubsubsection{\texorpdfstring{go to back, and to Partition Table, select these}{go to back, and to Partition Table, select these}}\label{flash_8h_Now}
+(partitions.\+csv) Custom partition CSV file (0x8000) Offset of partition table \mbox{[}\texorpdfstring{$\ast$}{*}\mbox{]} Generate an MD5 checksum for the partition table ! NOTE\+: if you change the phy\+\_\+init or app partition offset, make sure to change the partition table offset (above) accordingly 

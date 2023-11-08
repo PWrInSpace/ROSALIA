@@ -1,0 +1,36 @@
+\doxysection{mcu\+\_\+adc\+\_\+config.\+h}
+\hypertarget{mcu__adc__config_8h_source}{}\label{mcu__adc__config_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_adc\_config.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/mcu\_adc\_config.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWrInSpace,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}esp\_adc/adc\_cali.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}esp\_adc/adc\_cali\_scheme.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_adc/adc\_oneshot.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}soc/adc\_channel.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ READ\_ERROR\_RETURN\_VAL\ 0xFFFF}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ VOLTAGE\_READ\_ERROR\_RETURN\_VAL\ -\/1.0f}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MAX\_ADC\_CHANNELS\ 8}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{float}\ adc\_cal[MAX\_ADC\_CHANNELS];}
+\DoxyCodeLine{00039\ \ \ uint8\_t\ adc\_chan[MAX\_ADC\_CHANNELS];}
+\DoxyCodeLine{00040\ \ \ uint8\_t\ adc\_chan\_num;}
+\DoxyCodeLine{00041\ \ \ adc\_oneshot\_unit\_init\_cfg\_t\ oneshot\_unit\_cfg;}
+\DoxyCodeLine{00042\ \ \ adc\_oneshot\_chan\_cfg\_t\ oneshot\_chan\_cfg;}
+\DoxyCodeLine{00043\ \ \ adc\_oneshot\_unit\_handle\_t*\ oneshot\_unit\_handle;}
+\DoxyCodeLine{00044\ \}\ \mbox{\hyperlink{structvoltage__measure__config__t}{voltage\_measure\_config\_t}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00053\ esp\_err\_t\ voltage\_measure\_init(\mbox{\hyperlink{structvoltage__measure__config__t}{voltage\_measure\_config\_t}}*\ v\_mes);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{int}\ voltage\_measure\_read\_raw(\mbox{\hyperlink{structvoltage__measure__config__t}{voltage\_measure\_config\_t}}*\ v\_mes,\ uint8\_t\ adc\_chan);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{float}\ voltage\_measure\_read\_voltage(\mbox{\hyperlink{structvoltage__measure__config__t}{voltage\_measure\_config\_t}}*\ v\_mes,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ adc\_chan);}
+
+\end{DoxyCode}

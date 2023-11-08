@@ -1,5 +1,7 @@
 // Copyright 2023 PWr in Space, Krzysztof Gliwiński
 
+#pragma once
+
 #include "ble_api.h"
 #include "ble_gap_conf.h"
 #include "ble_gatt_conf.h"

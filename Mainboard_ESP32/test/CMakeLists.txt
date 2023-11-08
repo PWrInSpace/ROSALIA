@@ -11,10 +11,10 @@ set(EXTRA_COMPONENT_DIRS "../components")
 # - when using idf.py: idf.py -T xxxxx build
 #
 set(TEST_FILES_DIRS
-    "lora"
     "ble"
     "memory"
     "misc"
+    "mcu_config"
 )
 
 set(TEST_COMPONENTS ${TEST_FILES_DIRS} CACHE STRING "List of components to test")
@@ -22,4 +22,4 @@ set(TEST_COMPONENTS ${TEST_FILES_DIRS} CACHE STRING "List of components to test"
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(ROSALIA_MainBoard)
 
-# spiffs_create_partition_image(storage test_spiffs_data FLASH_IN_PROJECT)
+spiffs_create_partition_image(storage test_spiffs_data FLASH_IN_PROJECT)

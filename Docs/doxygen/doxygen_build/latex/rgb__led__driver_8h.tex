@@ -1,0 +1,102 @@
+\doxysection{/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA/\+Mainboard\+\_\+\+ESP32/components/misc/rgb\+\_\+led\+\_\+driver.h File Reference}
+\hypertarget{rgb__led__driver_8h}{}\label{rgb__led__driver_8h}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/misc/rgb\_led\_driver.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/misc/rgb\_led\_driver.h}}
+
+
+RGB LED driver for ESP32.  
+
+
+{\ttfamily \#include "{}led\+\_\+driver.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structrgb__led__driver__t}{rgb\+\_\+led\+\_\+driver\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em RGB LED driver struct for ESP32. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{rgb__led__driver_8h_a8f7cbccec683c8992398614634742af1}\label{rgb__led__driver_8h_a8f7cbccec683c8992398614634742af1} 
+enum \mbox{\hyperlink{rgb__led__driver_8h_a8f7cbccec683c8992398614634742af1}{rgb\+\_\+led\+\_\+driver\+\_\+table\+\_\+t}} \{ {\bfseries RED\+\_\+\+INDEX} = 0
+, {\bfseries GREEN\+\_\+\+INDEX} = 1
+, {\bfseries BLUE\+\_\+\+INDEX} = 2
+, {\bfseries MAX\+\_\+\+COLOR\+\_\+\+INDEX} = 3
+ \}
+\begin{DoxyCompactList}\small\item\em RGB LED driver table index enum. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{rgb__led__driver_8h_a56f35c3e3f099c5151fcdbae4c204bd3}{rgb\+\_\+led\+\_\+driver\+\_\+init}} (\mbox{\hyperlink{structrgb__led__driver__t}{rgb\+\_\+led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}rgb\+\_\+led\+\_\+drv, ledc\+\_\+timer\+\_\+bit\+\_\+t ledc\+\_\+duty\+\_\+res, uint32\+\_\+t ledc\+\_\+freq)
+\begin{DoxyCompactList}\small\item\em Initialize RGB LED driver. \end{DoxyCompactList}\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{rgb__led__driver_8h_a04e542fab4840dc0f4235a49ccd2a815}{rgb\+\_\+led\+\_\+update\+\_\+duty\+\_\+cycle}} (\mbox{\hyperlink{structrgb__led__driver__t}{rgb\+\_\+led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}rgb\+\_\+led\+\_\+drv, uint16\+\_\+t duty\mbox{[}MAX\+\_\+\+COLOR\+\_\+\+INDEX\mbox{]})
+\begin{DoxyCompactList}\small\item\em Update duty cycle of RGB LED. \end{DoxyCompactList}\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{rgb__led__driver_8h_a46ccaf83a01645688bda24976a1a35cb}{rgb\+\_\+led\+\_\+toggle}} (\mbox{\hyperlink{structrgb__led__driver__t}{rgb\+\_\+led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}rgb\+\_\+led\+\_\+drv, \mbox{\hyperlink{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d}{led\+\_\+state\+\_\+t}} toggle)
+\begin{DoxyCompactList}\small\item\em Toggle RGB LED. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+RGB LED driver for ESP32. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{rgb__led__driver_8h_a56f35c3e3f099c5151fcdbae4c204bd3}\label{rgb__led__driver_8h_a56f35c3e3f099c5151fcdbae4c204bd3} 
+\index{rgb\_led\_driver.h@{rgb\_led\_driver.h}!rgb\_led\_driver\_init@{rgb\_led\_driver\_init}}
+\index{rgb\_led\_driver\_init@{rgb\_led\_driver\_init}!rgb\_led\_driver.h@{rgb\_led\_driver.h}}
+\doxysubsubsection{\texorpdfstring{rgb\_led\_driver\_init()}{rgb\_led\_driver\_init()}}
+{\footnotesize\ttfamily esp\+\_\+err\+\_\+t rgb\+\_\+led\+\_\+driver\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrgb__led__driver__t}{rgb\+\_\+led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{rgb\+\_\+led\+\_\+drv,  }\item[{ledc\+\_\+timer\+\_\+bit\+\_\+t}]{ledc\+\_\+duty\+\_\+res,  }\item[{uint32\+\_\+t}]{ledc\+\_\+freq }\end{DoxyParamCaption})}
+
+
+
+Initialize RGB LED driver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rgb\+\_\+led\+\_\+drv} & Pointer to \doxylink{structrgb__led__driver__t}{rgb\+\_\+led\+\_\+driver\+\_\+t} struct \\
+\hline
+{\em ledc\+\_\+duty\+\_\+res} & LEDC duty resolution \\
+\hline
+{\em ledc\+\_\+freq} & LEDC frequency \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ESP\+\_\+\+OK on success, ESP\+\_\+\+FAIL otherwise 
+\end{DoxyReturn}
+\Hypertarget{rgb__led__driver_8h_a46ccaf83a01645688bda24976a1a35cb}\label{rgb__led__driver_8h_a46ccaf83a01645688bda24976a1a35cb} 
+\index{rgb\_led\_driver.h@{rgb\_led\_driver.h}!rgb\_led\_toggle@{rgb\_led\_toggle}}
+\index{rgb\_led\_toggle@{rgb\_led\_toggle}!rgb\_led\_driver.h@{rgb\_led\_driver.h}}
+\doxysubsubsection{\texorpdfstring{rgb\_led\_toggle()}{rgb\_led\_toggle()}}
+{\footnotesize\ttfamily esp\+\_\+err\+\_\+t rgb\+\_\+led\+\_\+toggle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrgb__led__driver__t}{rgb\+\_\+led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{rgb\+\_\+led\+\_\+drv,  }\item[{\mbox{\hyperlink{led__driver_8h_a25dc233a9dc8904b8ce586b61edc282d}{led\+\_\+state\+\_\+t}}}]{toggle }\end{DoxyParamCaption})}
+
+
+
+Toggle RGB LED. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rgb\+\_\+led\+\_\+drv} & Pointer to \doxylink{structrgb__led__driver__t}{rgb\+\_\+led\+\_\+driver\+\_\+t} struct \\
+\hline
+{\em toggle} & LED\+\_\+\+ON or LED\+\_\+\+OFF \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ESP\+\_\+\+OK on success, ESP\+\_\+\+FAIL otherwise 
+\end{DoxyReturn}
+\Hypertarget{rgb__led__driver_8h_a04e542fab4840dc0f4235a49ccd2a815}\label{rgb__led__driver_8h_a04e542fab4840dc0f4235a49ccd2a815} 
+\index{rgb\_led\_driver.h@{rgb\_led\_driver.h}!rgb\_led\_update\_duty\_cycle@{rgb\_led\_update\_duty\_cycle}}
+\index{rgb\_led\_update\_duty\_cycle@{rgb\_led\_update\_duty\_cycle}!rgb\_led\_driver.h@{rgb\_led\_driver.h}}
+\doxysubsubsection{\texorpdfstring{rgb\_led\_update\_duty\_cycle()}{rgb\_led\_update\_duty\_cycle()}}
+{\footnotesize\ttfamily esp\+\_\+err\+\_\+t rgb\+\_\+led\+\_\+update\+\_\+duty\+\_\+cycle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrgb__led__driver__t}{rgb\+\_\+led\+\_\+driver\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{rgb\+\_\+led\+\_\+drv,  }\item[{uint16\+\_\+t}]{duty\mbox{[}\+MAX\+\_\+\+COLOR\+\_\+\+INDEX\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Update duty cycle of RGB LED. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rgb\+\_\+led\+\_\+drv} & Pointer to \doxylink{structrgb__led__driver__t}{rgb\+\_\+led\+\_\+driver\+\_\+t} struct \\
+\hline
+{\em duty} & Duty cycle in range 0-\/max\+\_\+duty \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ESP\+\_\+\+OK on success, ESP\+\_\+\+FAIL otherwise 
+\end{DoxyReturn}

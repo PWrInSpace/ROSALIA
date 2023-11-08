@@ -1,0 +1,64 @@
+\doxysection{voltage\+\_\+measure\+\_\+config\+\_\+t Struct Reference}
+\hypertarget{structvoltage__measure__config__t}{}\label{structvoltage__measure__config__t}\index{voltage\_measure\_config\_t@{voltage\_measure\_config\_t}}
+
+
+Voltage measure struct.  
+
+
+
+
+{\ttfamily \#include $<$mcu\+\_\+adc\+\_\+config.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structvoltage__measure__config__t_ab9d9f37e92c462d5e790d133b374b902}\label{structvoltage__measure__config__t_ab9d9f37e92c462d5e790d133b374b902} 
+float {\bfseries adc\+\_\+cal} \mbox{[}MAX\+\_\+\+ADC\+\_\+\+CHANNELS\mbox{]}
+\item 
+\Hypertarget{structvoltage__measure__config__t_a27acd0d29f7ca66966bd86d75eb36af0}\label{structvoltage__measure__config__t_a27acd0d29f7ca66966bd86d75eb36af0} 
+uint8\+\_\+t {\bfseries adc\+\_\+chan} \mbox{[}MAX\+\_\+\+ADC\+\_\+\+CHANNELS\mbox{]}
+\item 
+\Hypertarget{structvoltage__measure__config__t_afb5b01373719245f7b17990984094200}\label{structvoltage__measure__config__t_afb5b01373719245f7b17990984094200} 
+uint8\+\_\+t {\bfseries adc\+\_\+chan\+\_\+num}
+\item 
+\Hypertarget{structvoltage__measure__config__t_a8c0e7512acfc83978d7a31756472bba2}\label{structvoltage__measure__config__t_a8c0e7512acfc83978d7a31756472bba2} 
+adc\+\_\+oneshot\+\_\+unit\+\_\+init\+\_\+cfg\+\_\+t {\bfseries oneshot\+\_\+unit\+\_\+cfg}
+\item 
+\Hypertarget{structvoltage__measure__config__t_a91d36f2dfa973a3c39f16553084bba83}\label{structvoltage__measure__config__t_a91d36f2dfa973a3c39f16553084bba83} 
+adc\+\_\+oneshot\+\_\+chan\+\_\+cfg\+\_\+t {\bfseries oneshot\+\_\+chan\+\_\+cfg}
+\item 
+\Hypertarget{structvoltage__measure__config__t_a33671a94e956293690f8f24a39bfb751}\label{structvoltage__measure__config__t_a33671a94e956293690f8f24a39bfb751} 
+adc\+\_\+oneshot\+\_\+unit\+\_\+handle\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries oneshot\+\_\+unit\+\_\+handle}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Voltage measure struct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em adc\+\_\+cal} & -\/ calibration value to be configured. voltage = raw\+Read \texorpdfstring{$\ast$}{*} adc\+\_\+cal \\
+\hline
+{\em adc\+\_\+chan} & -\/ specific channel of ADC \\
+\hline
+{\em adc\+\_\+chan\+\_\+num} & -\/ number of channels to be configured \\
+\hline
+{\em oneshot\+\_\+unit\+\_\+cfg} & -\/ config for ADC channel \\
+\hline
+{\em oneshot\+\_\+unit\+\_\+handle} & -\/ handle for ADC channel \\
+\hline
+{\em oneshot\+\_\+chan\+\_\+cfg} & -\/ config for ADC channel \\
+\hline
+{\em oneshot\+\_\+chan\+\_\+handle} & -\/ handle for ADC channel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+adc\+\_\+cal and adc\+\_\+chan are arrays of size adc\+\_\+chan\+\_\+num. adc\+\_\+cal\mbox{[}i\mbox{]} is calibration value for adc\+\_\+chan\mbox{[}i\mbox{]} adc\+\_\+chan\mbox{[}i\mbox{]} is channel number for adc\+\_\+cal\mbox{[}i\mbox{]} 
+
+oneshot\+\_\+unit\+\_\+cfg and oneshot\+\_\+chan\+\_\+cfg are the same for all channels. 
+\end{DoxyNote}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/krzysztofgliwinski/\+Poli\+WRocket/\+ROSALIA/\+Mainboard\+\_\+\+ESP32/components/mcu\+\_\+config/mcu\+\_\+adc\+\_\+config.\+h\end{DoxyCompactItemize}

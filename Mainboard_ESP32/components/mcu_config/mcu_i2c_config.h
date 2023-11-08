@@ -1,5 +1,10 @@
 // Copyright 2023 PWr in Space, Krzysztof Gliwiński
 
+#pragma once
+
+#include <stdbool.h>
+#include <stdint.h>
+
 #include "driver/i2c.h"
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"

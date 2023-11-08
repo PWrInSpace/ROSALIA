@@ -1,0 +1,35 @@
+\doxysection{ssd1306\+\_\+esp32\+\_\+config.\+h}
+\hypertarget{ssd1306__esp32__config_8h_source}{}\label{ssd1306__esp32__config_8h_source}\index{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/ssd1306\_esp32\_config.h@{/Users/krzysztofgliwinski/PoliWRocket/ROSALIA/Mainboard\_ESP32/components/mcu\_config/ssd1306\_esp32\_config.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ PWr\ in\ Space,\ Krzysztof\ Gliwiński}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}mcu\_i2c\_config.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ssd1306_8h}{ssd1306.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keywordtype}{void}\ ssd1306\_esp32\_config\_mount\_i2c\_config(\mbox{\hyperlink{structmcu__i2c__config__t}{mcu\_i2c\_config\_t}}*\ \_i2c\_config);}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keywordtype}{bool}\ \_ssd1306\_i2c\_master\_write\_byte(ssd1306\_i2c\_cmd\_handle\_t\ cmd,\ uint8\_t\ \_data,}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_ack\_en);}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{bool}\ \_ssd1306\_i2c\_master\_write(ssd1306\_i2c\_cmd\_handle\_t\ cmd,}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t*\ \_data,\ \textcolor{keywordtype}{size\_t}\ \_data\_len,}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_ack\_en);}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{bool}\ \_ssd1306\_i2c\_master\_start(ssd1306\_i2c\_cmd\_handle\_t\ cmd);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{bool}\ \_ssd1306\_i2c\_master\_stop(ssd1306\_i2c\_cmd\_handle\_t\ cmd);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keywordtype}{bool}\ \_ssd1306\_i2c\_master\_cmd\_begin(ssd1306\_i2c\_cmd\_handle\_t\ cmd,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ ticks\_to\_wait);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ TODO(Glibus):\ tu\ sie\ moze\ wyjebac}}
+\DoxyCodeLine{00023\ ssd1306\_i2c\_cmd\_handle\_t\ \_ssd1306\_i2c\_cmd\_link\_create();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{void}\ \_ssd1306\_i2c\_cmd\_link\_delete(ssd1306\_i2c\_cmd\_handle\_t\ cmd);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}\ \_ssd1306\_delay(\textcolor{keywordtype}{size\_t}\ \_ms);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ \_ssd1306\_log(\textcolor{keyword}{const}\ \mbox{\hyperlink{ssd1306_8h_ab8ab50dc557e87e76893e15861b21ae4}{ssd1306\_log\_level\_t}}\ level,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ tag,\ \textcolor{keywordtype}{char}*\ info);}
+
+\end{DoxyCode}

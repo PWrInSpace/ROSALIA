@@ -1,6 +1,7 @@
 // Copyright 2023 PWr in Space, Krzysztof Gliwiński
 #pragma once
 
+#include "devices_config.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "mcu_adc_config.h"
@@ -13,12 +14,6 @@
  * \brief User interface app header file
  * Contains task for rgb LED, status LED, buzzer and button handling
  */
-
-#define LEDC_FREQ_HZ 5000
-#define LEDC_DUTY_RES LEDC_TIMER_13_BIT
-#define LEDC_HS_TIMER LEDC_TIMER_0
-#define LEDC_HS_MODE LEDC_LOW_SPEED_MODE
-#define MAX_DUTY 8192  // 2**13
 
 /*!
  * \brief RGB LED color enum
@@ -47,6 +42,4 @@ typedef enum {
   MAX_CHANNEL_INDEX
 } adc_chan_index_cfg_t;
 
-void user_interface_task(void* arg);
-
-void init_user_interface_task(void* arg);
+void user_interface_task(void* pvParameters);
