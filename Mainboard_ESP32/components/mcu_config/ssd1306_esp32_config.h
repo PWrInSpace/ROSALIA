@@ -1,4 +1,4 @@
-// Copyright 2023 PWr in Space, Krzysztof Gliwiński
+// Copyright 2023 PWr in Space, Krzysztof Gliwiński :d
 
 #include "mcu_i2c_config.h"
 #include "ssd1306.h"
