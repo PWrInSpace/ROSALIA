@@ -10,13 +10,13 @@ jobs:
       uses: actions/checkout@v2
       with:
         submodules: 'recursive'
-    # - name: esp-idf update_dependencies
-    #   uses: espressif/esp-idf-ci-action@v1
-    #   with: 
-    #     esp_idf_version: release-v5.1
-    #     target: 'esp32s3'
-    #     command: idf.py update-dependencies
-    #     path: 'Mainboard_ESP32'
+    - name: esp-idf update_dependencies
+      uses: espressif/esp-idf-ci-action@v1
+      with: 
+        esp_idf_version: release-v5.1
+        target: 'esp32s3'
+        command: idf.py update-dependencies
+        path: 'Mainboard_ESP32'
     - name: esp-idf build
       uses: espressif/esp-idf-ci-action@v1
       with: 
@@ -33,13 +33,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: 'recursive'
-      # - name: 'idf.py update-dependencies'
-      #   uses: espressif/esp-idf-ci-action@v1
-      #   with: 
-      #     esp_idf_version: release-v5.1
-      #     target: 'esp32s3'
-      #     command: idf.py update-dependencies
-      #     path: 'Mainboard_ESP32/test'
+      - name: 'idf.py update-dependencies'
+        uses: espressif/esp-idf-ci-action@v1
+        with: 
+          esp_idf_version: release-v5.1
+          target: 'esp32s3'
+          command: idf.py update-dependencies
+          path: 'Mainboard_ESP32/test'
       - name: esp-idf build
         uses: espressif/esp-idf-ci-action@v1
         with: 
