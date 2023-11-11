@@ -27,15 +27,36 @@
 #define BUZZER_MODE LEDC_LOW_SPEED_MODE
 #define BUZZER_MAX_DUTY 8191  // 2**13 - 1
 
-#define MCU_SPI_DEFAULT_CONFIG         \
-  = {                                  \
-      .host = HSPI_HOST,               \
-      .mosi = CONFIG_SPI_MOSI,         \
-      .miso = CONFIG_SPI_MISO,         \
-      .sclk = CONFIG_SPI_SCLK,         \
-      .cs = CONFIG_SPI_CS,             \
-      .clk_speed = SPI_MASTER_FREQ_8M, \
-      .spi_init_flag = false,          \
+#define MCU_TWAI_DEFAULT_CONFIG()                                     \
+  {                                                                   \
+    .tx_gpio_num = CONFIG_UART_1_RX, .rx_gpio_num = CONFIG_UART_1_TX, \
+    .mode = TWAI_MODE_NORMAL                                          \
+  }
+
+#define MCU_SPI_DEFAULT_CONFIG()                   \
+  {                                                \
+    .host_id = SPI2_HOST,                          \
+    .bus_config = {.miso_io_num = CONFIG_SPI_MISO, \
+                   .mosi_io_num = CONFIG_SPI_MOSI, \
+                   .sclk_io_num = CONFIG_SPI_SCK,  \
+                   .quadwp_io_num = -1,            \
+                   .quadhd_io_num = -1,            \
+                   .max_transfer_sz = 4000},          \
+    .dev_config = {.clock_speed_hz = 9000000,      \
+                   .mode = 0,                      \
+                   .spics_io_num = -1,             \
+                   .queue_size = 1,                \
+                   .flags = 0,                     \
+                   .pre_cb = NULL},                \
+    .spi_init_flag = false,                        \
+  }
+
+#define MCU_LORA_DEFAULT_CONFIG()                                       \
+  {                                                                     \
+    ._spi_transmit = _lora_SPI_transmit, ._delay = _lora_delay,         \
+    ._gpio_set_level = _lora_GPIO_set_level, .log = _lora_log,          \
+    .rst_gpio_num = CONFIG_LORA_RS, .cs_gpio_num = CONFIG_LORA_CS,      \
+    .d0_gpio_num = CONFIG_LORA_D0, .implicit_header = 0, .frequency = 0 \
   }
 
 #define MCU_I2C_DEFAULT_CONFIG()                                     \
@@ -44,15 +65,9 @@
     .clk_speed = I2C_MASTER_FREQ_HZ, .i2c_init_flag = false,         \
   }
 
-#define MCU_TWAI_DEFAULT_CONFIG()                                     \
-  {                                                                   \
-    .tx_gpio_num = CONFIG_UART_1_RX, .rx_gpio_num = CONFIG_UART_1_TX, \
-    .mode = TWAI_MODE_NORMAL                                          \
-  }
-
 #define MCU_VOLTAGE_MEASURE_DEFAULT_CONFIG()               \
   {                                                        \
-    .adc_cal = {1.0f, 1.0f, 1.0f},                         \
+    .adc_cal = {1.0f, 5.742f, 5.180f},                 \
     .adc_chan = {CAN_CHANNEL, VBAT_CHANNEL, ADJV_CHANNEL}, \
     .adc_chan_num = MAX_CHANNEL_INDEX,                     \
     .oneshot_chan_cfg =                                    \

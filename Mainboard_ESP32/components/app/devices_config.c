@@ -16,9 +16,20 @@ esp_err_t devices_init(ROSALIA_devices_t* devices) {
     ESP_LOGE(TAG, "TWAI initialization failed");
     return ret;
   }
-  //   ret |= spi_init(&devices->spi);
+  ret |= spi_init(&devices->spi);
+  lora_esp32_config_mount_spi_config(&devices->spi);
+  ret = _lora_spi_and_pins_init(devices->lora.rst_gpio_num,
+                                devices->lora.cs_gpio_num,
+                                devices->lora.d0_gpio_num);
 
-  //   ret |= lora_init(&devices->lora);
+  ret |= lora_init(&devices->lora);
+
+  vTaskDelay(pdMS_TO_TICKS(100));
+
+  lora_set_frequency(&devices->lora, 867e6);
+  lora_set_bandwidth(&devices->lora, LORA_BW_250_kHz);
+  lora_disable_crc(&devices->lora);
+
   ret |= i2c_init(&devices->i2c);
 
   ssd1306_esp32_config_mount_i2c_config(&devices->i2c);

@@ -2,7 +2,7 @@
 
 #include "lora_esp32_config.h"
 
-static spi_device_handle_t __spi;
+static mcu_spi_config_t* spi_config;
 
 /*!
  * \file lora_esp32_config.c
@@ -17,37 +17,64 @@ static spi_device_handle_t __spi;
 
 #define TAG "LORA"
 
-bool _lora_spi_and_pins_init() {
-  // TODO(Glibus): modify to check for spi_initiated flag
+static struct {
+  uint8_t rst_gpio_num;
+  uint8_t cs_gpio_num;
+  uint8_t d0_gpio_num;
+} lora_pins;
+
+void lora_esp32_config_mount_spi_config(mcu_spi_config_t* _spi_config) {
+  spi_config = _spi_config;
+}
+
+esp_err_t _lora_spi_and_pins_init(gpio_num_t _rst_gpio_num,
+                                  gpio_num_t _cs_gpio_num,
+                                  gpio_num_t _d0_gpio_num) {
   esp_err_t ret;
-  spi_bus_config_t bus = {.miso_io_num = CONFIG_SPI_MISO,
-                          .mosi_io_num = CONFIG_SPI_MOSI,
-                          .sclk_io_num = CONFIG_SPI_SCK,
-                          .quadwp_io_num = -1,
-                          .quadhd_io_num = -1,
-                          .max_transfer_sz = 0};
+  ret = spi_init(spi_config);
+  if (ret != ESP_OK) {
+    ESP_LOGE(TAG, "Failed to initialize SPI bus.");
+    return false;
+  }
+  lora_pins.rst_gpio_num = _rst_gpio_num;
+  lora_pins.cs_gpio_num = _cs_gpio_num;
+  lora_pins.d0_gpio_num = _d0_gpio_num;
 
-  ret = spi_bus_initialize(CONFIG_SPI_HOST, &bus, 0);
-  ESP_ERROR_CHECK(ret);
+  // Configure gpio
+  gpio_config_t io_conf = {
+      .intr_type = GPIO_INTR_DISABLE,
+      .mode = GPIO_MODE_OUTPUT,
+      .pin_bit_mask = (1ULL << lora_pins.rst_gpio_num),
+      .pull_down_en = 0,
+      .pull_up_en = 0,
+  };
+  ret = gpio_config(&io_conf);
 
-  spi_device_interface_config_t dev = {.clock_speed_hz = 9000000,
-                                       .mode = 0,
-                                       .spics_io_num = -1,
-                                       .queue_size = 1,
-                                       .flags = 0,
-                                       .pre_cb = NULL};
-  ret = spi_bus_add_device(CONFIG_SPI_HOST, &dev, &__spi);
-  ESP_ERROR_CHECK(ret);
+  gpio_config_t io_conf2 = {
+      .intr_type = GPIO_INTR_DISABLE,
+      .mode = GPIO_MODE_OUTPUT,
+      .pin_bit_mask = (1ULL << lora_pins.cs_gpio_num),
+      .pull_down_en = 0,
+      .pull_up_en = 1,
+  };
+  ret |= gpio_config(&io_conf2);
 
-  /*
-   * Configure CPU hardware to communicate with the radio chip
-   */
-  gpio_pad_select_gpio(CONFIG_LORA_RS);
-  gpio_set_direction(CONFIG_LORA_RS, GPIO_MODE_OUTPUT);
-  gpio_pad_select_gpio(CONFIG_LORA_CS);
-  gpio_set_direction(CONFIG_LORA_CS, GPIO_MODE_OUTPUT);
+  // TODO(Glibus): check if interrupt is initiated correctly, implement
+  // interrupt
+  gpio_config_t io_conf3 = {
+      .intr_type = GPIO_INTR_LOW_LEVEL,
+      .mode = GPIO_MODE_INPUT,
+      .pin_bit_mask = (1ULL << lora_pins.d0_gpio_num),
+      .pull_down_en = 0,
+      .pull_up_en = 1,
+  };
 
-  return ret == ESP_OK ? true : false;
+  ret |= gpio_config(&io_conf3);
+
+  gpio_set_level(lora_pins.rst_gpio_num, 0);
+
+  ESP_LOGI(TAG, "GPIOs configured.");
+  return ret;
 }
 
 bool _lora_SPI_transmit(uint8_t _in[2], uint8_t _out[2]) {
@@ -56,9 +83,9 @@ bool _lora_SPI_transmit(uint8_t _in[2], uint8_t _out[2]) {
                          .tx_buffer = _out,
                          .rx_buffer = _in};
 
-  gpio_set_level(CONFIG_LORA_CS, 0);
-  spi_device_transmit(__spi, &t);
-  gpio_set_level(CONFIG_LORA_CS, 1);
+  gpio_set_level(lora_pins.cs_gpio_num, 0);
+  spi_device_transmit(spi_config->spi_handle, &t);
+  gpio_set_level(lora_pins.cs_gpio_num, 1);
   return true;
 }
 
