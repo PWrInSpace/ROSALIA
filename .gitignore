@@ -58,6 +58,5 @@ dkms.conf
 build/
 **/sdkconfig
 **/sdkconfig.old
-Mainboard_ESP32/managed_components/**
 /.vscode/**
 __pycache__/
