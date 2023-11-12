@@ -19,7 +19,6 @@ bool _ssd1306_i2c_master_stop(ssd1306_i2c_cmd_handle_t cmd);
 bool _ssd1306_i2c_master_cmd_begin(ssd1306_i2c_cmd_handle_t cmd,
                                    uint16_t ticks_to_wait);
 
-// TODO(Glibus): tu sie moze wyjebac
 ssd1306_i2c_cmd_handle_t _ssd1306_i2c_cmd_link_create();
 
 void _ssd1306_i2c_cmd_link_delete(ssd1306_i2c_cmd_handle_t cmd);
