@@ -15,6 +15,7 @@ set(TEST_FILES_DIRS
     "memory"
     "misc"
     "mcu_config"
+    "usb_msc"
 )
 
 set(TEST_COMPONENTS ${TEST_FILES_DIRS} CACHE STRING "List of components to test")
