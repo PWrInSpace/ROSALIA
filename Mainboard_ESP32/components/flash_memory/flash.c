@@ -54,6 +54,24 @@ FlashResult FLASH_init(uint8_t max_files) {
   return FLASH_OK;
 }
 
+FlashResult FLASH_deinit(void){
+  esp_err_t err;
+
+  if (fl.initialized == false) {
+    ESP_LOGW(TAG, "Flash is not initialized");
+    return FLASH_IS_NOT_INITIALIZED;
+  }
+
+  err = esp_vfs_spiffs_unregister(fl.conf.partition_label);
+  if (err != ESP_OK) {
+    ESP_LOGE(TAG, "Failed to unmount SPIFFS partition");
+    return FLASH_INIT_ERROR;
+  }
+
+  fl.initialized = false;
+  return FLASH_OK;
+}
+
 FlashResult FLASH_write(const char* file_name, const char* data, size_t size) {
   FILE* file = NULL;
 

@@ -66,6 +66,7 @@ typedef enum {
 } FlashResult;
 
 FlashResult FLASH_init(uint8_t max_files);
+FlashResult FLASH_deinit(void);
 FlashResult FLASH_write(const char* file_name, const char* data, size_t size);
 FlashResult FLASH_read_all_data(const char* file_name, char* data_container,
                                 size_t size);

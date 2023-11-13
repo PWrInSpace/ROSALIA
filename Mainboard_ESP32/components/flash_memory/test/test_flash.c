@@ -28,3 +28,7 @@ TEST_CASE("Flash read file test", "[flash]") {
 
   TEST_ASSERT_EQUAL_STRING(EXPECTED_DATA, readData);
 }
+
+TEST_CASE("Flash deinit test", "[flash]") {
+  TEST_ASSERT_EQUAL(FLASH_OK, FLASH_deinit());
+}
