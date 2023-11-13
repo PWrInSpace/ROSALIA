@@ -1,5 +1,5 @@
 idf_component_register(SRCS "ble.c" "lora_task.c" "memory_task.c" "user_interface.c" "slave_com.c" "app_init_task.c" "devices_config.c"
                     INCLUDE_DIRS "."
-                    REQUIRES cmock driver app_test_mode lora console fatfs app ble misc mcu_config ssd1306 memory usb_msc)
+                    REQUIRES cmock driver app_test_mode lora console fatfs app ble misc mcu_config ssd1306 flash_memory sd_card usb_msc)
 
 target_compile_options(${COMPONENT_LIB} PRIVATE -Wno-format -Wall -W -Werror)

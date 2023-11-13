@@ -12,9 +12,10 @@ set(EXTRA_COMPONENT_DIRS "../components")
 #
 set(TEST_FILES_DIRS
     "ble"
-    "memory"
+    "flash_memory"
     "misc"
     "mcu_config"
+    "sd_card"
 )
 
 set(TEST_COMPONENTS ${TEST_FILES_DIRS} CACHE STRING "List of components to test")

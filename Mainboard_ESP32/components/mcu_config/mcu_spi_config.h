@@ -13,7 +13,25 @@
 #include "sdkconfig.h"
 #include "soc/gpio_struct.h"
 
-typedef struct {\
+#define MCU_SPI_DEFAULT_CONFIG()                   \
+  {                                                \
+    .host_id = SPI2_HOST,                          \
+    .bus_config = {.miso_io_num = CONFIG_SPI_MISO, \
+                   .mosi_io_num = CONFIG_SPI_MOSI, \
+                   .sclk_io_num = CONFIG_SPI_SCK,  \
+                   .quadwp_io_num = -1,            \
+                   .quadhd_io_num = -1,            \
+                   .max_transfer_sz = 4000},       \
+    .dev_config = {.clock_speed_hz = 9000000,      \
+                   .mode = 0,                      \
+                   .spics_io_num = -1,             \
+                   .queue_size = 1,                \
+                   .flags = 0,                     \
+                   .pre_cb = NULL},                \
+    .spi_init_flag = false,                        \
+  }
+
+typedef struct {
   spi_host_device_t host_id;
   spi_device_handle_t spi_handle;
   spi_bus_config_t bus_config;

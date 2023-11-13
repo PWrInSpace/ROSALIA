@@ -19,6 +19,14 @@
 #include "sdkconfig.h"
 #include "soc/gpio_struct.h"
 
+#define MCU_LORA_DEFAULT_CONFIG()                                       \
+  {                                                                     \
+    ._spi_transmit = _lora_SPI_transmit, ._delay = _lora_delay,         \
+    ._gpio_set_level = _lora_GPIO_set_level, .log = _lora_log,          \
+    .rst_gpio_num = CONFIG_LORA_RS, .cs_gpio_num = CONFIG_LORA_CS,      \
+    .d0_gpio_num = CONFIG_LORA_D0, .implicit_header = 0, .frequency = 0 \
+  }
+
 /*!
  * \brief Mount spi config in lora config
  * \param[in] _spi_config spi config
