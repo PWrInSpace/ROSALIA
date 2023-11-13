@@ -29,11 +29,9 @@ typedef enum {
  */
 typedef struct {
   tusb_desc_device_t desc_device;
-  tusb_desc_configuration_t desc_cfg;
   tinyusb_config_t tusb_cfg;
   tinyusb_msc_sdmmc_config_t sd_config;
   tinyusb_msc_spiflash_config_t spiflash_config;
-  wl_handle_t wl_handle;
   const char* mount_path;
   usb_msc_init_storage_type_t current_storage_type;
 } usb_msc_config_t;

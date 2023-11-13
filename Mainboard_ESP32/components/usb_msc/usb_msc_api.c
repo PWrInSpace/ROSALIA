@@ -88,10 +88,10 @@ esp_err_t usb_msc_storage_init_spiflash(usb_msc_config_t* config) {
     return ESP_ERR_NOT_FOUND;
   }
 
-  return wl_mount(data_partition, &config->wl_handle);
+  return wl_mount(data_partition, &config->spiflash_config.wl_handle);
 }
 
 esp_err_t usb_msc_storage_deinit_spiflash(usb_msc_config_t* config) {
   ESP_LOGI(USB_API_TAG, "Deinitializing wear levelling");
-  return wl_unmount(config->wl_handle);
+  return wl_unmount(config->spiflash_config.wl_handle);
 }

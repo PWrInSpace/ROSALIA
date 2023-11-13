@@ -3,7 +3,7 @@
 #pragma once
 
 #include "esp_err.h"
-#include "flash.h"
+#include "flash_api.h"
 #include "flash_nvs.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"

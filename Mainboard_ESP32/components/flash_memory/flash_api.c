@@ -1,5 +1,5 @@
 // Copyright 2022 PWr in Space, Krzysztof Gliwiński
-#include "flash.h"
+#include "flash_api.h"
 
 #define TAG "SPIFFS"
 

@@ -2,16 +2,17 @@
 
 #pragma once
 
-#include "flash.h"
+#include "flash_api.h"
 #include "flash_nvs.h"
+#include "mcu_spi_config.h"
 #include "sdcard.h"
+#include "sdkconfig.h"
 #include "usb_msc_api.h"
 
 typedef struct {
-  sd_card_config_t sd_card_config;
-  sd_card_t sd_card;
-  spi_bus_config_t spi_bus_config;
-  usb_msc_config_t usb_msc_config;
+  sd_card_config_t* sd_card_config;
+  sd_card_t* sd_card;
+  usb_msc_config_t* usb_msc_config;
 } mcu_memory_config_t;
 
 /*!
@@ -20,6 +21,13 @@ typedef struct {
  * \returns ESP_OK if successful, ESP_FAIL otherwise
  */
 esp_err_t memory_init(mcu_memory_config_t* memory_config);
+
+/*!
+ * \brief Deinitialize memory
+ * \param[in] memory_config memory config
+ * \returns ESP_OK if successful, ESP_FAIL otherwise
+ */
+esp_err_t memory_deinit(mcu_memory_config_t* memory_config);
 
 /*!
  * \brief Activates memory access through msc
@@ -33,7 +41,7 @@ esp_err_t memory_usb_msc_activate(mcu_memory_config_t* memory_config,
  * \brief Deactivates memory access through msc
  * \param[in] memory_config memory config
  */
-esp_err_t memory_usb_msc_deactivate(mcu_memory_config_t* memory_config);
+void memory_usb_msc_deactivate(mcu_memory_config_t* memory_config);
 
 /*!
  * \brief Mounts SPI config to memory config

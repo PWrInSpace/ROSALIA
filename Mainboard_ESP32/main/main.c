@@ -7,7 +7,6 @@
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "flash.h"
 #include "user_interface.h"
 #include "app_init_task.h"
 

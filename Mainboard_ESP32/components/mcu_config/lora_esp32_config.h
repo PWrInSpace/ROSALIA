@@ -34,6 +34,11 @@
 void lora_esp32_config_mount_spi_config(mcu_spi_config_t* _spi_config);
 
 /*!
+ * \brief Deinitialize lora config
+ */
+esp_err_t lora_esp32_config_deinit(void);
+
+/*!
  * \brief GPIO initialization for LoRa
  * \param[in] _rst_gpio_num reset gpio number
  * \param[in] _cs_gpio_num chip select gpio number

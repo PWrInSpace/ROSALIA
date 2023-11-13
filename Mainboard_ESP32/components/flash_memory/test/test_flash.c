@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "esp_log.h"
-#include "flash.h"
+#include "flash_api.h"
 #include "unity.h"
 
 #define READ_FILE_NAME (const char*)"/spiffs/test_data.txt"

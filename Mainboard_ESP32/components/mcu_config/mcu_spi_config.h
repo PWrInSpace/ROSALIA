@@ -43,10 +43,16 @@ typedef struct {
 
 /*!
  * \brief Initiates the SPI bus
- * \param spi SPI configuration
+ * \param spi_config SPI configuration
  * \return ESP_OK on success, ESP_FAIL otherwise
  * \note This function will only initiate SPI peripheral,
  *      it will not configure the GPIO for CS pins.
  */
 esp_err_t spi_init(mcu_spi_config_t *spi_config);
 
+/*!
+ * \brief Deinitializes the SPI bus
+ * \param[in] spi_config SPI configuration
+ * \return ESP_OK on success, ESP_FAIL otherwise
+*/
+esp_err_t spi_deinit(mcu_spi_config_t *spi_config);

@@ -68,3 +68,8 @@ TEST_CASE("Lora send packet", "[LORA]") {
       lora_send_packet(&lora, (uint8_t*)lora_packet, strlen(lora_packet));
   TEST_ASSERT_EQUAL(ret, LORA_OK);
 }
+
+TEST_CASE("Lora SPI deinit", "[LORA]") {
+  esp_err_t ret = lora_esp32_config_deinit();
+  TEST_ASSERT_EQUAL(ret, ESP_OK);
+}
