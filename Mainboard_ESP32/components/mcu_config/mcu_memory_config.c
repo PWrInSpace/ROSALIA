@@ -64,6 +64,11 @@ esp_err_t memory_deinit(mcu_memory_config_t* memory_config) {
 esp_err_t memory_usb_msc_activate(mcu_memory_config_t* memory_config,
                                   usb_msc_init_storage_type_t storage_type) {
   esp_err_t ret;
+  bool bret = SD_unmount(memory_config->sd_card);
+  if (bret != true) {
+    ESP_LOGE(MCU_MEMORY_TAG, "Failed to unmount SD card.");
+    return ESP_FAIL;
+  }
   ret = usb_msc_init(memory_config->usb_msc_config, storage_type);
   if (ret != ESP_OK) {
     ESP_LOGE(MCU_MEMORY_TAG, "Failed to initialize USB MSC.");

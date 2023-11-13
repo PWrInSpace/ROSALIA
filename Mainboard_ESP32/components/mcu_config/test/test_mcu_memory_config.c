@@ -6,7 +6,7 @@
 
 #define EPNUM_MSC 1
 #define TUSB_DESC_TOTAL_LEN (TUD_CONFIG_DESC_LEN + TUD_MSC_DESC_LEN)
-
+#define BASE_PATH "/data"
 enum { ITF_NUM_MSC = 0, ITF_NUM_TOTAL };
 
 enum {
@@ -95,7 +95,7 @@ static usb_msc_config_t usb_msc = {
     .tusb_cfg = tusb_config,
     .sd_config = config_sdmmc,
     .spiflash_config = config_spi,
-    .mount_path = SDCARD_MOUNT_POINT,
+    .mount_path = BASE_PATH,
     .current_storage_type = USB_MSC_INIT_STORAGE_NONE,
 };
 
@@ -106,10 +106,33 @@ static mcu_memory_config_t memory_config = {.sd_card = &sd_card,
 static mcu_spi_config_t spi_config = MCU_SPI_DEFAULT_CONFIG();
 
 TEST_CASE("MCU memory init test", "[MCU_MEMORY]") {
-    TEST_ASSERT_EQUAL(ESP_OK, spi_init(&spi_config));
+  TEST_ASSERT_EQUAL(ESP_OK, spi_init(&spi_config));
   memory_config_mount_spi_config(&memory_config, &spi_config);
   esp_err_t ret = memory_init(&memory_config);
   TEST_ASSERT_EQUAL(ESP_OK, ret);
+}
+
+// TEST_CASE("MCU memory usb otg spi flash activation test", "[MCU_MEMORY]") {
+//   esp_err_t ret = memory_usb_msc_activate(&memory_config,
+//                                           USB_MSC_INIT_STORAGE_TYPE_SPI_FLASH);
+//   TEST_ASSERT_EQUAL(ESP_OK, ret);
+// }
+
+// TEST_CASE("MCU memory usb otg spi flash deactivation test", "[MCU_MEMORY]") {
+//   memory_usb_msc_deactivate(&memory_config);
+//   TEST_ASSERT_EQUAL(usb_msc.current_storage_type, USB_MSC_INIT_STORAGE_NONE);
+// }
+
+TEST_CASE("MCU memory usb otg sd card activation test", "[MCU_MEMORY]") {
+  esp_err_t ret = memory_usb_msc_activate(&memory_config,
+                                          USB_MSC_INIT_STORAGE_TYPE_SDMMC);
+  TEST_ASSERT_EQUAL(ESP_OK, ret);
+  vTaskDelay(pdMS_TO_TICKS(5000));
+}
+
+TEST_CASE("MCU memory usb otg spi sd card deactivation test", "[MCU_MEMORY]") {
+  memory_usb_msc_deactivate(&memory_config);
+  TEST_ASSERT_EQUAL(usb_msc.current_storage_type, USB_MSC_INIT_STORAGE_NONE);
 }
 
 TEST_CASE("MCU memory Deinit", "[MEMORY_SPI]") {
