@@ -84,6 +84,7 @@ bool _lora_SPI_transmit(uint8_t _in[2], uint8_t _out[2]) {
                          .rx_buffer = _in};
 
   gpio_set_level(lora_pins.cs_gpio_num, 0);
+  // TODO(Gliwus): implement thread safe SPI (also with SD card and flash)
   spi_device_transmit(spi_config->spi_handle, &t);
   gpio_set_level(lora_pins.cs_gpio_num, 1);
   return true;

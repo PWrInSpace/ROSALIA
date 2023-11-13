@@ -9,6 +9,8 @@
 #include "esp_log.h"
 #include "esp_rom_gpio.h"
 #include "freertos/task.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/semphr.h"
 #include "rom/gpio.h"
 #include "sdkconfig.h"
 #include "soc/gpio_struct.h"
@@ -47,3 +49,4 @@ typedef struct {
  *      it will not configure the GPIO for CS pins.
  */
 esp_err_t spi_init(mcu_spi_config_t *spi_config);
+
