@@ -98,9 +98,8 @@ void app_init_task(void* pvParameters) {
                           (void*)&devices_config, 1, NULL, 1);
   // xTaskCreatePinnedToCore(slave_com_task, "slave_com_task", 4096,
   //                         (void*)&devices_config, 1, NULL, 1);
-  // xTaskCreatePinnedToCore(lora_task, "lora_task", 4096,
-  // (void*)&devices_config,
-  //                         1, NULL, 1);
-  xTaskCreatePinnedToCore(memory_task, "mcu_memory_task", 4096,
-                          (void*)&devices_config, 1, NULL, 1);
+  xTaskCreatePinnedToCore(lora_task, "lora_task", 4096, (void*)&devices_config,
+                          1, NULL, 1);
+  // xTaskCreatePinnedToCore(memory_task, "mcu_memory_task", 4096,
+  //                         (void*)&devices_config, 1, NULL, 1);
 }
