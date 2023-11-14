@@ -4,19 +4,6 @@
 #include "sdkconfig.h"
 #include "unity.h"
 
-#define EPNUM_MSC 1
-#define TUSB_DESC_TOTAL_LEN (TUD_CONFIG_DESC_LEN + TUD_MSC_DESC_LEN)
-#define BASE_PATH "/data"
-enum { ITF_NUM_MSC = 0, ITF_NUM_TOTAL };
-
-enum {
-  EDPT_CTRL_OUT = 0x00,
-  EDPT_CTRL_IN = 0x80,
-
-  EDPT_MSC_OUT = 0x01,
-  EDPT_MSC_IN = 0x81,
-};
-
 static const sdmmc_card_t sdmmc_card;
 
 static const spi_host_device_t host = SPI2_HOST;
@@ -127,7 +114,7 @@ TEST_CASE("MCU memory usb otg sd card activation test", "[MCU_MEMORY]") {
   esp_err_t ret = memory_usb_msc_activate(&memory_config,
                                           USB_MSC_INIT_STORAGE_TYPE_SDMMC);
   TEST_ASSERT_EQUAL(ESP_OK, ret);
-  vTaskDelay(pdMS_TO_TICKS(5000));
+  vTaskDelay(pdMS_TO_TICKS(2000));
 }
 
 TEST_CASE("MCU memory usb otg spi sd card deactivation test", "[MCU_MEMORY]") {

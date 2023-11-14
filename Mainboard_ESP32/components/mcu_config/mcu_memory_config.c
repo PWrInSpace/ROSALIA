@@ -23,11 +23,11 @@ esp_err_t memory_init(mcu_memory_config_t* memory_config) {
     return ret;
   }
 
-  bool err = SD_init(memory_config->sd_card, memory_config->sd_card_config);
-  if (err != true) {
-    ESP_LOGE(MCU_MEMORY_TAG, "Failed to initialize SD card.");
-    return ESP_FAIL;
-  }
+  // bool err = SD_init(memory_config->sd_card, memory_config->sd_card_config);
+  // if (err != true) {
+  //   ESP_LOGE(MCU_MEMORY_TAG, "Failed to initialize SD card.");
+  //   return ESP_FAIL;
+  // }
 
   FlashResult flash_result = FLASH_init(MAX_FILES);
   if (flash_result != FLASH_OK) {
@@ -40,11 +40,11 @@ esp_err_t memory_init(mcu_memory_config_t* memory_config) {
 esp_err_t memory_deinit(mcu_memory_config_t* memory_config) {
   esp_err_t ret;
   bool bret;
-  bret = SD_unmount(memory_config->sd_card);
-  if (bret != true) {
-    ESP_LOGE(MCU_MEMORY_TAG, "Failed to deinitialize SD card.");
-    return ESP_FAIL;
-  }
+  // bret = SD_unmount(memory_config->sd_card);
+  // if (bret != true) {
+  //   ESP_LOGE(MCU_MEMORY_TAG, "Failed to deinitialize SD card.");
+  //   return ESP_FAIL;
+  // }
 
   FlashResult flash_result = FLASH_deinit();
   if (flash_result != FLASH_OK) {
@@ -64,14 +64,19 @@ esp_err_t memory_deinit(mcu_memory_config_t* memory_config) {
 esp_err_t memory_usb_msc_activate(mcu_memory_config_t* memory_config,
                                   usb_msc_init_storage_type_t storage_type) {
   esp_err_t ret;
-  bool bret = SD_unmount(memory_config->sd_card);
-  if (bret != true) {
-    ESP_LOGE(MCU_MEMORY_TAG, "Failed to unmount SD card.");
-    return ESP_FAIL;
-  }
+  // bool bret = SD_unmount(memory_config->sd_card);
+  // if (bret != true) {
+  //   ESP_LOGE(MCU_MEMORY_TAG, "Failed to unmount SD card.");
+  //   return ESP_FAIL;
+  // }
   ret = usb_msc_init(memory_config->usb_msc_config, storage_type);
   if (ret != ESP_OK) {
     ESP_LOGE(MCU_MEMORY_TAG, "Failed to initialize USB MSC.");
+    return ret;
+  }
+  ret = usb_msc_unmount(memory_config->usb_msc_config);
+  if (ret != ESP_OK) {
+    ESP_LOGE(MCU_MEMORY_TAG, "Failed to unmount USB MSC.");
     return ret;
   }
   return ret;

@@ -40,6 +40,9 @@ esp_err_t devices_init(ROSALIA_devices_t* devices) {
   misc_init(&devices->buzzer, &devices->rgb_led);
   voltage_measure_init(&devices->voltage_measure);
 
+  memory_config_mount_spi_config(&devices->memory, &devices->spi);
+  memory_init(&devices->memory);
+
   vTaskDelay(3000 / portTICK_PERIOD_MS);
 
   return ret;

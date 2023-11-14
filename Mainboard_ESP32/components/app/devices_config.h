@@ -7,6 +7,7 @@
 #include "lora_esp32_config.h"
 #include "mcu_adc_config.h"
 #include "mcu_i2c_config.h"
+#include "mcu_memory_config.h"
 #include "mcu_misc_config.h"
 #include "mcu_spi_config.h"
 #include "mcu_twai_config.h"
@@ -22,6 +23,7 @@ typedef struct {
   ssd1306_t oled_display;
   rgb_led_driver_t rgb_led;
   buzzer_driver_t buzzer;
+  mcu_memory_config_t memory;
 } ROSALIA_devices_t;
 
 /*!

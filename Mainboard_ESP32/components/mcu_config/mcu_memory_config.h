@@ -9,6 +9,37 @@
 #include "sdkconfig.h"
 #include "usb_msc_api.h"
 
+#define SD_CARD_DEFAULT_CONFIG(sdmmc_card)                     \
+  {                                                            \
+    .card = &sdmmc_card, .spi_host = SPI2_HOST,                \
+    .mount_point = SDCARD_MOUNT_POINT, .cs_pin = CONFIG_SD_CS, \
+    .card_detect_pin = CONFIG_SD_CD, .mounted = false,         \
+  }
+
+#define SD_CARD_CONFIG_DEFAULT_CONFIG()                       \
+  {                                                           \
+    .spi_host = SPI2_HOST, .mount_point = SDCARD_MOUNT_POINT, \
+    .cs_pin = CONFIG_SD_CS, .cd_pin = CONFIG_SD_CD,           \
+  }
+
+#define USB_MSC_CONFIG_DEFAULT_CONFIG(descriptor_config, string_desc_arr,      \
+                                      desc_configuration, config_sdmmc,        \
+                                      config_spi)                              \
+  {                                                                            \
+    .desc_device = descriptor_config,                                          \
+    .tusb_cfg =                                                                \
+        {                                                                      \
+            .device_descriptor = &descriptor_config,                           \
+            .string_descriptor = string_desc_arr,                              \
+            .string_descriptor_count =                                         \
+                sizeof(string_desc_arr) / sizeof(string_desc_arr[0]),          \
+            .external_phy = false,                                             \
+            .configuration_descriptor = desc_configuration,                    \
+        },                                                                     \
+    .sd_config = config_sdmmc, .spiflash_config = config_spi,                  \
+    .mount_path = BASE_PATH, .current_storage_type = USB_MSC_INIT_STORAGE_NONE \
+  }
+
 typedef struct {
   sd_card_config_t* sd_card_config;
   sd_card_t* sd_card;

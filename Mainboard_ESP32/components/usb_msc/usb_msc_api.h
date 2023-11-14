@@ -16,6 +16,18 @@
 #include "tinyusb.h"
 #include "tusb_msc_storage.h"
 
+#define EPNUM_MSC 1
+#define TUSB_DESC_TOTAL_LEN (TUD_CONFIG_DESC_LEN + TUD_MSC_DESC_LEN)
+#define BASE_PATH "/data"
+enum { ITF_NUM_MSC = 0, ITF_NUM_TOTAL };
+
+enum {
+  EDPT_CTRL_OUT = 0x00,
+  EDPT_CTRL_IN = 0x80,
+  EDPT_MSC_OUT = 0x01,
+  EDPT_MSC_IN = 0x81,
+};
+
 typedef enum {
   USB_MSC_INIT_STORAGE_TYPE_SDMMC = 0x01,
   USB_MSC_INIT_STORAGE_TYPE_SPI_FLASH = 0x10,
