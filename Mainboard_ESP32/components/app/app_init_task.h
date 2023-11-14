@@ -3,9 +3,10 @@
 #pragma once
 
 #include "devices_config.h"
-#include "user_interface.h"
-#include "slave_com.h"
 #include "lora_task.h"
+#include "slave_com.h"
+#include "user_interface.h"
+#include "memory_task.h"
 
 /*!
  * \brief Task for initializing all the devices

@@ -38,6 +38,7 @@ esp_err_t usb_msc_init(usb_msc_config_t* config,
     ESP_LOGE(USB_API_TAG, "MSC Storage mount failed");
     return ret;
   }
+  ret |= usb_msc_unmount(config);
   ESP_LOGI(USB_API_TAG, "MSC initialization");
   ret |= tinyusb_driver_install(&config->tusb_cfg);
   return ret;
@@ -49,6 +50,7 @@ void usb_msc_deinit(usb_msc_config_t* config) {
     usb_msc_storage_deinit_spiflash(config);
   }
   tinyusb_msc_storage_deinit();
+  config->current_storage_type = USB_MSC_INIT_STORAGE_NONE;
 }
 
 esp_err_t usb_msc_mount(usb_msc_config_t* config) {
@@ -88,10 +90,10 @@ esp_err_t usb_msc_storage_init_spiflash(usb_msc_config_t* config) {
     return ESP_ERR_NOT_FOUND;
   }
 
-  return wl_mount(data_partition, &config->wl_handle);
+  return wl_mount(data_partition, &config->spiflash_config.wl_handle);
 }
 
 esp_err_t usb_msc_storage_deinit_spiflash(usb_msc_config_t* config) {
   ESP_LOGI(USB_API_TAG, "Deinitializing wear levelling");
-  return wl_unmount(config->wl_handle);
+  return wl_unmount(config->spiflash_config.wl_handle);
 }

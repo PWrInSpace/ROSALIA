@@ -16,6 +16,18 @@
 #include "tinyusb.h"
 #include "tusb_msc_storage.h"
 
+#define EPNUM_MSC 1
+#define TUSB_DESC_TOTAL_LEN (TUD_CONFIG_DESC_LEN + TUD_MSC_DESC_LEN)
+#define BASE_PATH "/data"
+enum { ITF_NUM_MSC = 0, ITF_NUM_TOTAL };
+
+enum {
+  EDPT_CTRL_OUT = 0x00,
+  EDPT_CTRL_IN = 0x80,
+  EDPT_MSC_OUT = 0x01,
+  EDPT_MSC_IN = 0x81,
+};
+
 typedef enum {
   USB_MSC_INIT_STORAGE_TYPE_SDMMC = 0x01,
   USB_MSC_INIT_STORAGE_TYPE_SPI_FLASH = 0x10,
@@ -29,11 +41,9 @@ typedef enum {
  */
 typedef struct {
   tusb_desc_device_t desc_device;
-  tusb_desc_configuration_t desc_cfg;
   tinyusb_config_t tusb_cfg;
   tinyusb_msc_sdmmc_config_t sd_config;
   tinyusb_msc_spiflash_config_t spiflash_config;
-  wl_handle_t wl_handle;
   const char* mount_path;
   usb_msc_init_storage_type_t current_storage_type;
 } usb_msc_config_t;

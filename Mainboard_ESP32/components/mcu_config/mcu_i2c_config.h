@@ -11,6 +11,12 @@
 #include "freertos/task.h"
 #include "sdkconfig.h"
 
+#define MCU_I2C_DEFAULT_CONFIG()                                     \
+  {                                                                  \
+    .port = I2C_NUM_0, .sda = CONFIG_I2C_SDA, .scl = CONFIG_I2C_SCL, \
+    .clk_speed = I2C_MASTER_FREQ_HZ, .i2c_init_flag = false,         \
+  }
+
 typedef struct {
   i2c_port_t port;
   i2c_cmd_handle_t *cmd;

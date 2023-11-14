@@ -16,6 +16,12 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 
+#define MCU_TWAI_DEFAULT_CONFIG()                                     \
+  {                                                                   \
+    .tx_gpio_num = CONFIG_UART_1_RX, .rx_gpio_num = CONFIG_UART_1_TX, \
+    .mode = TWAI_MODE_NORMAL                                          \
+  }
+
 /*!
  * \brief TWAI configuration structure
  * \param tx_gpio_num GPIO number for TX pin

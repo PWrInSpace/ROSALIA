@@ -27,6 +27,10 @@ void lora_esp32_config_mount_spi_config(mcu_spi_config_t* _spi_config) {
   spi_config = _spi_config;
 }
 
+esp_err_t lora_esp32_config_deinit(void){
+  return spi_deinit(spi_config);
+}
+
 esp_err_t _lora_spi_and_pins_init(gpio_num_t _rst_gpio_num,
                                   gpio_num_t _cs_gpio_num,
                                   gpio_num_t _d0_gpio_num) {
@@ -84,6 +88,7 @@ bool _lora_SPI_transmit(uint8_t _in[2], uint8_t _out[2]) {
                          .rx_buffer = _in};
 
   gpio_set_level(lora_pins.cs_gpio_num, 0);
+  // TODO(Gliwus): implement thread safe SPI (also with SD card and flash)
   spi_device_transmit(spi_config->spi_handle, &t);
   gpio_set_level(lora_pins.cs_gpio_num, 1);
   return true;

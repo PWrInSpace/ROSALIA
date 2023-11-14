@@ -1,5 +1,5 @@
 // Copyright 2022 PWr in Space, Krzysztof Gliwiński
-#include "flash.h"
+#include "flash_api.h"
 
 #define TAG "SPIFFS"
 
@@ -51,6 +51,24 @@ FlashResult FLASH_init(uint8_t max_files) {
   }
 
   fl.initialized = true;
+  return FLASH_OK;
+}
+
+FlashResult FLASH_deinit(void){
+  esp_err_t err;
+
+  if (fl.initialized == false) {
+    ESP_LOGW(TAG, "Flash is not initialized");
+    return FLASH_IS_NOT_INITIALIZED;
+  }
+
+  err = esp_vfs_spiffs_unregister(fl.conf.partition_label);
+  if (err != ESP_OK) {
+    ESP_LOGE(TAG, "Failed to unmount SPIFFS partition");
+    return FLASH_INIT_ERROR;
+  }
+
+  fl.initialized = false;
   return FLASH_OK;
 }
 

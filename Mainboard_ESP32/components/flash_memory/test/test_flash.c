@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "esp_log.h"
-#include "flash.h"
+#include "flash_api.h"
 #include "unity.h"
 
 #define READ_FILE_NAME (const char*)"/spiffs/test_data.txt"
@@ -28,3 +28,8 @@ TEST_CASE("Flash read file test", "[flash]") {
 
   TEST_ASSERT_EQUAL_STRING(EXPECTED_DATA, readData);
 }
+
+TEST_CASE("Flash deinit test", "[flash]") {
+  TEST_ASSERT_EQUAL(FLASH_OK, FLASH_deinit());
+}
+

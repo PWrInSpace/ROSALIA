@@ -14,6 +14,21 @@
         ESP32's ADC1 only!
 */
 
+#define MCU_VOLTAGE_MEASURE_DEFAULT_CONFIG()               \
+  {                                                        \
+    .adc_cal = {1.0f, 5.742f, 5.180f},                     \
+    .adc_chan = {CAN_CHANNEL, VBAT_CHANNEL, ADJV_CHANNEL}, \
+    .adc_chan_num = MAX_CHANNEL_INDEX,                     \
+    .oneshot_chan_cfg =                                    \
+        {                                                  \
+            .bitwidth = ADC_BITWIDTH_12,                   \
+            .atten = ADC_ATTEN_DB_11,                      \
+        },                                                 \
+    .oneshot_unit_cfg = {                                  \
+      .unit_id = ADC_UNIT_1,                               \
+    }                                                      \
+  }
+
 #define READ_ERROR_RETURN_VAL 0xFFFF
 #define VOLTAGE_READ_ERROR_RETURN_VAL -1.0f
 #define MAX_ADC_CHANNELS 8

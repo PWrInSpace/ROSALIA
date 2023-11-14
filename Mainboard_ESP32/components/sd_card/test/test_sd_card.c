@@ -6,7 +6,7 @@
 
 static sdmmc_card_t card;
 
-const spi_host_device_t host = SPI2_HOST;
+static const spi_host_device_t host = SPI2_HOST;
 
 static sd_card_t sd_card = {
     .card = &card,
@@ -64,3 +64,8 @@ TEST_CASE("SD ok test", "[SD]") { TEST_ASSERT_EQUAL(true, SD_is_ok(&sd_card)); }
 TEST_CASE("SD Card detect test", "[SD]") {
   TEST_ASSERT_EQUAL(true, SD_card_detect(&sd_card));
 }
+
+TEST_CASE("SD unmount test", "[SD]") {
+  TEST_ASSERT_EQUAL(true, SD_unmount(&sd_card));
+}
+
