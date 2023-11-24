@@ -74,7 +74,7 @@ esp_err_t memory_usb_msc_activate(mcu_memory_config_t* memory_config,
     ESP_LOGE(MCU_MEMORY_TAG, "Failed to initialize USB MSC.");
     return ret;
   }
-  ret = usb_msc_unmount(memory_config->usb_msc_config);
+  ret = usb_msc_mount(memory_config->usb_msc_config);
   if (ret != ESP_OK) {
     ESP_LOGE(MCU_MEMORY_TAG, "Failed to unmount USB MSC.");
     return ret;

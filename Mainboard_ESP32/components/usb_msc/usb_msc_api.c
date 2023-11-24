@@ -33,13 +33,6 @@ esp_err_t usb_msc_init(usb_msc_config_t* config,
       return ESP_ERR_INVALID_ARG;
   }
   config->current_storage_type = storage_type;
-  ret |= usb_msc_mount(config);
-  if (ret != ESP_OK) {
-    ESP_LOGE(USB_API_TAG, "MSC Storage mount failed");
-    return ret;
-  }
-  ret |= usb_msc_unmount(config);
-  ESP_LOGI(USB_API_TAG, "MSC initialization");
   ret |= tinyusb_driver_install(&config->tusb_cfg);
   return ret;
 }
