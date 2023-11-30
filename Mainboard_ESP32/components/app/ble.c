@@ -3,11 +3,88 @@
 
 #define BLE_APP_TAG "BLE_APP"
 
-typedef enum { PROFILE_A, PROFILE_TOTAL_NUM } ble_gap_profile_names_t;
-
-static uint8_t adv_config_done = 0;
 #define adv_config_flag (1 << 0)
 #define scan_rsp_config_flag (1 << 1)
+
+typedef enum {
+  MAINBOARD_SERVICE,
+  MAIN_VALVE_SERVICE,
+  LOADCELL_A,
+  LOADCELL_B,
+  FILLING_STATION,
+  PROFILE_TOTAL_NUM
+} rosalia_ble_gatt_profile_names_t;
+
+typedef enum {
+  MAINBOARD_SERVICE_IDX,
+  MAINBOARD_SERVICE_VAL_IDX,
+  VBAT_MEASUREMENTS_IDX,
+  VBAT_MEASUREMENTS_VAL_IDX,
+  ROSALIA_STATE_IDX,
+  ROSALIA_STATE_VAL_IDX,
+  AVAILABLE_STATES_IDX,
+  AVAILABLE_STATES_VAL_IDX,
+  COMMAND_IDX,
+  COMMAND_VAL_IDX,
+  COMMAND_CFG_IDX,
+  MAINBOARD_MAX_IDX
+} rosalia_gatt_db_mainboard_service_idxs;
+
+typedef enum {
+  MAINBOARD_SERVICE_UUID = 0x0001,
+  VBAT_MEASUREMENTS_UUID = 0x0002,
+  ROSALIA_STATE_UUID = 0x0003,
+  AVAILABLE_STATES_UUID = 0x0004,
+  COMMAND_UUID = 0x0005,
+} rosalia_mainboard_service_uuids;
+
+typedef enum {
+  MAIN_VALVE_BATTERY_VOLTAGE_IDX,
+  MAIN_VALVE_BATTERY_VOLTAGE_VAL_IDX,
+  MAIN_VALVE_THERMOCOUPLES_IDX,
+  MAIN_VALVE_THERMOCOUPLES_VAL_IDX,
+  MAIN_VALVE_VALVE_STATE_IDX,
+  MAIN_VALVE_VALVE_STATE_VAL_IDX,
+  MAIN_VALVE_WAKEN_UP_IDX,
+  MAIN_VALVE_WAKEN_UP_VAL_IDX,
+  MAIN_VALVE_MAX_IDX
+} rosalia_main_valve_service_idxs;
+
+typedef enum {
+  VENT_VALVE_BATTERY_VOLTAGE_IDX,
+  VENT_VALVE_BATTERY_VOLTAGE_VAL_IDX,
+  VENT_VALVE_PRESSURE_IDX,
+  VENT_VALVE_PRESSURE_VAL_IDX,
+  VENT_VALVE_THERMISTORS_IDX,
+  VENT_VALVE_THERMISTORS_VAL_IDX,
+  VENT_VALVE_VALVE_STATE_IDX,
+  VENT_VALVE_VALVE_STATE_VAL_IDX,
+  VENT_VALVE_WAKEN_UP_IDX,
+  VENT_VALVE_WAKEN_UP_VAL_IDX,
+  VENT_VALVE_MAX_IDX
+} rosalia_vent_valve_service_idxs;
+
+typedef enum {
+  LOADCELL_WEIGHT_IDX,
+  LOADCELL_WEIGHT_VAL_IDX,
+  LOADCELL_PRESSURE_IDX,
+  LOADCELL_PRESSURE_VAL_IDX,
+  LOACELL_MAX_IDX
+} rosalia_loadcell_service_idxs;
+
+typedef enum {
+  FILLING_STATION_VALVE_STATE_IDX,
+  FILLING_STATION_VALVE_STATE_VAL_IDX,
+  FILLING_STATION_PRESSURE_IDX,
+  FILLING_STATION_PRESSURE_VAL_IDX,
+  FILLING_STATION_THERMOCOUPLES_IDX,
+  FILLING_STATION_THERMOCOUPLES_VAL_IDX,
+  FILLING_STATION_THERMISTORS_IDX,
+  FILLING_STATION_THERMISTORS_VAL_IDX,
+  FILLING_STATION_MAX_IDX
+} rosalia_filling_station_service_idxs;
+
+static uint8_t adv_config_done = 0;
 
 static uint8_t adv_service_uuid128[32] = BLE_UUID_CONFIG_DEFAULT();
 
@@ -18,7 +95,10 @@ static esp_ble_adv_data_t scan_rsp_data = BLE_SCAN_RSP_DATA_CONFIG_DEFAULT();
 static esp_ble_adv_params_t adv_params = BLE_ADV_PARAMS_CONFIG_DEFAULT();
 
 static ble_gap_t ble_gap_conf = {.conf_type = BLE_GAP_BROADCASTER_CENTRAL,
-                                 .event_handler_cb = gap_event_handler};
+                                 .event_handler_cb = gap_event_handler,
+                                 .adv_data = adv_data,
+                                 .scan_rsp_data = scan_rsp_data,
+                                 .adv_params = adv_params};
 
 static ble_gatts_t ble_gatt_conf = {
     .profiles_num = PROFILE_TOTAL_NUM,
@@ -104,31 +184,7 @@ void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_if,
   } while (0);
 }
 
-bool ble_config_init(void) {
-  // TODO(Glibus): This can be deleted
-  ble_gap_conf.adv_params = adv_params;
-  ble_gap_conf.adv_data = adv_data;
-  ble_gap_conf.scan_rsp_data = scan_rsp_data;
-
-  // if (sizeof(ble_gatt_conf.profiles) / sizeof(ble_gatts_profile_t) !=
-  //     PROFILE_TOTAL_NUM) {
-  //   ESP_LOGE(BLE_APP_TAG, "Profile number is not correct");
-  //   return false;
-  // }
-
-  // for (uint8_t i = 0; i < ble_gatt_conf.profiles_num; i++) {
-  //   ble_gatt_conf.profiles[i] = ble_gatt_conf.profiles[i];
-  // }
-
-  return true;
-}
-
 void ble_init_task(void* arg) {
-  if (ble_config_init() != true) {
-    ESP_LOGE(BLE_APP_TAG, "BLE config init failed: %s", __func__);
-    return;
-  }
-
   if (ble_init(&ble_conf) != BLE_OK) {
     ESP_LOGE(BLE_APP_TAG, "BLE init failed: %s", __func__);
     return;

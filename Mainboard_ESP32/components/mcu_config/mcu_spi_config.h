@@ -24,7 +24,7 @@
                    .quadwp_io_num = -1,            \
                    .quadhd_io_num = -1,            \
                    .max_transfer_sz = 4000},       \
-    .dev_config = {.clock_speed_hz = 9000000,      \
+    .dev_config = {.clock_speed_hz = 400000,      \
                    .mode = 0,                      \
                    .spics_io_num = -1,             \
                    .queue_size = 1,                \
